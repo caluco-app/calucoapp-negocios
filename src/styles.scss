@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.logo {
+    height: 100px;
+    display: block;
+    /* Para que margin: auto; funcione correctamente */
+    margin: auto;
+
+}
+
+.form-control,
+.btn {
+    border-radius: 0px;
+}
+
+body {
+    background: url('assets/images/ruinas.jpg') center/cover no-repeat;
+}
