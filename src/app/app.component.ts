@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserInfoService } from './services/user-info.service';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, HttpClientModule, FormsModule, ReactiveFormsModule, NavbarComponent   ],
+  providers: [AuthService, UserInfoService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

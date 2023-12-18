@@ -1,21 +1,68 @@
 /* You can add global styles to this file, and also import other style files */
 * {
     font-family: Arial, Helvetica, sans-serif;
+    
 }
 
 .logo {
     height: 100px;
     display: block;
-    /* Para que margin: auto; funcione correctamente */
     margin: auto;
+}
 
+.logo-app {
+    height: 20px;
+    display: block;
+    margin: auto;
 }
 
 .form-control,
-.btn {
+.btn,
+.card {
     border-radius: 0px;
 }
 
-body {
-    background: url('assets/images/ruinas.jpg') center/cover no-repeat;
+
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+    background-color: #414141 !important;
+}
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm:focus {
+    box-shadow: 0 0 0 3px rgb(255 255 255 / 50%) !important;
+}
+
+.bg-light {
+  //  background-color: #ffffff !important;
+}
+
+._css-fakebm {
+    background-color: #FFFFFF;
+    border-bottom: 4px solid #E2E2E2;
+    box-sizing: border-box;
+    height: calc(60px);
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-menu {
+    min-width: 17rem;
+}
+
+.title {
+    color: #414141;
+    font-size: 25px;
+    letter-spacing: 3px;
+}
+
+.breadcrumb-item>a{
+    color: #414141;
+    font-size: 14px;
+    letter-spacing: 3px;
+}
+
+.hover:hover{
+    color: #fff;
+    background: #414141;
+    cursor: pointer;
 }

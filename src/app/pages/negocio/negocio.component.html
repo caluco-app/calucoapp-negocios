@@ -1,0 +1,40 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid  bg-light mb-4  pb-5 ">
+
+
+
+    <div class="container ">
+        <div class="row">
+            <div class="col-12  pt-3">
+                <nav aria-label="breadcrumb ">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/negocios">MIS NEGOCIOS</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-lg-12 ">
+                <h3 class=" title"> <span>MIS</span> NEGOCIOS </h3>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-lg-6" *ngFor="let d of cappn_userkey.negocios" [routerLink]="['/negocios', d.id]">
+                <div class="card hover mt-2">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <h3>{{d.nombre}}</h3>
+                                This is some text within a card body.
+                            </div>
+                            <div class="col-2">
+                                <i class="fa fa-building fa-3x" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>
