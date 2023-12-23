@@ -4,22 +4,79 @@
 
 
 
-    <div class="container ">
+    <div class="container " *ngIf="dataNegocio">
         <div class="row">
+            <div class="col-lg-12 ">
+                <h3 class=" title mt-4"> {{dataNegocio.negocio.nombre}} </h3>
+            </div>
             <div class="col-12  pt-3">
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a routerLink="/negocios">MIS NEGOCIOS</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{dataNegocio.negocio.nombre}}</li>
                     </ol>
                 </nav>
             </div>
-            <div class="col-lg-12 ">
-                <h3 class=" title"> <span>MIS</span> NEGOCIOS </h3>
-            </div>
         </div>
         <div class="row mt-2">
-            <div class="col-lg-6" *ngFor="let d of cappn_userkey.negocios" [routerLink]="['/negocios', d.id]">
+
+            <div class="col-lg-12 ">
+                <h3 class=" title mt-4"> Administración </h3>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card hover mt-2" [routerLink]="['/negocios', idNegocio, 'productos']">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <h3>Inventario</h3>
+                                This is some text within a card body.
+                            </div>
+                            <div class="col-2">
+                                <i class="fa fa-cubes fa-3x" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card hover mt-2" [routerLink]="['/negocios', idNegocio, 'productos']">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <h3>Productos</h3>
+                                This is some text within a card body.
+                            </div>
+                            <div class="col-2">
+                                <i class="fa fa-tag fa-3x" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card hover mt-2">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <h3>Clientes</h3>
+                                This is some text within a card body.
+                            </div>
+                            <div class="col-2">
+                                <i class="fa fa-users fa-3x" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 ">
+                <h3 class=" title mt-4"> Sucursales </h3>
+            </div>
+
+            <div class="col-lg-6" *ngFor="let d of dataNegocio.sucursales">
                 <div class="card hover mt-2">
                     <div class="card-body">
                         <div class="row">
@@ -28,7 +85,7 @@
                                 This is some text within a card body.
                             </div>
                             <div class="col-2">
-                                <i class="fa fa-building fa-3x" aria-hidden="true"></i>
+                                <i class="fa fa-home fa-3x" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
