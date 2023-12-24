@@ -54,7 +54,7 @@ export class InventarioComponent {
   }
 
   productosPorNegocios(){
-    this.negocioService.productosPorNegocios(this.idNegocio).subscribe(response => {
+    this.negocioService.inventarioPorNegocio(this.idNegocio).subscribe(response => {
       console.log(response);
       this.productos = response.data;
     });

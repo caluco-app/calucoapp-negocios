@@ -12,6 +12,11 @@ export class NegocioService {
 
   constructor(private http: HttpClient) { }
 
+
+  inventarioPorNegocio(id: any):Observable<any> {
+    return this.http.get(`${this.urlService}/inventarioPorNegocio/${id}`);
+  }
+
   productosPorNegocios(id: any):Observable<any> {
     return this.http.get(`${this.urlService}/productosPorNegocios/${id}`);
   }
