@@ -19,7 +19,7 @@
                 <h3 class=" title mt-4"> STOCKS </h3>
             </div>
 
-            <div class="col-12">
+            <div class="col-12" *ngIf="productos.length>0">
                 <div class="col-lg-12 ">
 
                     <dl class="row bg-white p-3">
@@ -35,7 +35,7 @@
                         <dt class="col-sm-3">Existencias</dt>
                         <dd class="col-sm-9">{{productos[0].existencias}}</dd>
 
-                        <dt class="col-sm-3">Inversión</dt>
+                        <dt class="col-sm-3">Total de Inventario</dt>
                         <dd class="col-sm-9">{{productos[0].costo * productos[0].existencias | currency}}</dd>
 
                         <dt class="col-sm-3">Costo U.</dt>
@@ -54,54 +54,59 @@
                     Ajuste de Stock
                 </button>
             </div>
-         
+
 
             <div class="col-lg-12 ">
-                <table class="table table-hover table-sm">
-                    <thead class="thead-white">
-                        <tr>
-                            <th scope="col" class="text-center">Fecha</th>
-                            <th scope="col">Detalle</th>
-                            <th scope="col" class="text-center">Entradas</th>
-                            <th scope="col" class="text-center">Salidas</th>
-                            <th scope="col">Costo U.</th>
-                            <th scope="col">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white">
-                        <tr *ngFor="let d of stocks">
+                <div class="table-responsive">
+                    <table class="table table-hover table-sm">
+                        <thead class="thead-white">
+                            <tr>
+                                <th scope="col" class="text-center">Fecha</th>
+                                <th scope="col">Detalle</th>
+                                <th scope="col" class="text-center">Entradas</th>
+                                <th scope="col" class="text-center">Salidas</th>
+                                <th scope="col">Costo U.</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white">
+                            <tr *ngFor="let d of stocks">
 
-                            <td class="text-center">
-                                {{d.fechahora | date:'dd/MM/YYYY HH:MM:SS'}}
-                            </td>
-                            <td>
-                                {{d.descripcion}}
-                            </td>
-                            <td class="text-center">
-                                {{d.entrada}}
-                            </td>
+                                <td class="text-center">
+                                    {{d.fechahora | date:'dd/MM/YYYY HH:MM:SS'}}
+                                </td>
+                                <td>
+                                    {{d.descripcion}}
+                                </td>
+                                <td class="text-center">
+                                    {{d.entrada}}
+                                </td>
 
-                            <td class="text-center">
-                                {{d.salida}}
-                            </td>
-                            <td>
-                                {{d.costo | currency}}
-                            </td>
+                                <td class="text-center">
+                                    {{d.salida}}
+                                </td>
+                                <td>
+                                    {{d.costo | currency}}
+                                </td>
 
-                            <td>
-                                <span class="badge badge-secondary  " [ngClass]="{'badge-success':d.entrada>0, 'badge-danger':d.salida>0}"> {{d.entrada>0?'+':d.salida>0?'-':''}} {{(d.costo*d.entrada)+ d.costo*d.salida | currency}}</span>
-                               
-                            </td>
-                           
+                                <td>
+                                    <span class="badge badge-secondary  "
+                                        [ngClass]="{'badge-success':d.entrada>0, 'badge-danger':d.salida>0}">
+                                        {{d.entrada>0?'+':d.salida>0?'-':''}} {{(d.costo*d.entrada)+ d.costo*d.salida |
+                                        currency}}</span>
 
-                        </tr>
-                        <tr *ngIf="stocks.length==0">
-                            <td class="text-center" colspan="10">
-                                No hay registros
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                </td>
+
+
+                            </tr>
+                            <tr *ngIf="stocks.length==0">
+                                <td class="text-center" colspan="10">
+                                    No hay registros
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
