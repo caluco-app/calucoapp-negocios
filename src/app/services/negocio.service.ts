@@ -17,8 +17,25 @@ export class NegocioService {
     return this.http.get(`${this.urlService}/inventarioPorNegocio/${id}`);
   }
 
+  stockPorInventario(idNegocio: any,idInventario: any):Observable<any> {
+    return this.http.get(`${this.urlService}/stockPorInventario/${idNegocio}/${idInventario}`);
+  }
+
+  stockPorIdInventario(idInventario: any):Observable<any> {
+    return this.http.get(`${this.urlService}/stockPorIdInventario/${idInventario}`);
+  }
+
+
   productosPorNegocios(id: any):Observable<any> {
     return this.http.get(`${this.urlService}/productosPorNegocios/${id}`);
+  }
+
+  inventarioMttoNegocio(data: any):Observable<any> {
+    return this.http.post(`${this.urlService}/inventariosPorNegocio`, data);
+  }
+
+  stocksMttoNegocio(data: any):Observable<any> {
+    return this.http.post(`${this.urlService}/stocksPorNegocio`, data);
   }
 
 }

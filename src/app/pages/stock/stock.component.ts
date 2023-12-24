@@ -1,28 +1,29 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { NegocioService } from '../../services/negocio.service';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../components/footer/footer.component';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
-declare let $: any;
+import { NegocioService } from '../../services/negocio.service';
+import { AuthService } from '../../services/auth.service';
+declare let $:any;
 
 @Component({
-  selector: 'app-inventario',
+  selector: 'app-stock',
   standalone: true,
   imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule, ReactiveFormsModule],
   providers: [NegocioService],
-  templateUrl: './inventario.component.html',
-  styleUrl: './inventario.component.scss'
+  templateUrl: './stock.component.html',
+  styleUrl: './stock.component.scss'
 })
-export class InventarioComponent {
+export class StockComponent {
   userData: any;
   cappn_userkey: any;
   idNegocio: any;
+  idInventario: any;
   dataNegocio: any;
   productos: any[] = [];
+  stocks: any[] = [];
 
   formGroup = new FormGroup({
     id: new FormControl(''),
@@ -48,8 +49,10 @@ export class InventarioComponent {
 
   constructor(private router: Router, private authapi: AuthService, private route: ActivatedRoute, private negocioService: NegocioService) {
     this.route.paramMap.subscribe(params => {
-      this.idNegocio = params.get('idnegocio'); // 'id' debe coincidir con el nombre del parámetro en tu ruta
+      this.idNegocio = params.get('idnegocio'); 
+      this.idInventario = params.get('idinventario'); 
       console.log('ID obtenido:', this.idNegocio);
+      console.log('ID idInventario:', this.idInventario);
 
       // Puedes realizar otras operaciones con el ID aquí, como llamar a servicios, etc.
     });
@@ -73,6 +76,7 @@ export class InventarioComponent {
   abrirModalFormularioStock(data:any) {
     this.formGroupStock.get('idinventario')?.setValue(data.id);
     this.formGroupStock.get('nombre')?.setValue(data.nombre);
+    this.formGroupStock.get('costo')?.setValue(data.costo);
     $('#modalFormStock').modal('show');
   }
 
@@ -114,9 +118,13 @@ export class InventarioComponent {
   }
 
   productosPorNegocios() {
-    this.negocioService.inventarioPorNegocio(this.idNegocio).subscribe(response => {
+    this.negocioService.stockPorInventario(this.idNegocio, this.idInventario).subscribe(response => {
       console.log(response);
       this.productos = response.data;
+    });
+    this.negocioService.stockPorIdInventario( this.idInventario).subscribe(response => {
+      console.log(response);
+      this.stocks = response.data;
     });
   }
 
@@ -129,5 +137,4 @@ export class InventarioComponent {
   sumar(){
     return this.productos.reduce((acumulador, producto) => acumulador + parseFloat(producto.total), 0);
   }
-
 }

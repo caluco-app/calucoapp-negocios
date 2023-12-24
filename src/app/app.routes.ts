@@ -4,6 +4,7 @@ import { NegociosComponent } from './pages/negocios/negocios.component';
 import { NegocioComponent } from './pages/negocio/negocio.component';
 import { ProductosComponent } from './pages/productos/productos.component';
 import { InventarioComponent } from './pages/inventario/inventario.component';
+import { StockComponent } from './pages/stock/stock.component';
 
 export const routes: Routes = [
     {
@@ -29,5 +30,9 @@ export const routes: Routes = [
     {
         path: 'negocios/:idnegocio/inventarios',
         component: InventarioComponent
+    },
+    {
+        path: 'negocios/:idnegocio/stock/:idinventario',
+        component: StockComponent
     }
 ];
