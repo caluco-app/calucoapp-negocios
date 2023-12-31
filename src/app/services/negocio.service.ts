@@ -25,6 +25,18 @@ export class NegocioService {
     return this.http.get(`${this.urlService}/ofertasPorProductos/${id}`);
   }
 
+  deleteOfertasPorProductos(id: any):Observable<any> {
+    return this.http.delete(`${this.urlService}/ofertasPorProductos/${id}`);
+  }
+
+  deleteInventarioPorProductos(id: any):Observable<any> {
+    return this.http.delete(`${this.urlService}/inventarioPorProductos/${id}`);
+  }
+
+  inventarioPorProductos(id: any):Observable<any> {
+    return this.http.get(`${this.urlService}/inventarioPorProductos/${id}`);
+  }
+
   stockPorInventario(idNegocio: any,idInventario: any):Observable<any> {
     return this.http.get(`${this.urlService}/stockPorInventario/${idNegocio}/${idInventario}`);
   }
@@ -43,6 +55,10 @@ export class NegocioService {
 
   ofertasPorProductosMtto(data: any):Observable<any> {
     return this.http.post(`${this.urlService}/ofertasPorProductos`, data);
+  }
+
+  inventarioPorProductosMtto(data: any):Observable<any> {
+    return this.http.post(`${this.urlService}/inventarioPorProductos`, data);
   }
 
   inventarioMttoNegocio(data: any):Observable<any> {

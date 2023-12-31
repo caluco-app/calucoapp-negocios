@@ -79,3 +79,18 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm:focus {
     font-size: 14px;
  
 }
+
+.logoapp{
+    font-size: 22px;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 2px;
+    color: #414141;
+    text-align: center;
+    font-weight: 700;
+ 
+  }
+
+.v{ 
+    display: inline-block;
+    transform: rotate(180deg) !important; /* Rota 180 grados */
+  }

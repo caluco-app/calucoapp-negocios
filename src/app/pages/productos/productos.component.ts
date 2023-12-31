@@ -21,8 +21,11 @@ export class ProductosComponent {
   idNegocio: any;
   dataNegocio: any;
   productos: any[] = [];
+  inventarios: any[] = [];
   ofertas: any[] = [];
+  inventariosPorProducto: any[] = [];
   oferta: any = { id: '', cantidad: '', precio: '', descripcion: '' };
+  inventario: any = { id: '', cantidad: '', idinventario:'' };
 
   formGroup = new FormGroup({
     id: new FormControl(''),
@@ -60,13 +63,25 @@ export class ProductosComponent {
     this.oferta = {...data};
   }
 
+  nuevInventario(data: any) {
+    this.inventario = {...data};
+  }
+
   cancelaroferta() {
     this.oferta = { id: '', cantidad: '', precio: '', descripcion: '', idproducto: '' };
+  }
+
+  cancelarInventario() {
+    this.inventario = { id: '', cantidad: '', idinventario:'' };
   }
 
 
   tieneOfertaConIdCero() {
     return this.oferta.id > '-1';
+  }
+
+  tieneInventarioConIdCero() {
+    return this.inventario.id > '-1';
   }
 
   validarUsuarioNegocio() {
@@ -75,6 +90,7 @@ export class ProductosComponent {
       console.log(response);
       this.dataNegocio = response.data;
       this.productosPorNegocios();
+      this.inventarioPorNegocio();
     });
   }
 
@@ -85,6 +101,14 @@ export class ProductosComponent {
     });
   }
 
+  inventarioPorNegocio() {
+    this.negocioService.inventarioPorNegocio(this.idNegocio).subscribe(response => {
+      console.log(response);
+      this.inventarios = response.data;
+    });
+  }
+
+
   ofertasPorProductos() {
     this.negocioService.ofertasPorProductos(this.formGroup.value.id).subscribe(response => {
       console.log(response);
@@ -92,11 +116,23 @@ export class ProductosComponent {
     });
   }
 
+  inventarioPorProductos() {
+    this.negocioService.inventarioPorProductos(this.formGroup.value.id).subscribe(response => {
+      console.log(response);
+      this.inventariosPorProducto = response.data;
+    });
+  }
+
+  nuevoProducto() {
+      this.formGroup.reset();
+      this.abrirModalFormulario();
+  }
+
   abrirModalFormulario() {
     $('#modalFormProducto').modal('show');
   }
   cerrarModalFormulario() {
-    this.formGroup.setValue({ id: '', codigo: "", nombre: "", "descripcion": "", "idnegocio": "" });
+    this.cancelarInventario();
     $('#modalFormProducto').modal('hide');
   }
 
@@ -124,6 +160,19 @@ export class ProductosComponent {
 
   }
 
+  salvarInventario(data:any) {
+
+    this.inventario = { ...data, idproducto: this.formGroup.value.id };
+
+    this.negocioService.inventarioPorProductosMtto(this.inventario).subscribe(response => {
+      console.log(response);
+      this.inventarioPorProductos();
+
+      this.cancelarInventario();
+    });
+
+  }
+
 
   enviarDataAFormulario(data: any) {
     this.cerrarModalFormulario();
@@ -139,14 +188,44 @@ export class ProductosComponent {
     this.abrirModalFormularioOfertas();
   }
 
+  enviarDataAFormularioInventario(data: any) {
+    this.cerrarModalFormularioOfertas();
+    this.formGroup.setValue(data);
+    this.inventarioPorProductos();
+    this.abrirModalFormularioInventario();
+  }
+
+  cerrarModalFormularioInventario() {
+    this.inventario={ id: '', cantidad: '', idinventario:'' };;
+    $('#modalFormInventario').modal('hide');
+  }
+
+  abrirModalFormularioInventario() {
+    $('#modalFormInventario').modal('show');
+  }
+
+ 
+
   cerrarModalFormularioOfertas() {
-    this.formGroupOfertas.setValue({ id: '', precio: '', cantidad: '', descripcion: "", idproducto: "" });
+    this.oferta={ id: '', cantidad: '', precio: '', descripcion: '' };
     $('#modalFormOfertas').modal('hide');
   }
 
 
   abrirModalFormularioOfertas() {
     $('#modalFormOfertas').modal('show');
+  }
+
+  eliminarOferta(id:any) {
+    this.negocioService.deleteOfertasPorProductos(id).subscribe(response => {
+      this.ofertasPorProductos();
+    });
+  }
+
+  eliminarInventarioPorProducto(id:any) {
+    this.negocioService.deleteInventarioPorProductos(id).subscribe(response => {
+      this.inventarioPorProductos();
+    });
   }
 
 

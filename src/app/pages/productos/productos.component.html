@@ -21,7 +21,7 @@
 
 
             <div class="col-lg-2">
-                <button type="button" class="btn btn-dark btn-sm btn-block mt-3 mb-3" (click)="abrirModalFormulario()">
+                <button type="button" class="btn btn-dark btn-sm btn-block mt-3 mb-3" (click)="nuevoProducto()">
                     <i class="fa fa-plus-circle" aria-hidden="true"></i>
                     Nuevo
                 </button>
@@ -72,8 +72,8 @@
                                         Ofertas
                                     </button>
 
-                                    <button type="button" class="btn btn-secondary btn-sm"
-                                        (click)="abrirModalFormulario()">
+                                    <button type="button" class="btn btn-secondary btn-sm ml-2"
+                                        (click)="enviarDataAFormularioInventario(d)">
                                         <i class="fa fa-cog" aria-hidden="true"></i>
                                         Configuración de Inventario
                                     </button>
@@ -142,7 +142,7 @@
 
 <div class="modal  fade" id="modalFormOfertas" data-backdrop="static" data-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" >
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title title" id="staticBackdropLabel">Ofertas: {{formGroup.value.nombre}}</h5>
@@ -154,14 +154,16 @@
 
                 <div class="row">
                     <div class="col-12">
-                
+
                         <table class="table table-bordered table-stripedtable-hover table-sm">
                             <thead class="thead-dark">
                                 <tr>
                                     <th width="80px">
-                                        <button type="button" class="btn btn-sm btn-light" *ngIf="!tieneOfertaConIdCero()" (click)="nuevaOferta({ id: '0', cantidad: '', precio: '', descripcion: '' , idproducto:''})">
+                                        <button type="button" class="btn btn-sm btn-light"
+                                            *ngIf="!tieneOfertaConIdCero()"
+                                            (click)="nuevaOferta({ id: '0', cantidad: '', precio: '', descripcion: '' , idproducto:''})">
                                             <i class="fa fa-plus" aria-hidden="true"></i>
-                                        </button>                                     
+                                        </button>
                                     </th>
                                     <th width="100px">Cantidad</th>
                                     <th width="100px">Precio</th>
@@ -170,52 +172,68 @@
                             </thead>
                             <tbody>
                                 <tr *ngIf="oferta.id=='0'">
-                                    <td>                                    
-                                        <button type="button" class="btn btn-sm btn-dark" (click)="salvarOferta( this.oferta)">
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-dark"
+                                            (click)="salvarOferta( this.oferta)">
                                             <i class="fa fa-save" aria-hidden="true"></i>
                                         </button>
 
-                                        <button type="button" class="btn btn-sm btn-danger ml-1" (click)="cancelaroferta()">
+                                        <button type="button" class="btn btn-sm btn-danger ml-1"
+                                            (click)="cancelaroferta()">
                                             <i class="fa fa-remove" aria-hidden="true"></i>
                                         </button>
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control form-control-sm" name="cantidad" [(ngModel)]="oferta.cantidad">
+                                        <input type="text" class="form-control form-control-sm" name="cantidad"
+                                            [(ngModel)]="oferta.cantidad">
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control form-control-sm" name="precio" [(ngModel)]="oferta.precio">
+                                        <input type="text" class="form-control form-control-sm" name="precio"
+                                            [(ngModel)]="oferta.precio">
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control form-control-sm" name="descripcion" [(ngModel)]="oferta.descripcion">
+                                        <input type="text" class="form-control form-control-sm" name="descripcion"
+                                            [(ngModel)]="oferta.descripcion">
                                     </td>
                                 </tr>
                             </tbody>
                             <tbody>
                                 <tr *ngFor="let d of ofertas" [ngClass]="{'bg-warning':oferta.id ==d.id}">
                                     <th scope="row" class="text-center">
-                                        <button type="button" class="btn btn-sm btn-dark" (click)="nuevaOferta(d)" *ngIf="!oferta.id">
+                                        <button type="button" class="btn btn-sm btn-dark" (click)="nuevaOferta(d)"
+                                            *ngIf="!oferta.id">
                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                         </button>
 
-                                        <button type="button" class="btn btn-sm btn-dark" (click)="salvarOferta(d)" *ngIf="oferta.id ==d.id">
+                                        <button type="button" class="btn btn-sm btn-danger ml-2" (click)="eliminarOferta(d.id)"
+                                            *ngIf="!oferta.id">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-sm btn-dark" (click)="salvarOferta(d)"
+                                            *ngIf="oferta.id ==d.id">
                                             <i class="fa fa-save" aria-hidden="true"></i>
                                         </button>
 
-                                        <button type="button" class="btn btn-sm btn-danger ml-1" (click)="cancelaroferta()" *ngIf="oferta.id ==d.id">
+                                        <button type="button" class="btn btn-sm btn-danger ml-1"
+                                            (click)="cancelaroferta()" *ngIf="oferta.id ==d.id">
                                             <i class="fa fa-remove" aria-hidden="true"></i>
                                         </button>
                                     </th>
                                     <td>
-                                        <input type="text" class="form-control form-control-sm" name="cantidad" [(ngModel)]="d.cantidad" [disabled]="d.id!=oferta.id">
+                                        <input type="text" class="form-control form-control-sm" name="cantidad"
+                                            [(ngModel)]="d.cantidad" [disabled]="d.id!=oferta.id">
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control form-control-sm" name="precio" [(ngModel)]="d.precio" [disabled]="d.id!=oferta.id">
+                                        <input type="text" class="form-control form-control-sm" name="precio"
+                                            [(ngModel)]="d.precio" [disabled]="d.id!=oferta.id">
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control form-control-sm" name="descripcion" [(ngModel)]="d.descripcion" [disabled]="d.id!=oferta.id">
+                                        <input type="text" class="form-control form-control-sm" name="descripcion"
+                                            [(ngModel)]="d.descripcion" [disabled]="d.id!=oferta.id">
                                     </td>
-        
-        
+
+
                                 </tr>
                             </tbody>
                             <tr *ngIf="ofertas.length==0">
@@ -227,15 +245,118 @@
                     </div>
                 </div>
 
-             
+
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-danger" (click)="cerrarModalFormularioOfertas()">
-                    <i class="fa fa-close" aria-hidden="true"></i>
-                    Cerrar Ofertas
+           
+        </div>
+    </div>
+</div>
+
+<div class="modal  fade" id="modalFormInventario" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title title" id="staticBackdropLabel">Inventario: {{formGroup.value.nombre}}</h5>
+                <button type="button" class="close" (click)="cerrarModalFormularioInventario()">
+                    <span aria-hidden="true">&times;</span>
                 </button>
-              
             </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <table class="table table-bordered table-stripedtable-hover table-sm">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th width="80px">
+                                        <button type="button" class="btn btn-sm btn-light"
+                                            *ngIf="!tieneInventarioConIdCero()"
+                                            (click)="nuevInventario({ id: '0', cantidad: '' , idinventario:''})">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                        </button>
+                                    </th>
+                                    <th width="100px">Cantidad</th>
+                                    <th>Producto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngIf="inventario.id=='0'">
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-dark"
+                                            (click)="salvarInventario( this.inventario)">
+                                            <i class="fa fa-save" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-sm btn-danger ml-1"
+                                            (click)="cancelarInventario()">
+                                            <i class="fa fa-remove" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" name="cantidad"
+                                            [(ngModel)]="inventario.cantidad">
+                                    </td>
+
+                                    <td>
+                                        <select class="form-control form-control-sm" name="idinventario"
+                                            [(ngModel)]="inventario.idinventario">
+                                            <option value="{{d.id}}" *ngFor="let d of inventarios">{{d.nombre}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                <tr *ngFor="let d of inventariosPorProducto"
+                                    [ngClass]="{'bg-warning':inventario.id ==d.id}">
+                                    <th scope="row" class="text-center">
+                                        <button type="button" class="btn btn-sm btn-dark" (click)="nuevInventario(d)"
+                                            *ngIf="!inventario.id">
+                                            <i class="fa fa-edit" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-sm btn-danger ml-2" (click)="eliminarInventarioPorProducto(d.id)"
+                                            *ngIf="!inventario.id">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-sm btn-dark" (click)="salvarInventario(d)"
+                                            *ngIf="inventario.id ==d.id">
+                                            <i class="fa fa-save" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-sm btn-danger ml-1"
+                                            (click)="cancelarInventario()" *ngIf="inventario.id ==d.id">
+                                            <i class="fa fa-remove" aria-hidden="true"></i>
+                                        </button>
+                                    </th>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" name="cantidad"
+                                            [(ngModel)]="d.cantidad" [disabled]="d.id!=inventario.id">
+                                    </td>
+                                    <td>
+                                        <select class="form-control form-control-sm" name="idinventario"
+                                            [(ngModel)]="d.idinventario"  [disabled]="d.id!=inventario.id">
+                                            <option value="{{d.id}}" *ngFor="let d of inventarios">{{d.nombre}}</option>
+                                        </select>
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                            <tr *ngIf="inventariosPorProducto.length==0">
+                                <td class="text-center" colspan="4">
+                                    No hay registros
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+           
         </div>
     </div>
 </div>
