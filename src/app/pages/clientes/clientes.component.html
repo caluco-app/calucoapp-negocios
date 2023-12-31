@@ -1,1 +1,175 @@
-<p>clientes works!</p>
+<app-navbar></app-navbar>
+
+<div class="container-fluid  bg-light mb-4  pb-5">
+    <div class="container" *ngIf="dataNegocio">
+        <div class="row">
+            <div class="col-lg-12 ">
+
+                <h3 class="mt-4 title">
+                    <i class="fa fa-arrow-left i-link" aria-hidden="true" [routerLink]="['/negocios', idNegocio]"></i>
+                    {{dataNegocio.negocio.nombre}}
+                </h3>
+            </div>
+
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-lg-12 ">
+                <hr>
+                <h3 class=" title mt-4"> CLIENTES </h3>
+            </div>
+
+
+
+            <div class="col-lg-4 offset-lg-8">
+                <input type="text" class="form-control form-control-sm mt-3 mb-3" placeholder="Buscar">
+            </div>
+
+            <form class="col-lg-12 " [formGroup]="formGroup" (ngSubmit)="salvarCambios()">
+             
+
+                <table class="table table-bordered table-hover table-sm">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="text-center" width="80px">
+                                <button type="button" class="btn btn-sm btn-light" *ngIf="formGroup.value.id=='' || !formGroup.value.id"
+                                    (click)='nuevo({ "id": "0", "giro": "", "nombre": "", "cliente": "", "direccion": "", "municipio": "", "departamento": "", "nit": "", "registro": "",  "telefono": "", "whatsapp": "" })'>
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                            </th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Dirección</th>
+                            <th scope="col">Telefono</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        <ng-container *ngFor="let d of clientes">
+                            <tr *ngIf="d.id == formGroup.value.id" [ngClass]="{'bg-warning':d.id == formGroup.value.id}">
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-dark" (click)="nuevo(d)"
+                                        *ngIf="d.id != formGroup.value.id">
+                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                    </button>
+
+                                    <button type="button" class="btn btn-sm btn-dark"
+                                        *ngIf="d.id == formGroup.value.id" (click)="salvarCambios()">
+                                        <i class="fa fa-save" aria-hidden="true"></i>
+                                    </button>
+
+                                    <button type="button" class="btn btn-sm btn-danger ml-1"
+                                        *ngIf="d.id == formGroup.value.id" (click)="cancelar()">
+                                        <i class="fa fa-remove" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control form-control-sm" formControlName="nit" placeholder="NIT">
+                                
+                                    <input type="text" class="form-control form-control-sm" formControlName="registro" placeholder="Registro">
+                               
+                                    <input type="text" class="form-control form-control-sm" formControlName="cliente" placeholder="Nombre del cliente">
+                               
+                                    <input type="text" class="form-control form-control-sm" formControlName="giro" placeholder="Giro Principal">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control form-control-sm" formControlName="direccion" placeholder="Dirección">
+                              
+                                    <input type="text" class="form-control form-control-sm" formControlName="municipio" placeholder="Municipio">
+                              
+                                    <input type="text" class="form-control form-control-sm" formControlName="departamento" placeholder="Departamento">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control form-control-sm" formControlName="telefono" placeholder="Telefono">
+                                </td>
+
+                            </tr>
+
+                            <tr *ngIf="d.id != formGroup.value.id">
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-dark" (click)="nuevo(d)"
+                                        *ngIf="formGroup.value.id == null || formGroup.value.id =='' ">
+                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                    </button>
+                                 
+
+                                    <button type="button" class="btn btn-sm btn-danger ml-1"
+                                    *ngIf="formGroup.value.id == null || formGroup.value.id =='' "  disabled>
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <input readonly type="text" class="form-control form-control-sm" name="nit" [(ngModel)]="d.nit" [ngModelOptions]="{standalone: true}" >
+                               
+                                    <input  readonly type="text" class="form-control form-control-sm"  [(ngModel)]="d.registro" [ngModelOptions]="{standalone: true}">
+                             
+                                    <input  readonly type="text" class="form-control form-control-sm" [(ngModel)]="d.cliente" [ngModelOptions]="{standalone: true}">
+                               
+                                    <input  readonly type="text" class="form-control form-control-sm"  [(ngModel)]="d.giro" [ngModelOptions]="{standalone: true}">
+                                </td>
+                                <td>
+                                    <input readonly type="text" class="form-control form-control-sm"  [(ngModel)]="d.direccion" [ngModelOptions]="{standalone: true}">
+                               
+                                    <input readonly type="text" class="form-control form-control-sm"  [(ngModel)]="d.municipio" [ngModelOptions]="{standalone: true}">
+                            
+                                    <input readonly type="text" class="form-control form-control-sm"  [(ngModel)]="d.departamento" [ngModelOptions]="{standalone: true}">
+                                </td>
+                                <td>
+                                    <input readonly type="text" class="form-control form-control-sm"  [(ngModel)]="d.telefono" [ngModelOptions]="{standalone: true}">
+                                </td>
+
+                            </tr>
+                   
+                        </ng-container>
+
+                        <tr *ngIf="clientes.length==0">
+                            <td class="text-center" colspan="10">
+                                No hay registros
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal  fade" id="modalFormProducto" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <form class="modal-dialog modal-lg" [formGroup]="formGroup" (ngSubmit)="salvarCambios()">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title title" id="staticBackdropLabel">Producto</h5>
+                <button type="button" class="close" (click)="cerrarModalFormulario()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-md-12 form-group">
+                        <label for="nombre" class="text-secondary">Nombre del producto</label>
+                        <input type="text" class="form-control form-control-sm" name="nombre" formControlName="nombre">
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" (click)="cerrarModalFormulario()">
+                    <i class="fa fa-close" aria-hidden="true"></i>
+                    Cerrar
+                </button>
+                <button type="submit" class="btn btn-sm btn-dark">
+                    <i class="fa fa-save" aria-hidden="true"></i>
+                    Guardar Cambios
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+<app-footer></app-footer>

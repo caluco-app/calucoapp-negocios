@@ -69,4 +69,12 @@ export class NegocioService {
     return this.http.post(`${this.urlService}/stocksPorNegocio`, data);
   }
 
+  clientesMtto(data: any):Observable<any> {
+    return this.http.post(`${this.urlService}/clientes`, data);
+  }
+
+  obtenerClientes():Observable<any> {
+    return this.http.get(`${this.urlService}/clientes`);
+  }
+
 }
