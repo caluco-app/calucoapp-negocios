@@ -4,28 +4,29 @@
     <div class="container" *ngIf="dataNegocio">
         <div class="row">
             <div class="col-lg-12 ">
-                <h3 class="mt-4 title"> {{dataNegocio.negocio.nombre}} </h3>
+
+                <h3 class="mt-4 title">
+                    <i class="fa fa-arrow-left i-link" aria-hidden="true" [routerLink]="['/negocios', idNegocio]"></i>
+                    {{dataNegocio.negocio.nombre}}
+                </h3>
             </div>
-            <div class="col-12  pt-3">
-                <nav aria-label="breadcrumb ">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a routerLink="/negocios">MIS NEGOCIOS</a></li>
-                        <li class="breadcrumb-item"><a
-                                [routerLink]="['/negocios', idNegocio]">{{dataNegocio.negocio.nombre}}</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Productos</li>
-                    </ol>
-                </nav>
-            </div>
+
         </div>
 
         <div class="row mt-2">
             <div class="col-lg-12 ">
-                <h3 class=" title mt-4"> Productos </h3>
+                <hr>
+                <h3 class=" title mt-4"> PRODUCTOS </h3>
             </div>
 
 
-            <div class="col-lg-4"></div>
-            <div class="col-lg-4 offset-lg-4">
+            <div class="col-lg-2">
+                <button type="button" class="btn btn-dark btn-sm btn-block mt-3 mb-3" (click)="abrirModalFormulario()">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    Nuevo
+                </button>
+            </div>
+            <div class="col-lg-4 offset-lg-6">
                 <input type="text" class="form-control form-control-sm mt-3 mb-3" placeholder="Buscar">
             </div>
 
@@ -34,31 +35,52 @@
                 <table class="table table-bordered table-hover table-sm">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Producto</th>
+                            <th scope="col" class="text-center">Código</th>
+                            <th scope="col">Nombre</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white">
                         <tr *ngFor="let d of productos">
-                            <th scope="row">{{d.id}}</th>
+                            <th scope="row" class="text-center">
+
+                                {{d.codigo==''?'-':d.codigo}}
+
+
+                            </th>
                             <td>
-                                <p class="mb-0">{{d.nombre}}</p>
-                                <p>
-                                    <button type="button" class="btn btn-link btn-sm mr-1">
-                                        <i class="fa fa-money" aria-hidden="true"></i>
-                                        Precios de venta
-                                    </button>
-                                    <button type="button" class="btn btn-link btn-sm mr-1">
-                                        <i class="fa fa-cubes" aria-hidden="true"></i>
-                                        inventario
-                                    </button>
-                                    <button type="button" class="btn btn-link btn-sm mr-1">
+                                <p class="mb-0">
+
+                                    <button type="button" class="btn btn-link btn-sm"
+                                        (click)="enviarDataAFormulario(d)">
                                         <i class="fa fa-edit" aria-hidden="true"></i>
-                                        Editar
+                                        {{d.nombre}}
+                                    </button>
+
+
+
+                                </p>
+
+                                <p class="lead text-min ">
+                                    <i class="fa fa-commenting-o fa-lg" aria-hidden="true"></i>
+                                    {{d.descripcion==''?'N/A':d.descripcion}}
+                                </p>
+
+                                <p class="mt-0">
+                                    <button type="button" class="btn btn-success btn-sm"
+                                        (click)="enviarDataAFormularioOfertas(d)">
+                                        <i class="fa fa-money" aria-hidden="true"></i>
+                                        Ofertas
+                                    </button>
+
+                                    <button type="button" class="btn btn-secondary btn-sm"
+                                        (click)="abrirModalFormulario()">
+                                        <i class="fa fa-cog" aria-hidden="true"></i>
+                                        Configuración de Inventario
                                     </button>
                                 </p>
                             </td>
-                            
+
+
                         </tr>
                         <tr *ngIf="productos.length==0">
                             <td class="text-center" colspan="4">
@@ -71,6 +93,151 @@
         </div>
     </div>
 
+</div>
+
+<!-- Modal -->
+<div class="modal  fade" id="modalFormProducto" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <form class="modal-dialog modal-lg" [formGroup]="formGroup" (ngSubmit)="salvarCambios()">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title title" id="staticBackdropLabel">Producto</h5>
+                <button type="button" class="close" (click)="cerrarModalFormulario()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="codigo" class="text-secondary">Código</label>
+                        <input type="text" class="form-control form-control-sm" name="codigo" formControlName="codigo">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label for="nombre" class="text-secondary">Nombre del producto</label>
+                        <input type="text" class="form-control form-control-sm" name="nombre" formControlName="nombre">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label for="descripcion" class="text-secondary">Descripción</label>
+                        <textarea type="text" class="form-control form-control-sm" name="descripcion"
+                            formControlName="descripcion">
+                        </textarea>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" (click)="cerrarModalFormulario()">
+                    <i class="fa fa-close" aria-hidden="true"></i>
+                    Cerrar
+                </button>
+                <button type="submit" class="btn btn-sm btn-dark">
+                    <i class="fa fa-save" aria-hidden="true"></i>
+                    Guardar Cambios
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="modal  fade" id="modalFormOfertas" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title title" id="staticBackdropLabel">Ofertas: {{formGroup.value.nombre}}</h5>
+                <button type="button" class="close" (click)="cerrarModalFormularioOfertas()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-12">
+                
+                        <table class="table table-bordered table-stripedtable-hover table-sm">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th width="80px">
+                                        <button type="button" class="btn btn-sm btn-light" *ngIf="!tieneOfertaConIdCero()" (click)="nuevaOferta({ id: '0', cantidad: '', precio: '', descripcion: '' , idproducto:''})">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                        </button>                                     
+                                    </th>
+                                    <th width="100px">Cantidad</th>
+                                    <th width="100px">Precio</th>
+                                    <th>Detalle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngIf="oferta.id=='0'">
+                                    <td>                                    
+                                        <button type="button" class="btn btn-sm btn-dark" (click)="salvarOferta()">
+                                            <i class="fa fa-save" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-sm btn-danger ml-1" (click)="cancelaroferta()">
+                                            <i class="fa fa-remove" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" name="cantidad" [(ngModel)]="oferta.cantidad">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" name="precio" [(ngModel)]="oferta.precio">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" name="descripcion" [(ngModel)]="oferta.descripcion">
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                <tr *ngFor="let d of ofertas" [ngClass]="{'bg-warning':oferta.id ==d.id}">
+                                    <th scope="row" class="text-center">
+                                        <button type="button" class="btn btn-sm btn-dark" (click)="nuevaOferta(d)" *ngIf="!oferta.id">
+                                            <i class="fa fa-edit" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-sm btn-dark" (click)="salvarOferta()" *ngIf="oferta.id ==d.id">
+                                            <i class="fa fa-save" aria-hidden="true"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-sm btn-danger ml-1" (click)="cancelaroferta()" *ngIf="oferta.id ==d.id">
+                                            <i class="fa fa-remove" aria-hidden="true"></i>
+                                        </button>
+                                    </th>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" name="cantidad" [(ngModel)]="d.cantidad" [disabled]="d.id!=oferta.id">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" name="precio" [(ngModel)]="d.precio" [disabled]="d.id!=oferta.id">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" name="descripcion" [(ngModel)]="d.descripcion" [disabled]="d.id!=oferta.id">
+                                    </td>
+        
+        
+                                </tr>
+                            </tbody>
+                            <tr *ngIf="ofertas.length==0">
+                                <td class="text-center" colspan="4">
+                                    No hay registros
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+             
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" (click)="cerrarModalFormularioOfertas()">
+                    <i class="fa fa-close" aria-hidden="true"></i>
+                    Cerrar Ofertas
+                </button>
+              
+            </div>
+        </div>
+    </div>
 </div>
 
 <app-footer></app-footer>

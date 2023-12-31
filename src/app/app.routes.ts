@@ -5,6 +5,7 @@ import { NegocioComponent } from './pages/negocio/negocio.component';
 import { ProductosComponent } from './pages/productos/productos.component';
 import { InventarioComponent } from './pages/inventario/inventario.component';
 import { StockComponent } from './pages/stock/stock.component';
+import { ProductoComponent } from './pages/producto/producto.component';
 
 export const routes: Routes = [
     {
@@ -26,6 +27,10 @@ export const routes: Routes = [
     {
         path: 'negocios/:idnegocio/productos',
         component: ProductosComponent
+    },
+    {
+        path: 'negocios/:idnegocio/producto/:idproducto',
+        component: ProductoComponent
     },
     {
         path: 'negocios/:idnegocio/inventarios',

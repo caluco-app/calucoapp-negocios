@@ -17,6 +17,14 @@ export class NegocioService {
     return this.http.get(`${this.urlService}/inventarioPorNegocio/${id}`);
   }
 
+  productoPorNegocio(id: any):Observable<any> {
+    return this.http.get(`${this.urlService}/productosPorNegocio/${id}`);
+  }
+
+  ofertasPorProductos(id: any):Observable<any> {
+    return this.http.get(`${this.urlService}/ofertasPorProductos/${id}`);
+  }
+
   stockPorInventario(idNegocio: any,idInventario: any):Observable<any> {
     return this.http.get(`${this.urlService}/stockPorInventario/${idNegocio}/${idInventario}`);
   }
@@ -28,6 +36,13 @@ export class NegocioService {
 
   productosPorNegocios(id: any):Observable<any> {
     return this.http.get(`${this.urlService}/productosPorNegocios/${id}`);
+  }
+  productoMttoNegocio(data: any):Observable<any> {
+    return this.http.post(`${this.urlService}/productosPorNegocio`, data);
+  }
+
+  ofertasPorProductosMtto(data: any):Observable<any> {
+    return this.http.post(`${this.urlService}/ofertasPorProductos`, data);
   }
 
   inventarioMttoNegocio(data: any):Observable<any> {

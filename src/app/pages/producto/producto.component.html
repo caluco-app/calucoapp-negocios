@@ -1,0 +1,55 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid  bg-light mb-4  pb-5">
+    <div class="container" *ngIf="dataNegocio">
+        <div class="row">
+            <div class="col-lg-12 ">
+
+                <h3 class="mt-4 title">
+                    <i class="fa fa-arrow-left i-link" aria-hidden="true"
+                        [routerLink]="['/negocios', idNegocio, 'productos']"></i>
+                    {{dataNegocio.negocio.nombre}}
+                </h3>
+            </div>
+
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-lg-12 ">
+                <hr>
+                <h3 class=" title mt-4"> PRODUCTO </h3>
+            </div>
+        </div>
+
+        <div class="row bg-white pt-4">
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-12">
+                        <h5>Detalle del producto</h5>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-12">
+                        <h5>Detalle del producto</h5>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-12">
+                        <h5>Detalle del producto</h5>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<app-footer></app-footer>
