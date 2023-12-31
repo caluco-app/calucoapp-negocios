@@ -171,7 +171,7 @@
                             <tbody>
                                 <tr *ngIf="oferta.id=='0'">
                                     <td>                                    
-                                        <button type="button" class="btn btn-sm btn-dark" (click)="salvarOferta()">
+                                        <button type="button" class="btn btn-sm btn-dark" (click)="salvarOferta( this.oferta)">
                                             <i class="fa fa-save" aria-hidden="true"></i>
                                         </button>
 
@@ -197,7 +197,7 @@
                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                         </button>
 
-                                        <button type="button" class="btn btn-sm btn-dark" (click)="salvarOferta()" *ngIf="oferta.id ==d.id">
+                                        <button type="button" class="btn btn-sm btn-dark" (click)="salvarOferta(d)" *ngIf="oferta.id ==d.id">
                                             <i class="fa fa-save" aria-hidden="true"></i>
                                         </button>
 

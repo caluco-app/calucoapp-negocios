@@ -111,9 +111,9 @@ export class ProductosComponent {
     }
   }
 
-  salvarOferta() {
+  salvarOferta(data:any) {
 
-    this.oferta = { ...this.oferta, idproducto: this.formGroup.value.id };
+    this.oferta = { ...data, idproducto: this.formGroup.value.id };
 
     this.negocioService.ofertasPorProductosMtto(this.oferta).subscribe(response => {
       console.log(response);
