@@ -39,7 +39,7 @@ export class LoginComponent {
             title: '¡Acceso permitido!',
             text: 'Bienvenido al sistema',
             icon: 'success',
-            timer: 2000, // Tiempo en milisegundos (en este caso, 3000 ms = 3 segundos)
+            timer: 1000, // Tiempo en milisegundos (en este caso, 3000 ms = 3 segundos)
             timerProgressBar: true,
             willClose: () => {
               // Este código se ejecutará cuando se cierre la alerta automáticamente

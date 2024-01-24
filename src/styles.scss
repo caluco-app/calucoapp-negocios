@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 * {
     font-family: Arial, Helvetica, sans-serif;
-    
+
 }
 
 .logo {
@@ -33,7 +33,7 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm:focus {
 }
 
 .bg-light {
-  //  background-color: #ffffff !important;
+    //  background-color: #ffffff !important;
 }
 
 ._css-fakebm {
@@ -55,42 +55,54 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm:focus {
     letter-spacing: 3px;
 }
 
-.breadcrumb-item>a{
+.breadcrumb-item>a {
     color: #414141;
     font-size: 14px;
     letter-spacing: 3px;
 }
 
-.hover:hover{
+.hover:hover {
     color: #fff;
     background: #414141;
     cursor: pointer;
 }
 
-.thead-white{
+.thead-white {
     background-color: #fff !important;
 }
 
-.i-link{
+.i-link {
     cursor: pointer;
 }
 
-.text-min{
+.text-min {
     font-size: 14px;
- 
+
 }
 
-.logoapp{
+.logoapp {
     font-size: 22px;
     font-family: 'Arial', sans-serif;
     letter-spacing: 2px;
     color: #414141;
     text-align: center;
     font-weight: 700;
- 
-  }
 
-.v{ 
+}
+
+.v {
     display: inline-block;
-    transform: rotate(180deg) !important; /* Rota 180 grados */
-  }
+    transform: rotate(180deg) !important;
+    /* Rota 180 grados */
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #343a40;
+}
+
+.ngx-pagination .current {
+    background: #343a40 !important;
+}

@@ -13,68 +13,94 @@ export class NegocioService {
   constructor(private http: HttpClient) { }
 
 
-  inventarioPorNegocio(id: any):Observable<any> {
+  inventarioPorNegocio(id: any): Observable<any> {
     return this.http.get(`${this.urlService}/inventarioPorNegocio/${id}`);
   }
 
-  productoPorNegocio(id: any):Observable<any> {
+  productoPorNegocio(id: any): Observable<any> {
     return this.http.get(`${this.urlService}/productosPorNegocio/${id}`);
   }
 
-  ofertasPorProductos(id: any):Observable<any> {
+  ofertasPorProductos(id: any): Observable<any> {
     return this.http.get(`${this.urlService}/ofertasPorProductos/${id}`);
   }
 
-  deleteOfertasPorProductos(id: any):Observable<any> {
+  ofertasPorProductosFiltroVenta(data: any): Observable<any> {
+    return this.http.post(`${this.urlService}/ofertasPorProductosFiltroVenta`, data);
+  }
+
+  ofertasPorProductosFiltro(filtro: any): Observable<any> {
+    return this.http.get(`${this.urlService}/ofertasPorProductos/${filtro}`);
+  }
+
+  deleteOfertasPorProductos(id: any): Observable<any> {
     return this.http.delete(`${this.urlService}/ofertasPorProductos/${id}`);
   }
 
-  deleteInventarioPorProductos(id: any):Observable<any> {
+  deleteInventarioPorProductos(id: any): Observable<any> {
     return this.http.delete(`${this.urlService}/inventarioPorProductos/${id}`);
   }
 
-  inventarioPorProductos(id: any):Observable<any> {
+  inventarioPorProductos(id: any): Observable<any> {
     return this.http.get(`${this.urlService}/inventarioPorProductos/${id}`);
   }
 
-  stockPorInventario(idNegocio: any,idInventario: any):Observable<any> {
+  stockPorInventario(idNegocio: any, idInventario: any): Observable<any> {
     return this.http.get(`${this.urlService}/stockPorInventario/${idNegocio}/${idInventario}`);
   }
 
-  stockPorIdInventario(idInventario: any):Observable<any> {
+  stockPorIdInventario(idInventario: any): Observable<any> {
     return this.http.get(`${this.urlService}/stockPorIdInventario/${idInventario}`);
   }
 
 
-  productosPorNegocios(id: any):Observable<any> {
+  productosPorNegocios(id: any): Observable<any> {
     return this.http.get(`${this.urlService}/productosPorNegocios/${id}`);
   }
-  productoMttoNegocio(data: any):Observable<any> {
+  productoMttoNegocio(data: any): Observable<any> {
     return this.http.post(`${this.urlService}/productosPorNegocio`, data);
   }
 
-  ofertasPorProductosMtto(data: any):Observable<any> {
+  ofertasPorProductosMtto(data: any): Observable<any> {
     return this.http.post(`${this.urlService}/ofertasPorProductos`, data);
   }
 
-  inventarioPorProductosMtto(data: any):Observable<any> {
+  inventarioPorProductosMtto(data: any): Observable<any> {
     return this.http.post(`${this.urlService}/inventarioPorProductos`, data);
   }
 
-  inventarioMttoNegocio(data: any):Observable<any> {
+  inventarioMttoNegocio(data: any): Observable<any> {
     return this.http.post(`${this.urlService}/inventariosPorNegocio`, data);
   }
 
-  stocksMttoNegocio(data: any):Observable<any> {
+  stocksMttoNegocio(data: any): Observable<any> {
     return this.http.post(`${this.urlService}/stocksPorNegocio`, data);
   }
 
-  clientesMtto(data: any):Observable<any> {
+  clientesMtto(data: any): Observable<any> {
     return this.http.post(`${this.urlService}/clientes`, data);
   }
 
-  obtenerClientes():Observable<any> {
+  obtenerClientes(): Observable<any> {
     return this.http.get(`${this.urlService}/clientes`);
   }
+
+  obtenerClientesPorFiltro(filtro: any): Observable<any> {
+    return this.http.get(`${this.urlService}/clientes/${filtro}`);
+  }
+
+  obtenerTiposDeFacturas(): Observable<any> {
+    return this.http.get(`${this.urlService}/tiposfactura`);
+  }
+
+  obtenerPeridosTributarios(): Observable<any> {
+    return this.http.get(`${this.urlService}/peridotributarios`);
+  }
+
+  generarFactura(data: any): Observable<any> {
+    return this.http.post(`${this.urlService}/facturacion`, data);
+  }
+
+
 
 }

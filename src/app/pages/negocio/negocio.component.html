@@ -77,7 +77,7 @@
             </div>
 
             <div class="col-lg-6" *ngFor="let d of dataNegocio.sucursales">
-                <div class="card hover mt-2">
+                <div class="card hover mt-2" [routerLink]="['/negocios', idNegocio, d.nombre, d.id]">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-10">

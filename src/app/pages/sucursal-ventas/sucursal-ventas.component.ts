@@ -3,26 +3,33 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { UserInfoService } from '../../services/user-info.service';
+import { NegocioService } from '../../services/negocio.service';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-negocio',
+  selector: 'app-sucursal-ventas',
   standalone: true,
   imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule],
-  templateUrl: './negocio.component.html',
-  styleUrl: './negocio.component.scss'
+  providers:[NegocioService],
+  templateUrl: './sucursal-ventas.component.html',
+  styleUrl: './sucursal-ventas.component.scss'
 })
-export class NegocioComponent {
+export class SucursalVentasComponent {
   userData: any;
   cappn_userkey: any;
   idNegocio: any;
+  idSucursal: any;
+  nombreSucursal: any;
   dataNegocio: any;
 
-  constructor(private userInfo: UserInfoService, private router: Router, private authapi: AuthService, private route: ActivatedRoute) {
+  constructor(private router: Router, private authapi: AuthService, private route: ActivatedRoute, private negocioService: NegocioService) {
     this.route.paramMap.subscribe(params => {
-      this.idNegocio = params.get('id'); // 'id' debe coincidir con el nombre del parámetro en tu ruta
+      this.idNegocio = params.get('idnegocio');
+      this.idSucursal = params.get('idsucursal');
+      this.nombreSucursal = params.get('sucursal');
       console.log('ID obtenido:', this.idNegocio);
+      console.log('ID idSucursal:', this.idSucursal);
+      console.log('ID nombreSucursal:', this.nombreSucursal);
 
       // Puedes realizar otras operaciones con el ID aquí, como llamar a servicios, etc.
     });
@@ -35,12 +42,12 @@ export class NegocioComponent {
     this.validarUsuarioNegocio();
   }
 
-
   validarUsuarioNegocio() {
     let data: any = { idusuario: this.cappn_userkey.usuario[0].id, idnegocio: this.idNegocio };
     this.authapi.validarUsuarioNegocio(data).subscribe(response => {
-      console.log('dataNegocio',response);
+      console.log(response);
       this.dataNegocio = response.data;
     });
   }
+
 }

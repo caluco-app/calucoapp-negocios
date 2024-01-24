@@ -1,0 +1,414 @@
+<!-- <app-navbar></app-navbar> -->
+
+<div class="container-fluid  mb-4  pb-5">
+    <div class="container-fluid mb-4" *ngIf="dataNegocio">
+        <div class="row mt-4 ">
+            <div class="col-lg-8 ">
+
+                <h3 class="mt-4 title">
+                    <i class="fa fa-arrow-left i-link" aria-hidden="true"
+                        [routerLink]="['/negocios', idNegocio,nombreSucursal,idSucursal ]"></i>
+                    {{dataNegocio.negocio.nombre}}
+                </h3>
+
+            </div>
+            <div class="col-sm-4">
+                <img class="mt-4" src="assets/images/logo_CAPP.png" height="75" alt="">
+            </div>
+
+        </div>
+    </div>
+    <div class="container-fluid mt-4">
+        <div class="row">
+
+            <!-- Sección izquierda para la selección de tipo de factura, cliente, etc. -->
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home"
+                                    type="button" role="tab" aria-controls="home" aria-selected="true">
+                                    CONF. COMPROBANTE
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile"
+                                    type="button" role="tab" aria-controls="profile" aria-selected="false">
+                                    SELECCION DE CLIENTE
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact"
+                                    type="button" role="tab" aria-controls="contact" aria-selected="false">
+                                    PRODUCTOS PARA LA VENTA
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="row">
+                                    <div class="col-lg-12 ">
+
+                                        <h3 class=" title mt-4">SELECCION DE COMPROBANTE </h3>
+                                        <p>{{formGroupMaestroFactura.value|json}}</p>
+                                    </div>
+                                    <form class="col-lg-12" [formGroup]="formGroupMaestroFactura">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="idperiodotributario">Perido Tributario</label>
+                                                    <select class="form-control form-control-sm"
+                                                        id="idperiodotributario" formControlName="idperiodotributario">
+
+                                                        <option *ngFor="let d of dataPeriodosTributarios"
+                                                            value="{{d.id}}">
+                                                            {{d.nombre}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="fecha">Fecha</label>
+                                                    <input type="date" name="fecha" id="fecha"
+                                                        class="form-control form-control-sm" placeholder="fecha"
+                                                        formControlName="fecha">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <div class="form-group">
+                                                    <label for="idtipofactura">Tipo de Comprobate</label>
+                                                    <select class="form-control form-control-sm" id="idtipofactura"
+                                                        formControlName="idtipofactura">
+                                                        <option value="" disabled selected>Seleccione el tipo de
+                                                            comprobante
+                                                        </option>
+                                                        <option *ngFor="let d of dataTiposFactura" value="{{d.id}}"
+                                                            [disabled]="d.estado=='I'">
+                                                            {{d.nombre}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-3 ">
+                                                <div class="form-group">
+                                                    <label for="no">Codigo de Factura</label>
+                                                    <input type="text" name="no" id="no"
+                                                        class="form-control form-control-sm" placeholder="00000"
+                                                        formControlName="codigofactura">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="row">
+                                    <div class="col-lg-12 ">
+
+                                        <h3 class=" title mt-4"> SELECCION DE CLIENTE </h3>
+                                    </div>
+
+
+                                    <div class="col-lg-8">
+                                        <div class="alert alert-warning alert-dismissible  " id="nocliente" role="alert"
+                                            *ngIf="mensajeClientes!=''">
+                                            <strong> {{mensajeClientes}} </strong>.
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 ">
+                                        <input type="text" class="form-control form-control-sm mt-3 mb-3"
+                                            placeholder="Buscar" [(ngModel)]="filtroCliente"
+                                            (keyup.enter)="obtnerClientes()">
+                                    </div>
+
+
+
+                                    <form class="col-lg-12 " [formGroup]="formGroup" (ngSubmit)="salvarCambios()">
+
+
+                                        <table class="table table-bordered table-hover table-sm">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th class="text-center" width="80px">
+                                                        <button type="button" class="btn btn-sm btn-light"
+                                                            *ngIf="formGroup.value.id=='' || !formGroup.value.id"
+                                                            (click)='nuevo({ "id": "0", "giro": "", "nombre": "", "cliente": "", "direccion": "", "municipio": "", "departamento": "", "nit": "", "registro": "",  "telefono": "", "whatsapp": "" })'>
+                                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                                        </button>
+                                                    </th>
+                                                    <th scope="col">Cliente</th>
+                                                    <th scope="col">Dirección</th>
+                                                    <th scope="col">Telefono</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="bg-white">
+                                                <ng-container
+                                                    *ngFor="let d of clientes | paginate: { itemsPerPage: 1, currentPage: p }">
+                                                    <tr *ngIf="d.id == formGroup.value.id"
+                                                        [ngClass]="{'bg-warning':d.id == formGroup.value.id, 'bg-success':d.id==formGroupMaestroFactura.value.idcliente}">
+                                                        <td>
+                                                            <button type="button" class="btn btn-sm btn-dark"
+                                                                (click)="nuevo(d)" *ngIf="d.id != formGroup.value.id">
+                                                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                                            </button>
+
+                                                            <button type="button" class="btn btn-sm btn-dark"
+                                                                *ngIf="d.id == formGroup.value.id"
+                                                                (click)="salvarCambios()">
+                                                                <i class="fa fa-save" aria-hidden="true"></i>
+                                                            </button>
+
+                                                            <button type="button" class="btn btn-sm btn-danger ml-1"
+                                                                *ngIf="d.id == formGroup.value.id" (click)="cancelar()">
+                                                                <i class="fa fa-remove" aria-hidden="true"></i>
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                formControlName="nit" placeholder="NIT">
+
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                formControlName="registro" placeholder="Registro">
+
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                formControlName="cliente"
+                                                                placeholder="Nombre del cliente">
+
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                formControlName="giro" placeholder="Giro Principal">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                formControlName="direccion" placeholder="Dirección">
+
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                formControlName="municipio" placeholder="Municipio">
+
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                formControlName="departamento"
+                                                                placeholder="Departamento">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                formControlName="telefono" placeholder="Telefono">
+                                                        </td>
+
+                                                    </tr>
+
+                                                    <tr *ngIf="d.id != formGroup.value.id"
+                                                        [ngClass]="{ 'bg-success':d.id==formGroupMaestroFactura.value.idcliente}">
+                                                        <td>
+                                                            <button type="button" class="btn btn-sm btn-dark "
+                                                                (click)="nuevo(d)"
+                                                                *ngIf="(formGroup.value.id == null || formGroup.value.id =='' ) && d.id==formGroupMaestroFactura.value.idcliente">
+                                                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                                            </button>
+
+
+                                                            <button type="button" class="btn btn-sm btn-success ml-1"
+                                                                (click)="seleccionarCliente(d)"
+                                                                *ngIf="formGroup.value.id == null || formGroup.value.id =='' ">
+                                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <input readonly type="text"
+                                                                class="form-control form-control-sm" name="nit"
+                                                                [(ngModel)]="d.nit"
+                                                                [ngModelOptions]="{standalone: true}">
+
+                                                            <input readonly type="text"
+                                                                class="form-control form-control-sm"
+                                                                [(ngModel)]="d.registro"
+                                                                [ngModelOptions]="{standalone: true}">
+
+                                                            <input readonly type="text"
+                                                                class="form-control form-control-sm"
+                                                                [(ngModel)]="d.cliente"
+                                                                [ngModelOptions]="{standalone: true}">
+
+                                                            <input readonly type="text"
+                                                                class="form-control form-control-sm"
+                                                                [(ngModel)]="d.giro"
+                                                                [ngModelOptions]="{standalone: true}">
+                                                        </td>
+                                                        <td>
+                                                            <input readonly type="text"
+                                                                class="form-control form-control-sm"
+                                                                [(ngModel)]="d.direccion"
+                                                                [ngModelOptions]="{standalone: true}">
+
+                                                            <input readonly type="text"
+                                                                class="form-control form-control-sm"
+                                                                [(ngModel)]="d.municipio"
+                                                                [ngModelOptions]="{standalone: true}">
+
+                                                            <input readonly type="text"
+                                                                class="form-control form-control-sm"
+                                                                [(ngModel)]="d.departamento"
+                                                                [ngModelOptions]="{standalone: true}">
+                                                        </td>
+                                                        <td>
+                                                            <input readonly type="text"
+                                                                class="form-control form-control-sm"
+                                                                [(ngModel)]="d.telefono"
+                                                                [ngModelOptions]="{standalone: true}">
+                                                        </td>
+
+                                                    </tr>
+
+                                                </ng-container>
+
+                                                <tr *ngIf="clientes.length==0">
+                                                    <td class="text-center" colspan="10">
+                                                        No hay registros
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="text-center">
+                                            <pagination-controls (pageChange)="p = $event" previousLabel="Anterior"
+                                                nextLabel="Siguiente"></pagination-controls>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                <div class="row">
+                                    <div class="col-lg-12 ">
+
+                                        <h3 class=" title mt-4"> PRODUCTOS PARA LA VENTA </h3>
+                                    </div>
+
+
+                                    <div class="col-lg-8">
+                                        <div class="alert alert-warning alert-dismissible  " id="mensajeOferta" role="alert"
+                                            *ngIf="mensajeOferta!=''">
+                                            <strong> {{mensajeOferta}} </strong>.
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 ">
+                                        <input type="text" class="form-control form-control-sm mt-3 mb-3"
+                                            placeholder="Buscar" [(ngModel)]="filtroOfertas" name="filtroOfertas"
+                                            (keyup.enter)="obtnerOfertas()">
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <table class="table table-bordered table-hover table-sm">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th>Código</th>
+                                                    <th>Producto</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Precio</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let d of ofertas">
+                                                    <td>{{d.codigo}}</td>
+                                                    <td>
+                                                        {{d.nombre}}
+                                                        <br>
+                                                        {{d.descripcion}}
+                                                    </td>
+                                                    <td>{{d.cantidad}}</td>
+                                                    <td>{{d.precio}}</td>
+                                                </tr>
+                                                <tr *ngIf="ofertas.length==0">
+                                                    <td class="text-center" colspan="10">
+                                                        No hay registros
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-12">
+                    <div class="row mt-0">
+
+
+
+                        <div class="col-lg-12" *ngIf="formGroupMaestroFactura.valid">
+                            <button type="button" class="btn btn-dark btn-lg btn-block" (click)="generarFactura()"
+                                *ngIf="formGroupMaestroFactura.value.id ==''">SIGUIENTE</button>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <!-- Detalles de la factura -->
+                <div class="card mt-5" *ngIf="formGroupMaestroFactura.value.id">
+                    <div class="card-body bg-dark text-white">
+
+                        <h1 class="card-subtitle mb-2 text-center">Total a Pagar <br> $90.00</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección derecha para la lista de productos y detalles de la factura -->
+            <div class="col-md-6">
+
+                <div class="col-lg-12 ">
+                    <hr>
+                    <h3 class=" title mt-4"> SELECCION DE PRODUCTO </h3>
+                </div>
+
+                <p>{{formGroupCuerpoFactura.value|json}}</p>
+
+                <ng-container *ngIf="formGroupMaestroFactura.value.id">
+                    <p class="mt-4 text-center">
+                        <span class="badge badge-dark">F3</span> Buscar Cliente
+                        |
+                        <span class="badge badge-success">Enter</span> Facturar
+                        |
+                        <span class="badge badge-primary">Escanner</span> Nuevo item
+                    </p>
+                    <h4>Productos a Facturar</h4>
+                    <table class="table table-bordered table-hover table-sm">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Cantidad</th>
+                                <th>Producto</th>
+                                <th>Precio Unitario</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Aquí se mostrarán los productos dinámicamente -->
+                            <tr>
+                                <td>2</td>
+                                <td>000000 - Producto 1</td>
+                                <td>$10.00</td>
+                                <td>$20.00</td>
+                            </tr>
+                            <!-- Puedes agregar más filas según los productos seleccionados -->
+                        </tbody>
+                    </table>
+                </ng-container>
+
+
+            </div>
+        </div>
+    </div>
+</div>

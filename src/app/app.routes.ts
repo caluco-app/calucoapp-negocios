@@ -7,6 +7,9 @@ import { InventarioComponent } from './pages/inventario/inventario.component';
 import { StockComponent } from './pages/stock/stock.component';
 import { ProductoComponent } from './pages/producto/producto.component';
 import { ClientesComponent } from './pages/clientes/clientes.component';
+import { SucursalComponent } from './pages/sucursal/sucursal.component';
+import { SucursalVentasComponent } from './pages/sucursal-ventas/sucursal-ventas.component';
+import { SucursalVentasFacturarComponent } from './pages/sucursal-ventas-facturar/sucursal-ventas-facturar.component';
 
 export const routes: Routes = [
     {
@@ -44,5 +47,18 @@ export const routes: Routes = [
     {
         path: 'negocios/:id/clientes',
         component: ClientesComponent
+    },
+    {
+        path: 'negocios/:idnegocio/:sucursal/:idsucursal',
+        component: SucursalComponent
+    },
+    {
+        path: 'negocios-sucursal-ventas/:sucursal/:idnegocio/:idsucursal',
+        component: SucursalVentasComponent
+    },
+    {
+        path: 'negocios-sucursal-ventas-facturar/:sucursal/:idnegocio/:idsucursal/:factura',
+        component: SucursalVentasFacturarComponent
     }
+
 ];
