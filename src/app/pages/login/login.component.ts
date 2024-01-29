@@ -35,18 +35,8 @@ export class LoginComponent {
         console.log('Response:', response);
         if (response.state === 'success') {
           // Acceso permitido, puedes realizar acciones adicionales
-          Swal.fire({
-            title: '¡Acceso permitido!',
-            text: 'Bienvenido al sistema',
-            icon: 'success',
-            timer: 1000, // Tiempo en milisegundos (en este caso, 3000 ms = 3 segundos)
-            timerProgressBar: true,
-            willClose: () => {
-              // Este código se ejecutará cuando se cierre la alerta automáticamente
-              sessionStorage.setItem('cappn_userkey', JSON.stringify(response.data));
-              this.router.navigate(['/negocios']);
-            }
-          });
+          sessionStorage.setItem('cappn_userkey', JSON.stringify(response.data));
+          this.router.navigate(['/negocios']);
 
         } else {
           // El servidor devolvió un estado 'fail', manejar según sea necesario

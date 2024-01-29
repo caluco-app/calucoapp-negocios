@@ -1,0 +1,77 @@
+<ul id="slide-out" class="sidenav sidenav-fixed">
+    <li>
+        <div class="center mt-5">
+            <img src="assets/images/logo_CAPP.png" alt="Logo" class="logo" height="70px">
+        </div>
+
+    </li>
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li routerLinkActive="active black">
+        <a [routerLink]="['/negocios', idNegocio]" routerLinkActive="white-text">
+            <i class="material-icons " routerLinkActive="white-text">addchart</i>
+            Dashboard
+        </a>
+    </li>
+    <li><a class="subheader">Sucursales</a></li>
+    <li routerLinkActive="active black">
+        <a *ngFor="let d of dataNegocio.sucursales" [routerLink]="['/negocios', idNegocio, d.nombre, d.id]" routerLinkActive="white-text">
+            <i class="material-icons" routerLinkActive="white-text">store</i>
+            {{d.nombre}}
+        </a>
+    </li>
+    <li><a class="subheader">Gestión de Negocio</a></li>
+    <li>
+        <a href="#!">
+            <i class="material-icons">badge</i>
+            Clientes
+        </a>
+    </li>
+    <li>
+        <a href="#!">
+            <i class="material-icons">local_shipping</i>
+            Proveedores
+        </a>
+    </li>
+    <li routerLinkActive="active black">
+        <a [routerLink]="['/inventario', idNegocio]" routerLinkActive="white-text">
+            <i class="material-icons " routerLinkActive="white-text">view_in_ar</i>
+            Inventario
+        </a>
+    </li>
+
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li><a class="subheader">Administración</a></li>
+    <li>
+        <a href="#!">
+            <i class="material-icons">settings</i>
+            Configurar Negocio
+        </a>
+    </li>
+    <li>
+        <a href="#!">
+            <i class="material-icons">people</i>
+            Empleados
+        </a>
+    </li>
+    <li>
+        <a href="#!">
+            <i class="material-icons">manage_accounts</i>
+            Usuarios
+        </a>
+    </li>
+
+    <li>
+        <div class="divider"></div>
+    </li>
+
+    <li>
+        <a href="#!" class="red-text">
+            <i class="material-icons red-text">logout</i>
+            Cerrar sesión
+        </a>
+    </li>
+</ul>

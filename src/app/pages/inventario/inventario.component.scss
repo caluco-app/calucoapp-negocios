@@ -1,0 +1,36 @@
+.ico-balance{
+font-size: 20px;
+}
+
+.m0{
+    margin: 0;
+}
+
+.redondo {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border-radius: 100%;
+    margin: 15px;
+}
+
+.titulo-producto-card{
+    min-height: 50px;
+}
+
+.tabs .tab a {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.tabs .tab a:hover, .tabs .tab a.active {
+    background-color: transparent;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.tabs .indicator {
+    background-color: #767676 !important;
+}

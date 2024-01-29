@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<!-- <app-navbar></app-navbar>
 
 <div class="container-fluid  bg-light mb-4  pb-5">
     <div class="container">
@@ -26,4 +26,75 @@
         </div>
     </div>
 </div>
-<app-footer></app-footer>
+<app-footer></app-footer> -->
+<main>
+  <!--   <nav class="black">
+        <div class="nav-wrapper">
+            <a href="#" data-target="slide-out" class="sidenav-trigger white-text"><i
+                    class="material-icons">menu</i></a>
+            <a href="#" class="brand-logo white-text">
+                &nbsp; CALUCO APP
+            </a>
+
+        </div>
+    </nav> -->
+
+
+    <!-- welcome.component.html -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col s12 ">
+
+                <h3 class="card-title center">Bienvenido al Sistema de Gestión de Negocios de CALUCO APP</h3>
+                <p>¡Bienvenido al Sistema de Gestión de Negocios! Nuestro sistema está diseñado para
+                    ayudarte a administrar
+                    eficientemente tu empresa, maximizar tus ganancias y simplificar tus tareas diarias.
+                </p>
+                <p>Con nuestras características innovadoras y fáciles de usar, podrás:</p>
+                <ul class="collection">
+                    <li class="collection-item">Gestionar clientes y contactos</li>
+                    <li class="collection-item">Administrar inventario y productos</li>
+                    <li class="collection-item">Realizar seguimiento de ventas y finanzas</li>
+                    <li class="collection-item">Generar informes detallados y análisis</li>
+                </ul>
+                <p>No esperes más, ¡únete a nosotros y lleva tu negocio al siguiente nivel!</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</main>
+
+
+<ul id="slide-out" class="sidenav sidenav-fixed">
+    <li>
+        <div class="center mt-5">
+            <img src="assets/images/logo_CAPP.png" alt="Logo" class="logo" height="70px">
+        </div>
+
+    </li>
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li><a class="subheader">Negocios</a></li>
+    <li *ngFor="let d of cappn_userkey.negocios">
+        <a [routerLink]="['/negocios', d.id]">
+            <i class="material-icons">store</i>
+            {{d.nombre}}
+        </a>
+    </li>
+
+
+    <li>
+        <div class="divider"></div>
+    </li>
+
+    <li>
+        <a href="#!" class="red-text">
+            <i class="material-icons red-text">logout</i>
+            Cerrar sesión
+        </a>
+    </li>
+</ul>

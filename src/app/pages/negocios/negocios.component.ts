@@ -4,7 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../components/footer/footer.component';
-
+declare let $: any;
 @Component({
   selector: 'app-negocios',
   standalone: true,
@@ -22,6 +22,11 @@ export class NegociosComponent {
 
     let session: any = sessionStorage.getItem('cappn_userkey');
     this.cappn_userkey = JSON.parse(session);
+
+    $(document).ready(function () {
+      $('.sidenav').sidenav();
+      $('select').formSelect();
+    });
 
   }
 }

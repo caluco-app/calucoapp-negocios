@@ -1,108 +1,70 @@
-/* You can add global styles to this file, and also import other style files */
-* {
-    font-family: Arial, Helvetica, sans-serif;
-
+header,
+main,
+footer {
+  padding-left: 300px;
 }
 
-.logo {
-    height: 100px;
-    display: block;
-    margin: auto;
+@media only screen and (max-width : 992px) {
+
+  header,
+  main,
+  footer {
+    padding-left: 0;
+  }
 }
 
-.logo-app {
-    height: 20px;
-    display: block;
-    margin: auto;
+.mt-1 {
+  margin-top: 1%;
 }
 
-.form-control,
-.btn,
-.card {
-    border-radius: 0px;
+.mt-2 {
+  margin-top: 2%;
 }
 
-
-
-div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
-    background-color: #414141 !important;
+.mt-3 {
+  margin-top: 3%;
 }
 
-div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm:focus {
-    box-shadow: 0 0 0 3px rgb(255 255 255 / 50%) !important;
+.mt-5 {
+  margin-top: 5%;
 }
 
-.bg-light {
-    //  background-color: #ffffff !important;
+/* Estilos para el scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  /* Ancho del scrollbar */
 }
 
-._css-fakebm {
-    background-color: #FFFFFF;
-    border-bottom: 4px solid #E2E2E2;
-    box-sizing: border-box;
-    height: calc(60px);
-    position: relative;
-    width: 100%;
+/* Track (el fondo del scrollbar) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  /* Color de fondo del track */
+  border-radius: 6px;
+  /* Radio de los bordes */
 }
 
-.dropdown-menu {
-    min-width: 17rem;
+/* Thumb (el "mango" del scrollbar) */
+::-webkit-scrollbar-thumb {
+  background: #ffffff;
+  /* Color del thumb */
+  border-radius: 6px;
+  /* Radio de los bordes */
 }
 
-.title {
-    color: #414141;
-    font-size: 25px;
-    letter-spacing: 3px;
+/* Cuando se pasa el mouse sobre el thumb */
+::-webkit-scrollbar-thumb:hover {
+  background: #f1f1f1;
+  /* Cambiar el color al pasar el mouse */
 }
 
-.breadcrumb-item>a {
-    color: #414141;
-    font-size: 14px;
-    letter-spacing: 3px;
+.tabs .indicator {
+  background-color: #767676 !important;
 }
 
-.hover:hover {
-    color: #fff;
-    background: #414141;
-    cursor: pointer;
+.cursor{
+  cursor: pointer;
 }
 
-.thead-white {
-    background-color: #fff !important;
-}
-
-.i-link {
-    cursor: pointer;
-}
-
-.text-min {
-    font-size: 14px;
-
-}
-
-.logoapp {
-    font-size: 22px;
-    font-family: 'Arial', sans-serif;
-    letter-spacing: 2px;
-    color: #414141;
-    text-align: center;
-    font-weight: 700;
-
-}
-
-.v {
-    display: inline-block;
-    transform: rotate(180deg) !important;
-    /* Rota 180 grados */
-}
-
-.dropdown-item.active,
-.dropdown-item:active {
-    color: #fff;
-    text-decoration: none;
-    background-color: #343a40;
-}
-
-.ngx-pagination .current {
-    background: #343a40 !important;
+.card  :hover{
+  background: #f9faff;
 }

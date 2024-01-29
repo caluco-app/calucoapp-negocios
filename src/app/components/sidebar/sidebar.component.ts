@@ -1,20 +1,18 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { CommonModule } from '@angular/common';
-import { FooterComponent } from '../../components/footer/footer.component';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UserInfoService } from '../../services/user-info.service';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { SidebarComponent } from '../../components/sidebar/sidebar.component';
+import { CommonModule } from '@angular/common';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
-  selector: 'app-negocio',
+  selector: 'app-sidebar',
   standalone: true,
-  imports: [NavbarComponent, SidebarComponent, CommonModule, FooterComponent, RouterModule],
-  templateUrl: './negocio.component.html',
-  styleUrl: './negocio.component.scss'
+  imports: [CommonModule, FooterComponent, RouterModule],
+  templateUrl: './sidebar.component.html',
+  styleUrl: './sidebar.component.scss'
 })
-export class NegocioComponent {
+export class SidebarComponent {
   userData: any;
   cappn_userkey: any;
   idNegocio: any;
@@ -22,7 +20,7 @@ export class NegocioComponent {
 
   constructor(private userInfo: UserInfoService, private router: Router, private authapi: AuthService, private route: ActivatedRoute) {
     this.route.paramMap.subscribe(params => {
-      this.idNegocio = params.get('id'); // 'id' debe coincidir con el nombre del parámetro en tu ruta
+      this.idNegocio = params.get('idnegocio'); // 'id' debe coincidir con el nombre del parámetro en tu ruta
       console.log('ID obtenido:', this.idNegocio);
 
       // Puedes realizar otras operaciones con el ID aquí, como llamar a servicios, etc.
@@ -40,7 +38,7 @@ export class NegocioComponent {
   validarUsuarioNegocio() {
     let data: any = { idusuario: this.cappn_userkey.usuario[0].id, idnegocio: this.idNegocio };
     this.authapi.validarUsuarioNegocio(data).subscribe(response => {
-      console.log('dataNegocio',response);
+      console.log('dataNegocio', response);
       this.dataNegocio = response.data;
     });
   }

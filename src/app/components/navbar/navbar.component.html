@@ -1,26 +1,13 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white  ">
-    <div class="container">
-        <a class="navbar-brand" routerLink="/negocios">
-            <img src="assets/images/logo_CAPP.png" height="75" alt="">
-        </a>
-
-        <div class=" justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
-
-                <li class="nav-item dropdown" *ngIf="cappn_userkey!=null">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                        aria-expanded="false">
-                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                        {{cappn_userkey.usuario[0].usuario}}
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" [routerLink]="['/login']">
-                            <i class="fa fa-sign-out" aria-hidden="true"></i>
-                            Cerrar sesión
-                        </a>
-                    </div>
-                </li>
-            </ul>
-        </div>
+<nav class="white">
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo black-text">&nbsp; &nbsp;Nombre de la empresa</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li >
+            <a routerLink="/negocios" class="black-text">
+                <i class="material-icons left" >domain</i>
+                Mis negocios
+            </a>
+        </li>
+      </ul>
     </div>
-</nav>
+  </nav>

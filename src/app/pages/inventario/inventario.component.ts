@@ -6,13 +6,14 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 
 declare let $: any;
 
 @Component({
   selector: 'app-inventario',
   standalone: true,
-  imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule, ReactiveFormsModule],
+  imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule, ReactiveFormsModule, SidebarComponent],
   providers: [NegocioService],
   templateUrl: './inventario.component.html',
   styleUrl: './inventario.component.scss'
@@ -60,14 +61,27 @@ export class InventarioComponent {
     let session: any = sessionStorage.getItem('cappn_userkey');
     this.cappn_userkey = JSON.parse(session);
     this.validarUsuarioNegocio();
+
+    $(document).ready(function(){
+      $('.tabs').tabs();
+      $('.modal').modal();
+    });
   }
 
   abrirModalFormulario() {
-    $('#modalFormInventario').modal('show');
+    this.formGroup.get('idnegocio')?.setValue(this.idNegocio);
+    $('#predetalleInventario').modal('close'); 
+    $('#modalFormInventario').modal('open');
   }
   cerrarModalFormulario() {
     this.formGroup.setValue({ id: '', codigo: "", nombre: "", "descripcion": "", "idnegocio": "", existencias:'',costo:'', total:'' });
-    $('#modalFormInventario').modal('hide');
+    $('#predetalleInventario').modal('close');  
+    $('#modalFormInventario').modal('close');
+  }
+
+  abrirModalPredetalle(data:any){
+    this.formGroup.setValue(data);
+    $('#predetalleInventario').modal('open');  
   }
 
   abrirModalFormularioStock(data:any) {
@@ -124,6 +138,10 @@ export class InventarioComponent {
     this.cerrarModalFormulario();
     this.formGroup.setValue(data);
     this.abrirModalFormulario();
+  }
+
+  stringToNumber(d:any):number{
+    return parseInt(d);
   }
 
   sumar(){
