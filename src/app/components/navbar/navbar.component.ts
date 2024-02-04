@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { routes } from '../../app.routes';
 import { RouterModule } from '@angular/router';
-
+declare let $: any;
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -16,5 +15,9 @@ export class NavbarComponent {
   ngOnInit() {
     let session: any = sessionStorage.getItem('cappn_userkey');
     this.cappn_userkey = JSON.parse(session);
+    $(document).ready(function () {
+      $('.sidenav').sidenav();
+      $('select').formSelect();
+    });
   }
 }

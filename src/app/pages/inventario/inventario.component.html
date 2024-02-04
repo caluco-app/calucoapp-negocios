@@ -90,11 +90,13 @@
                                     </div>
 
                                     <div class="col s12 center">
-                                        <a [routerLink]="['/negocios', idNegocio, 'stock', d.id]">
+                                        <p >
                                             <i class="fa fa-cubes" aria-hidden="true"></i>
-                                            {{d.existencias}} <br>
+                                            <strong>
+                                                {{d.existencias}} <br>
                                             Disponibles
-                                        </a>
+                                            </strong>
+                                        </p>
                                         <p></p>
                                     </div>
                                 </div>
@@ -149,7 +151,7 @@
                     <div class="input-field col s12 l12">
                         <i class="material-icons prefix">description</i>
 
-                        <textarea type="text" class="materialize-textarea" name="descripcion"
+                        <textarea type="text" class="materialize-textarea" name="descripcion" id="descripcion"
                             formControlName="descripcion">
                         </textarea>
                         <label for="descripcion" [ngClass]="{'active':formGroup.value.id}">Descripción</label>
@@ -221,14 +223,14 @@
                             </strong>
                         </p>
                     </div>
-                    <div class="col s6 ">
+                    <div class="col m6 s12 ">
                         <button class="waves-effect waves-light btn black col s12 mt-5"
                             (click)="abrirModalFormulario()">
                             <i class="material-icons right">sell</i>
                             Editar Inventario
                         </button>
                     </div>
-                    <div class="col s6 ">
+                    <div class="col m6 s12 ">
                         <a class="waves-effect waves-light btn green col s12 mt-5"
                             [routerLink]="['/inventario', idNegocio, 'stock', formGroup.value.id]">
                             <i class="material-icons right">settings</i>

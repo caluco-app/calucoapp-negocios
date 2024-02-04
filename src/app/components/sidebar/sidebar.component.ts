@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
-
+declare let $: any;
 @Component({
   selector: 'app-sidebar',
   standalone: true,
@@ -32,6 +32,7 @@ export class SidebarComponent {
     let session: any = sessionStorage.getItem('cappn_userkey');
     this.cappn_userkey = JSON.parse(session);
     this.validarUsuarioNegocio();
+    
   }
 
 

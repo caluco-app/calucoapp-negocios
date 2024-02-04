@@ -6,7 +6,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UserInfoService } from '../../services/user-info.service';
 import { AuthService } from '../../services/auth.service';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
-
+declare let $: any;
 @Component({
   selector: 'app-negocio',
   standalone: true,
@@ -34,13 +34,16 @@ export class NegocioComponent {
     let session: any = sessionStorage.getItem('cappn_userkey');
     this.cappn_userkey = JSON.parse(session);
     this.validarUsuarioNegocio();
+    $(document).ready(function () {
+      $('.sidenav').sidenav();
+    });
   }
 
 
   validarUsuarioNegocio() {
     let data: any = { idusuario: this.cappn_userkey.usuario[0].id, idnegocio: this.idNegocio };
     this.authapi.validarUsuarioNegocio(data).subscribe(response => {
-      console.log('dataNegocio',response);
+      console.log('dataNegocio', response);
       this.dataNegocio = response.data;
     });
   }

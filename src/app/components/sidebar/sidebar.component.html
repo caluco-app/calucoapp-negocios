@@ -11,33 +11,36 @@
     <li routerLinkActive="active black">
         <a [routerLink]="['/negocios', idNegocio]" routerLinkActive="white-text">
             <i class="material-icons " routerLinkActive="white-text">addchart</i>
-            Dashboard
+            [EN DESARROLLO ]
         </a>
     </li>
     <li><a class="subheader">Sucursales</a></li>
     <li routerLinkActive="active black" *ngIf="dataNegocio">
         <a  *ngFor="let d of dataNegocio.sucursales" [routerLink]="['/negocios', idNegocio, d.nombre, d.id]" routerLinkActive="white-text">
             <i class="material-icons" routerLinkActive="white-text">store</i>
-            {{d.nombre}}
+            [EN DESARROLLO ]
+            <!-- {{d.nombre}} -->
         </a>
     </li>
     <li><a class="subheader">Gestión de Negocio</a></li>
     <li>
         <a href="#!">
             <i class="material-icons">badge</i>
-            Clientes
+            [EN DESARROLLO ]
+           <!--  Clientes -->
         </a>
     </li>
     <li>
         <a href="#!">
             <i class="material-icons">local_shipping</i>
-            Proveedores
+            [EN DESARROLLO ]
+           <!--  Proveedores -->
         </a>
     </li>
     <li routerLinkActive="active black">
-        <a [routerLink]="['/inventario', idNegocio]" routerLinkActive="white-text">
+        <a class="sidenav-close" [routerLink]="['/inventario', idNegocio]" routerLinkActive="white-text">
             <i class="material-icons " routerLinkActive="white-text">view_in_ar</i>
-            Inventario
+            INVENTARIO
         </a>
     </li>
 
@@ -48,19 +51,22 @@
     <li>
         <a href="#!">
             <i class="material-icons">settings</i>
-            Configurar Negocio
+            [EN DESARROLLO ]
+           <!--  Configurar Negocio -->
         </a>
     </li>
     <li>
         <a href="#!">
             <i class="material-icons">people</i>
-            Empleados
+            [EN DESARROLLO ]
+          <!--   Empleados -->
         </a>
     </li>
     <li>
         <a href="#!">
             <i class="material-icons">manage_accounts</i>
-            Usuarios
+          <!--   Usuarios -->
+          [EN DESARROLLO ]
         </a>
     </li>
 

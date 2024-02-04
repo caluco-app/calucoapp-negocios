@@ -43,6 +43,9 @@
     <!-- welcome.component.html -->
     <div class="container mt-5">
         <div class="row">
+            <div class="col s12 hide-on-med-and-up">
+                 <a href="#" data-target="slide-out" class="sidenav-trigger black-text "><i class="material-icons">menu</i></a>
+            </div>
             <div class="col s12 ">
 
                 <h3 class="card-title center">Bienvenido al Sistema de Gestión de Negocios de CALUCO APP</h3>
@@ -80,7 +83,7 @@
     </li>
     <li><a class="subheader">Negocios</a></li>
     <li *ngFor="let d of cappn_userkey.negocios">
-        <a [routerLink]="['/negocios', d.id]">
+        <a class="sidenav-close" [routerLink]="['/negocios', d.id]">
             <i class="material-icons">store</i>
             {{d.nombre}}
         </a>
