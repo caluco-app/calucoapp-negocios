@@ -6,12 +6,13 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NegocioService } from '../../services/negocio.service';
 import { AuthService } from '../../services/auth.service';
+import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 declare let $:any;
 
 @Component({
   selector: 'app-stock',
   standalone: true,
-  imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule, ReactiveFormsModule],
+  imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule, ReactiveFormsModule, SidebarComponent],
   providers: [NegocioService],
   templateUrl: './stock.component.html',
   styleUrl: './stock.component.scss'
@@ -63,6 +64,8 @@ export class StockComponent {
     let session: any = sessionStorage.getItem('cappn_userkey');
     this.cappn_userkey = JSON.parse(session);
     this.validarUsuarioNegocio();
+    $('.modal').modal();
+    $('select').formSelect();
   }
 
   abrirModalFormulario() {
@@ -77,12 +80,12 @@ export class StockComponent {
     this.formGroupStock.get('idinventario')?.setValue(data.id);
     this.formGroupStock.get('nombre')?.setValue(data.nombre);
     this.formGroupStock.get('costo')?.setValue(data.costo);
-    $('#modalFormStock').modal('show');
+    $('#modalFormStock').modal('open');
   }
 
   cerrarModalFormularioStock() {
     this.formGroupStock.setValue({ id: '', idinventario: "", entrada: "", salida: "", descripcion: "", costo:'', total:'', nombre:'' });
-    $('#modalFormStock').modal('hide');
+    $('#modalFormStock').modal('close');
   }
 
   salvarCambios() {
@@ -133,6 +136,11 @@ export class StockComponent {
     this.formGroup.setValue(data);
     this.abrirModalFormulario();
   }
+
+  stringToNumber(d:any):number{
+    return parseInt(d);
+  }
+
 
   sumar(){
     return this.productos.reduce((acumulador, producto) => acumulador + parseFloat(producto.total), 0);

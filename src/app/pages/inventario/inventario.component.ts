@@ -5,20 +5,22 @@ import { NegocioService } from '../../services/negocio.service';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
+import {  FilterPipe } from '../../pipes/filter.pipe';
 
 declare let $: any;
 
 @Component({
   selector: 'app-inventario',
   standalone: true,
-  imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule, ReactiveFormsModule, SidebarComponent],
-  providers: [NegocioService],
+  imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule, ReactiveFormsModule, SidebarComponent, FormsModule, FilterPipe],
+  providers: [NegocioService, FilterPipe],
   templateUrl: './inventario.component.html',
   styleUrl: './inventario.component.scss'
 })
 export class InventarioComponent {
+  filtro: string = '';
   userData: any;
   cappn_userkey: any;
   idNegocio: any;
@@ -62,7 +64,7 @@ export class InventarioComponent {
     this.cappn_userkey = JSON.parse(session);
     this.validarUsuarioNegocio();
 
-    $(document).ready(function(){
+    $(document).ready(function () {
       $('.tabs').tabs();
       $('.modal').modal();
     });
@@ -70,28 +72,28 @@ export class InventarioComponent {
 
   abrirModalFormulario() {
     this.formGroup.get('idnegocio')?.setValue(this.idNegocio);
-    $('#predetalleInventario').modal('close'); 
+    $('#predetalleInventario').modal('close');
     $('#modalFormInventario').modal('open');
   }
   cerrarModalFormulario() {
-    this.formGroup.setValue({ id: '', codigo: "", nombre: "", "descripcion": "", "idnegocio": "", existencias:'',costo:'', total:'' });
-    $('#predetalleInventario').modal('close');  
+    this.formGroup.setValue({ id: '', codigo: "", nombre: "", "descripcion": "", "idnegocio": "", existencias: '', costo: '', total: '' });
+    $('#predetalleInventario').modal('close');
     $('#modalFormInventario').modal('close');
   }
 
-  abrirModalPredetalle(data:any){
+  abrirModalPredetalle(data: any) {
     this.formGroup.setValue(data);
-    $('#predetalleInventario').modal('open');  
+    $('#predetalleInventario').modal('open');
   }
 
-  abrirModalFormularioStock(data:any) {
+  abrirModalFormularioStock(data: any) {
     this.formGroupStock.get('idinventario')?.setValue(data.id);
     this.formGroupStock.get('nombre')?.setValue(data.nombre);
     $('#modalFormStock').modal('show');
   }
 
   cerrarModalFormularioStock() {
-    this.formGroupStock.setValue({ id: '', idinventario: "", entrada: "", salida: "", descripcion: "", costo:'', total:'', nombre:'' });
+    this.formGroupStock.setValue({ id: '', idinventario: "", entrada: "", salida: "", descripcion: "", costo: '', total: '', nombre: '' });
     $('#modalFormStock').modal('hide');
   }
 
@@ -140,11 +142,11 @@ export class InventarioComponent {
     this.abrirModalFormulario();
   }
 
-  stringToNumber(d:any):number{
+  stringToNumber(d: any): number {
     return parseInt(d);
   }
 
-  sumar(){
+  sumar() {
     return this.productos.reduce((acumulador, producto) => acumulador + parseFloat(producto.total), 0);
   }
 

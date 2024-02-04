@@ -15,8 +15,8 @@
         </a>
     </li>
     <li><a class="subheader">Sucursales</a></li>
-    <li routerLinkActive="active black">
-        <a *ngFor="let d of dataNegocio.sucursales" [routerLink]="['/negocios', idNegocio, d.nombre, d.id]" routerLinkActive="white-text">
+    <li routerLinkActive="active black" *ngIf="dataNegocio">
+        <a  *ngFor="let d of dataNegocio.sucursales" [routerLink]="['/negocios', idNegocio, d.nombre, d.id]" routerLinkActive="white-text">
             <i class="material-icons" routerLinkActive="white-text">store</i>
             {{d.nombre}}
         </a>

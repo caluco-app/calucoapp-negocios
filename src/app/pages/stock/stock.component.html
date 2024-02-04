@@ -1,54 +1,76 @@
-<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+<main>
 
-<div class="container-fluid  bg-light mb-4  pb-5">
-    <div class="container" *ngIf="dataNegocio">
-        <div class="row">
-            <div class="col-lg-12 ">
-                <h3 class="mt-4 title">
-                    <i class="fa fa-arrow-left i-link" aria-hidden="true"
-                        [routerLink]="['/negocios', idNegocio, 'inventarios']"></i>
-                    {{dataNegocio.negocio.nombre}}
-                </h3>
-            </div>
+    <app-navbar></app-navbar>
 
-        </div>
+
+    <div class="container-fluid mt-1" *ngIf="dataNegocio">
+
 
         <div class="row mt-0">
-            <div class="col-lg-12 ">
-                <hr>
-                <h3 class=" title mt-4"> STOCKS </h3>
-            </div>
 
-            <div class="col-12" *ngIf="productos.length>0">
-                <div class="col-lg-12 ">
+            <div class="col m12  s12">
+                <div class="row">
 
-                    <dl class="row bg-white p-3">
-                        <dt class="col-sm-3">Código</dt>
-                        <dd class="col-sm-9">{{productos[0].codigo}}</dd>
-
-                        <dt class="col-sm-3">Nombre</dt>
-                        <dd class="col-sm-9">{{productos[0].nombre}}</dd>
-
-                        <dt class="col-sm-3">Descripción</dt>
-                        <dd class="col-sm-9">{{productos[0].descripcion}}</dd>
-
-                        <dt class="col-sm-3">Existencias</dt>
-                        <dd class="col-sm-9">{{productos[0].existencias}}</dd>
-
-                        <dt class="col-sm-3">Total de Inventario</dt>
-                        <dd class="col-sm-9">{{productos[0].costo * productos[0].existencias | currency}}</dd>
-
-                        <dt class="col-sm-3">Costo U.</dt>
-                        <dd class="col-sm-9">{{productos[0].costo | currency}}</dd>
-                    </dl>
-
+                    <div class="col  s12 center">
+                        <img src="assets/images/logo_gris.jpg" alt="Producto" height="100px">
+                    </div>
+                    <div class="col  s12 grey lighten-4" *ngIf="productos.length>0">
+                        <p style="margin-top: 20px;">
+                            <span>
+                                <i class="material-icons left">hdr_auto</i>
+                                Nombre
+                            </span>
+                            <strong class="right">{{productos[0].nombre}}</strong>
+                        </p>
+                        <p style="margin-top: 20px;">
+                            <span>
+                                <i class="material-icons left">description</i>
+                                Descripción
+                            </span>
+                            <strong class="right">{{productos[0].nombre}}</strong>
+                        </p>
+                        <p style="margin-top: 20px;">
+                            <span>
+                                <i class="material-icons left">qr_code_scanner</i>
+                                Código de barras
+                            </span>
+                            <strong class="right">{{productos[0].codigo}}</strong>
+                        </p>
+                        <p>
+                            <span>
+                                <i class="material-icons left">sell</i>
+                                Disponibles
+                            </span>
+                            <strong class="right">{{productos[0].existencias }}</strong>
+                        </p>
+                        <p>
+                            <span>
+                                <i class="material-icons left">point_of_sale</i>
+                                Costo
+                            </span>
+                            <strong class="right">{{productos[0].costo | currency}}</strong>
+                        </p>
+                        <p style="margin-bottom: 20px;">
+                            <span>
+                                <i class="material-icons left">paid</i>
+                                Inversión
+                            </span>
+                            <strong class="right">
+                                {{productos[0].costo * productos[0].existencias | currency}}
+                            </strong>
+                        </p>
+                    </div>
                 </div>
             </div>
 
 
-            <div class="col-lg-3">
 
-                <button type="button" class="btn btn-success btn-sm btn-block mt-3 mb-3"
+
+
+            <div class="col s12">
+
+                <button type="button" class="btn green col s4 offset-s8"
                     (click)="abrirModalFormularioStock(productos[0])">
                     <i class="fa fa-cog" aria-hidden="true"></i>
                     Ajuste de Stock
@@ -56,7 +78,7 @@
             </div>
 
 
-            <div class="col-lg-12 ">
+            <div class="col s12 ">
                 <div class="table-responsive">
                     <table class="table table-hover table-sm">
                         <thead class="thead-white">
@@ -90,8 +112,8 @@
                                 </td>
 
                                 <td>
-                                    <span class="badge badge-secondary  "
-                                        [ngClass]="{'badge-success':d.entrada>0, 'badge-danger':d.salida>0}">
+                                    <span class="badge white-text  "
+                                        [ngClass]="{'green':d.entrada>0, 'red':d.salida>0}">
                                         {{d.entrada>0?'+':d.salida>0?'-':''}} {{(d.costo*d.entrada)+ d.costo*d.salida |
                                         currency}}</span>
 
@@ -111,32 +133,34 @@
         </div>
     </div>
 
-</div>
+
+    <app-footer></app-footer>
+</main>
 
 
 <!-- Modal -->
-<div class="modal  fade" id="modalFormInventario" data-backdrop="static" data-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal  fade" id="modalFormInventario">
     <form class="modal-dialog modal-lg" [formGroup]="formGroup" (ngSubmit)="salvarCambios()">
         <div class="modal-content">
+            <i class="material-icons right cursor" (click)="cerrarModalFormulario()">cancel</i>
             <div class="modal-header">
-                <h5 class="modal-title title" id="staticBackdropLabel">Invertario</h5>
-                <button type="button" class="close" (click)="cerrarModalFormulario()">
+                <h5 class="modal-title title" id="staticBackdropLabel">Ajuste de Stock</h5>
+                <button type="button" class="close" (click)="cerrarModalFormularioStock()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-4 form-group">
+                    <div class="col m12">
                         <input type="text" class="form-control form-control-sm" name="codigo" formControlName="codigo"
                             placeholder="Barcode Eje: 0000000">
                     </div>
-                    <div class="col-md-12 form-group">
+                    <div class="col m12">
                         <input type="text" class="form-control form-control-sm" name="nombre"
                             placeholder="Nombre del producto Eje: Aceite Valvoline 10w30 1 GAL"
                             formControlName="nombre">
                     </div>
-                    <div class="col-md-12 form-group">
+                    <div class="col m12">
                         <textarea type="text" class="form-control form-control-sm" name="descripcion"
                             placeholder="Descipción del producto" formControlName="descripcion">
                         </textarea>
@@ -160,80 +184,56 @@
 
 <div class="modal  fade" id="modalFormStock" data-backdrop="static" data-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <form class="modal-dialog modal-lg" [formGroup]="formGroupStock" (ngSubmit)="salvarCambiosStock()">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title title" id="staticBackdropLabel">Ajuste de Stock</h5>
-                <button type="button" class="close" (click)="cerrarModalFormularioStock()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12 form-group">
-                        <label for="" class="text-secondary">Producto</label>
-                        <input type="text" class="form-control form-control-sm" name="nombre" readonly
-                            formControlName="nombre" placeholder="Eje: 1000">
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label for="" class="text-secondary">Cantidad de entrada</label>
-                        <input type="number" class="form-control form-control-sm" name="entrada"
-                            formControlName="entrada" placeholder="Eje: 1000">
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label for="" class="text-secondary">Cantidad de salida</label>
-                        <input type="number" class="form-control form-control-sm" name="salida" formControlName="salida"
-                            placeholder="Eje: 1000">
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label for="" class="text-secondary">Costo por Unidad</label>
-                        <input type="number" class="form-control form-control-sm" name="costo" formControlName="costo"
-                            placeholder="Eje: $50.00">
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <label for="descripcion" class="text-secondary">Descripción</label>
-                        <select name="descripcion" id="descripcion" class="form-control form-control-sm"
-                            formControlName="descripcion">
-                            <option value="Compra">Compra</option>
-                            <option value="Venta">Venta</option>
-                            <option value="Vencimiento">Vencimiento</option>
-                            <option value="Devolución">Devolución</option>
-                            <option value="Otro no clasificado">Otro no clasificado</option>
-                        </select>
-                        <!-- <textarea class="form-control form-control-sm" name="descripcion"
-                            placeholder="Por compra, venta, vencimiento, etc. de producto"
-                            formControlName="descripcion">
-                        </textarea> -->
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="alert alert-warning" role="alert">
-                            Para realizar esta operación, es necesario realizar un ajuste de costos a nivel contable, lo
-                            cual implica un consumo más significativo de recursos. Actualmente, tu negocio cuenta con un
-                            perfil de tipo <strong>COMMUNITY</strong>, razón por la cual esta acción conlleva un costo
-                            de <strong>$0.09</strong>. Esto se debe a que aún no has adquirido el plan
-                            <strong>PREMIUM</strong>, el cual te permite realizar ajustes contables de manera más
-                            flexible y eficiente.
-                            Haz clic aquí si estás interesado en obtener más información sobre el plan
-                            <strong>PREMIUM</strong>.
-                        </div>
-
-
-                    </div>
-
+    <form class="modal-content" [formGroup]="formGroupStock" (ngSubmit)="salvarCambiosStock()">
+        <i class="material-icons right cursor" (click)="cerrarModalFormularioStock()">cancel</i>
+        <div class="container">
+            <div class="row">
+                <div class="col 12">
+                    <h5 class="modal-title title" id="staticBackdropLabel">Ajuste de Stock</h5>
                 </div>
+                <div class="col m12">
+                    <label for="descripcion" class="text-secondary">Descripción</label>
+                    <select name="descripcion" id="descripcion" class="form-control form-control-sm"
+                        formControlName="descripcion">
+                        <option value="Compra">Compra</option>
+                        <option value="Venta">Venta</option>
+                        <option value="Vencimiento">Vencimiento</option>
+                        <option value="Devolución">Devolución</option>
+                        <option value="Otro no clasificado">Otro no clasificado</option>
+                    </select>
+                    <!-- <textarea class="form-control form-control-sm" name="descripcion"
+                        placeholder="Por compra, venta, vencimiento, etc. de producto"
+                        formControlName="descripcion">
+                    </textarea> -->
+                </div>
+           
+                <div class="col m12">
+                    <label for="" class="text-secondary">Cantidad de entrada</label>
+                    <input type="number" class="form-control form-control-sm" name="entrada" formControlName="entrada"
+                        placeholder="Eje: 1000">
+                </div>
+                <div class="col m12">
+                    <label for="" class="text-secondary">Cantidad de salida</label>
+                    <input type="number" class="form-control form-control-sm" name="salida" formControlName="salida"
+                        placeholder="Eje: 1000">
+                </div>
+                <div class="col m12">
+                    <label for="" class="text-secondary">Costo por Unidad</label>
+                    <input type="number" class="form-control form-control-sm" name="costo" formControlName="costo"
+                        placeholder="Eje: $50.00">
+                </div>
+                
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-danger" (click)="cerrarModalFormularioStock()">
-                    <i class="fa fa-close" aria-hidden="true"></i>
-                    Cerrar
-                </button>
-                <button type="submit" class="btn btn-sm btn-dark">
-                    <i class="fa fa-save" aria-hidden="true"></i>
-                    Guardar Cambios
-                </button>
+            <div class="row">
+          
+                <div class="col s12">
+                    <button type="submit" class="btn black col s12">
+                        <i class="material-icons right">save</i>
+                        Guardar Cambios
+                    </button>
+                </div>
             </div>
         </div>
     </form>
 </div>
 
-<app-footer></app-footer>

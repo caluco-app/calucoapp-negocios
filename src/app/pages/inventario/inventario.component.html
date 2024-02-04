@@ -15,17 +15,17 @@
             <div id="test1" class="col s12">
                 <div class="row mt-2">
                     <div class="col s6 l3 offset-l6">
-                        <a class="waves-effect waves-light btn grey darken-3 col s12">
+                        <!-- <a class="waves-effect waves-light btn grey darken-3 col s12">
                             <i class="material-icons right">add</i>
                             Agregar Categoria
-                        </a>
+                        </a> -->
                     </div>
                     <div class="col s6 l3 ">
                         <a class="waves-effect waves-light btn blue darken-3 col s12" (click)="abrirModalFormulario()">
                             <i class="material-icons right">add</i>
                             Agergar inventario</a>
                     </div>
-                    <div class="col s12 l6">
+                    <div class="col l6 m6 s12 ">
                         <div class="card ">
                             <div class="row">
                                 <div class="col s3 l2 center">
@@ -45,15 +45,15 @@
                         </div>
                     </div>
 
-                    <div class="col s12 l6">
+                    <div class="col l6 m6 s12 ">
                         <div class="card ">
                             <div class="row">
-                                <div class="col s3 l2 center">
+                                <div class="col l2 s3  center">
                                     <div class="redondo green lighten-5">
                                         <i class="material-icons ico-balance green-text text-darken-3">paid</i>
                                     </div>
                                 </div>
-                                <div class="col s9 l10">
+                                <div class="col l10 s9 ">
                                     <p class="m0 grey-text text-darken-3" style="margin-top: 20px;">
                                         <strong>Costo total de inventario</strong>
                                     </p>
@@ -64,14 +64,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-field col s12 l4 offset-l8">
+                    <div class="input-field col l4 offset-l8 m6 offset-m6  s12  ">
                         <i class="material-icons prefix">qr_code_scanner</i>
-                        <input id="icon_prefix" type="text" class="validate">
+                        <input id="icon_prefix" type="text" [(ngModel)]="filtro">
                         <label for="icon_prefix">Buscar</label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col s6 l2" *ngFor="let d of productos">
+                    <div class="col l2 m3  s6 " *ngFor="let d of productos | filter : filtro">
                         <div class="card cursor" (click)="abrirModalPredetalle(d)">
                             <div class="card-content">
                                 <div class="row">
@@ -101,114 +101,22 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col s12 center grey lighten-4" *ngIf="(productos | filter : filtro).length==0">
+                        <br><br>
+                        <h5>No hay registros...</h5>
+                        <br><br>
+                    </div>
                 </div>
             </div>
-            <div id="test2" class="col s12">Test 2</div>
+            <div id="test2" class="col s12">
+            [EN DESARROLLO]
+            </div>
         </div>
 
 
     </div>
 
-    <div class="container-fluid  bg-light mb-4  pb-5">
-        <div class="container" *ngIf="dataNegocio">
-            <div class="row">
-                <div class="col-lg-12 ">
-                    <h3 class="mt-4 title">
-                        <i class="fa fa-arrow-left i-link" aria-hidden="true"
-                            [routerLink]="['/negocios', idNegocio]"></i>
-                        {{dataNegocio.negocio.nombre}}
-                    </h3>
-                </div>
 
-            </div>
-
-            <div class="row mt-0">
-                <div class="col-lg-12 ">
-                    <hr>
-                    <h3 class=" title mt-4"> INVENTARIOS </h3>
-                </div>
-
-
-                <div class="col-lg-2">
-                    <button type="button" class="btn btn-dark btn-sm btn-block mt-3 mb-3"
-                        (click)="abrirModalFormulario()">
-                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                        Nuevo
-                    </button>
-                </div>
-                <div class="col-lg-4 offset-lg-6">
-                    <input type="text" class="form-control form-control-sm mt-3 mb-3" placeholder="Buscar">
-                </div>
-
-                <div class="col-lg-12 ">
-                    <table class="table table-hover table-sm">
-                        <thead class="thead-white">
-                            <tr>
-                                <th scope="col" colspan="3"></th>
-                                <th scope="col">Total de Inventario:</th>
-                                <th scope="col">{{sumar() |currency}}</th>
-                            </tr>
-                            <tr>
-                                <th scope="col" class="text-center">Código</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col" class="text-center">Existencias</th>
-                                <th scope="col">Costo U.</th>
-                                <th scope="col">Total de Inventario</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white">
-                            <tr *ngFor="let d of productos">
-
-                                <th scope="row" class="text-center">
-
-                                    {{d.codigo==''?'-':d.codigo}}
-
-
-                                </th>
-                                <td>
-                                    <p class="mb-0">
-
-                                        <button type="button" class="btn btn-link btn-sm"
-                                            (click)="enviarDataAFormulario(d)">
-                                            <i class="fa fa-edit" aria-hidden="true"></i>
-                                            {{d.nombre}}
-                                        </button>
-
-
-
-                                    </p>
-
-                                    <p class="lead text-min ">
-                                        <i class="fa fa-commenting-o fa-lg" aria-hidden="true"></i>
-                                        {{d.descripcion==''?'N/A':d.descripcion}}
-                                    </p>
-                                </td>
-                                <td class="text-center">
-                                    <a [routerLink]="['/negocios', idNegocio, 'stock', d.id]">
-                                        <i class="fa fa-cubes" aria-hidden="true"></i>
-                                        {{d.existencias}}
-                                    </a>
-                                </td>
-                                <td>
-                                    {{d.costo | currency}}
-                                </td>
-                                <td>
-                                    {{d.existencias * d.costo | currency}}
-                                </td>
-
-                            </tr>
-                            <tr *ngIf="productos.length==0">
-                                <td class="text-center" colspan="10">
-                                    No hay registros
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-    </div>
 
 
     <!-- Modal -->
@@ -216,14 +124,14 @@
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <form class="modal-content" [formGroup]="formGroup" (ngSubmit)="salvarCambios()">
             <i class="material-icons right cursor" (click)="cerrarModalFormulario()">cancel</i>
-            
+
             <div class="container">
                 <div class="row">
 
                     <div class="col s12">
                         <h5 class="center">
                             <strong>Inventario</strong>
-                           
+
                         </h5>
                     </div>
                     <div class="input-field col s12 l12">
@@ -314,13 +222,15 @@
                         </p>
                     </div>
                     <div class="col s6 ">
-                        <button class="waves-effect waves-light btn black col s12 mt-5" (click)="abrirModalFormulario()">
+                        <button class="waves-effect waves-light btn black col s12 mt-5"
+                            (click)="abrirModalFormulario()">
                             <i class="material-icons right">sell</i>
                             Editar Inventario
                         </button>
                     </div>
                     <div class="col s6 ">
-                        <a class="waves-effect waves-light btn green col s12 mt-5" [routerLink]="['/negocios', idNegocio, 'stock', formGroup.value.id]">
+                        <a class="waves-effect waves-light btn green col s12 mt-5"
+                            [routerLink]="['/inventario', idNegocio, 'stock', formGroup.value.id]">
                             <i class="material-icons right">settings</i>
                             Ajustar Disponible
                         </a>

@@ -41,7 +41,7 @@ export const routes: Routes = [
         component: InventarioComponent
     },
     {
-        path: 'negocios/:idnegocio/stock/:idinventario',
+        path: 'inventario/:idnegocio/stock/:idinventario',
         component: StockComponent
     },
     {
