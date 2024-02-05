@@ -195,11 +195,8 @@
                     <label for="descripcion" class="text-secondary">Descripción</label>
                     <select name="descripcion" id="descripcion" class="form-control form-control-sm"
                         formControlName="descripcion">
-                        <option value="Compra">Compra</option>
-                        <option value="Venta">Venta</option>
-                        <option value="Vencimiento">Vencimiento</option>
-                        <option value="Devolución">Devolución</option>
-                        <option value="Otro no clasificado">Otro no clasificado</option>
+                        <option value="Entrada">Entrada</option>
+                        <option value="Salida">Salida</option>
                     </select>
                     <!-- <textarea class="form-control form-control-sm" name="descripcion"
                         placeholder="Por compra, venta, vencimiento, etc. de producto"
@@ -207,12 +204,12 @@
                     </textarea> -->
                 </div>
            
-                <div class="col m12">
+                <div class="col m12" *ngIf="formGroupStock.value.descripcion=='Entrada'">
                     <label for="" class="text-secondary">Cantidad de entrada</label>
                     <input type="number" class="form-control form-control-sm" name="entrada" formControlName="entrada"
                         placeholder="Eje: 1000">
                 </div>
-                <div class="col m12">
+                <div class="col m12" *ngIf="formGroupStock.value.descripcion=='Salida'">
                     <label for="" class="text-secondary">Cantidad de salida</label>
                     <input type="number" class="form-control form-control-sm" name="salida" formControlName="salida"
                         placeholder="Eje: 1000">

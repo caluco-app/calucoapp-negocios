@@ -84,8 +84,10 @@ export class StockComponent {
   }
 
   cerrarModalFormularioStock() {
+    this.formGroup.reset();
     this.formGroupStock.setValue({ id: '', idinventario: "", entrada: "", salida: "", descripcion: "", costo:'', total:'', nombre:'' });
     $('#modalFormStock').modal('close');
+    $('select').formSelect();
   }
 
   salvarCambios() {
