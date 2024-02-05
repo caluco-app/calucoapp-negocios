@@ -1,7 +1,7 @@
 <app-sidebar></app-sidebar>
-<main>
+<main *ngIf="dataNegocio">
 
-    <app-navbar></app-navbar>
+    <app-navbar [nombreNegocio]="dataNegocio.negocio.nombre"></app-navbar>
 
     <div class="container-fluid mt-1">
 
@@ -118,7 +118,7 @@
 
     </div>
 
-
+    <app-footer></app-footer>
 
 
     <!-- Modal -->
@@ -321,5 +321,5 @@
         </form>
     </div>
 
-    <app-footer></app-footer>
+    
 </main>

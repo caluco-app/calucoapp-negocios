@@ -7,16 +7,19 @@ import { UserInfoService } from '../../services/user-info.service';
 import { AuthService } from '../../services/auth.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NegocioService } from '../../services/negocio.service';
-
+import { SidebarComponent } from '../../components/sidebar/sidebar.component';
+import { FilterPipe } from '../../pipes/filter.pipe';
+declare let $: any;
 @Component({
   selector: 'app-clientes',
   standalone: true,
-  imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule, ReactiveFormsModule, FormsModule],
-  providers:[NegocioService],
+  imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule, ReactiveFormsModule, FormsModule, SidebarComponent, FilterPipe],
+  providers: [NegocioService],
   templateUrl: './clientes.component.html',
   styleUrl: './clientes.component.scss'
 })
 export class ClientesComponent {
+  filtro: string = '';
   userData: any;
   cappn_userkey: any;
   idNegocio: any;
@@ -39,7 +42,7 @@ export class ClientesComponent {
 
   constructor(private userInfo: UserInfoService, private router: Router, private authapi: AuthService, private route: ActivatedRoute, private negocioService: NegocioService) {
     this.route.paramMap.subscribe(params => {
-      this.idNegocio = params.get('id'); // 'id' debe coincidir con el nombre del parámetro en tu ruta
+      this.idNegocio = params.get('idnegocio'); // 'id' debe coincidir con el nombre del parámetro en tu ruta
       console.log('ID obtenido:', this.idNegocio);
 
       // Puedes realizar otras operaciones con el ID aquí, como llamar a servicios, etc.
@@ -74,8 +77,8 @@ export class ClientesComponent {
 
   salvarCambios() {
 
-    if(this.formGroup.value.nombre==''){
-      let cliente:any=this.formGroup.value.cliente;
+    if (this.formGroup.value.nombre == '') {
+      let cliente: any = this.formGroup.value.cliente;
       this.formGroup.get('nombre')?.setValue(cliente);
     }
 
@@ -90,6 +93,11 @@ export class ClientesComponent {
     this.negocioService.obtenerClientes().subscribe(response => {
       console.log(response);
       this.clientes = response.data;
+
+      $(document).ready(function () {
+        $('.tabs').tabs();
+        $('.modal').modal();
+      });
     });
   }
 
@@ -98,10 +106,10 @@ export class ClientesComponent {
   }
 
   nuevo(data: any) {
-    if( data.id =='0'){
+    if (data.id == '0') {
       this.clientes.unshift(data);
     }
-    
+
     this.formGroup.setValue(data);
   }
 

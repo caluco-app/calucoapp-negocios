@@ -118,6 +118,24 @@ textarea.materialize-textarea:focus:not([readonly])+label {
 
 @media only screen and (max-width: 992px) {
   nav .brand-logo {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
   }
+}
+
+.tabs .tab a {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.tabs .tab a:hover, .tabs .tab a.active {
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.tabs .indicator {
+  background-color: #767676 !important;
+}
+
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+  background-color: rgb(255 255 255 / 20%);
+  outline: none;
 }

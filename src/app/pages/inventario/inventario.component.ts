@@ -64,10 +64,7 @@ export class InventarioComponent {
     this.cappn_userkey = JSON.parse(session);
     this.validarUsuarioNegocio();
 
-    $(document).ready(function () {
-      $('.tabs').tabs();
-      $('.modal').modal();
-    });
+   
   }
 
   abrirModalFormulario() {
@@ -133,7 +130,13 @@ export class InventarioComponent {
     this.negocioService.inventarioPorNegocio(this.idNegocio).subscribe(response => {
       console.log(response);
       this.productos = response.data;
+      $(document).ready(function () {
+        $('.tabs').tabs();
+        $('.modal').modal();
+      });
     });
+
+    
   }
 
   enviarDataAFormulario(data: any) {

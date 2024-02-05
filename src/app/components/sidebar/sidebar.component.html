@@ -8,12 +8,31 @@
     <li>
         <div class="divider"></div>
     </li>
+
+    <li><a class="subheader">Gestión de Negocio</a></li>
+
     <li routerLinkActive="active black">
         <a [routerLink]="['/negocios', idNegocio]" routerLinkActive="white-text">
             <i class="material-icons " routerLinkActive="white-text">addchart</i>
             [EN DESARROLLO ]
         </a>
     </li>
+
+    <li routerLinkActive="active black">
+        <a class="sidenav-close" [routerLink]="['/socios', idNegocio]" routerLinkActive="white-text">
+            <i class="material-icons" routerLinkActive="white-text">groups</i>
+            PARTNERS (SOCIOS)
+        </a>
+    </li>
+
+    <li routerLinkActive="active black">
+        <a class="sidenav-close" [routerLink]="['/inventario', idNegocio]" routerLinkActive="white-text">
+            <i class="material-icons " routerLinkActive="white-text">view_in_ar</i>
+            INVENTARIO
+        </a>
+    </li>
+
+   
     <li><a class="subheader">Sucursales</a></li>
     <li routerLinkActive="active black" *ngIf="dataNegocio">
         <a  *ngFor="let d of dataNegocio.sucursales" [routerLink]="['/negocios', idNegocio, d.nombre, d.id]" routerLinkActive="white-text">
@@ -22,27 +41,7 @@
             <!-- {{d.nombre}} -->
         </a>
     </li>
-    <li><a class="subheader">Gestión de Negocio</a></li>
-    <li>
-        <a href="#!">
-            <i class="material-icons">badge</i>
-            [EN DESARROLLO ]
-           <!--  Clientes -->
-        </a>
-    </li>
-    <li>
-        <a href="#!">
-            <i class="material-icons">local_shipping</i>
-            [EN DESARROLLO ]
-           <!--  Proveedores -->
-        </a>
-    </li>
-    <li routerLinkActive="active black">
-        <a class="sidenav-close" [routerLink]="['/inventario', idNegocio]" routerLinkActive="white-text">
-            <i class="material-icons " routerLinkActive="white-text">view_in_ar</i>
-            INVENTARIO
-        </a>
-    </li>
+   
 
     <li>
         <div class="divider"></div>

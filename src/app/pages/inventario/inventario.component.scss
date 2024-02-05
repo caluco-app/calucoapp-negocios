@@ -22,15 +22,3 @@ font-size: 20px;
     min-height: 50px;
 }
 
-.tabs .tab a {
-    color: rgba(0, 0, 0, 0.7);
-}
-
-.tabs .tab a:hover, .tabs .tab a.active {
-    background-color: transparent;
-    color: rgba(0, 0, 0, 0.7);
-}
-
-.tabs .indicator {
-    background-color: #767676 !important;
-}

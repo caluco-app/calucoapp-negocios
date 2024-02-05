@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 declare let $: any;
 @Component({
@@ -11,6 +11,8 @@ declare let $: any;
 })
 export class NavbarComponent {
   cappn_userkey: any;
+
+  @Input() nombreNegocio!:string;
 
   ngOnInit() {
     let session: any = sessionStorage.getItem('cappn_userkey');
