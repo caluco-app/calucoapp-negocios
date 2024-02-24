@@ -1,0 +1,42 @@
+<div class="row white">
+    <div class="col s12">
+        <h3 class="pink-text">Partnerts</h3>
+    </div>
+    <div class="col m6 offset-m6 s12 ">
+        <div class="input-field ">
+            <i class="material-icons prefix">search</i>
+            <input id="searchx" type="text" name="searchx" [(ngModel)]="search">
+            <label for="searchx">Buscar</label>
+        </div>
+    </div>
+    <div class="col s12">
+        <ul class="collection">
+
+            <li class="collection-item avatar colechover" *ngFor="let d of socios | filter:search"
+                (click)="seleccionar(d)">
+                <i class="material-icons circle"
+                    [ngClass]="{ 'green':(d.registro || d.documento),  'black':!(d.registro || d.documento)}">{{d.registro
+                    ||
+                    d.documento ? 'store' : 'person'}}</i>
+                <span class="title">{{d.nombre}}</span>
+                <p><strong>Registro:</strong> {{d.registro ||'-'}}</p>
+                <p><strong>Documento:</strong> {{d.documento ||'-'}}</p>
+                
+            </li>
+
+            <li class="collection-item avatar " *ngIf="(socios | filter:search).length==0">
+                <i class="material-icons circle">
+                    support
+                </i>
+                <span class="title">No hay registros</span>
+
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+<div class="fixed-action-btn">
+    <button (click)="nuevo()" class="btn-floating btn-large waves-effect waves-light pink "><i
+            class="material-icons">add</i></button>
+</div>

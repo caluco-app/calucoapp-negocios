@@ -13,7 +13,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(data: any):Observable<any> {
-    return this.http.post(`${this.urlService}/login`, data);
+    return this.http.post(`${this.urlService}/autenticacion`, data);
   }
 
   validarUsuarioNegocio(data: any):Observable<any> {

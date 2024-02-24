@@ -4,11 +4,12 @@ import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../components/footer/footer.component';
+import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 declare let $: any;
 @Component({
   selector: 'app-negocios',
   standalone: true,
-  imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule],
+  imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule, SidebarComponent],
   templateUrl: './negocios.component.html',
   styleUrl: './negocios.component.scss'
 })

@@ -1,10 +1,10 @@
 <app-sidebar></app-sidebar>
 <main>
 
-    <app-navbar></app-navbar>
+    <app-navbar [nombreNegocio]="cappn_userkey.nombrenegocio"></app-navbar>
 
 
-    <div class="container-fluid mt-1" *ngIf="dataNegocio">
+    <div class="container mt-1" >
 
 
         <div class="row mt-0">
@@ -68,14 +68,7 @@
 
 
 
-            <div class="col s12">
-
-                <button type="button" class="btn green m4  offset-m8 col s12 "
-                    (click)="abrirModalFormularioStock(productos[0])">
-                    <i class="fa fa-cog" aria-hidden="true"></i>
-                    Ajuste de Stock
-                </button>
-            </div>
+            
 
 
             <div class="col s12 ">
@@ -91,14 +84,15 @@
                                 <th scope="col">Total</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white">
-                            <tr *ngFor="let d of stocks">
+                        <tbody class="bg-white" >
+                            <tr *ngFor="let d of stocks" [ngClass]="{'red-text ':d.entrada>0, 'green-text':d.salida>0}">
 
                                 <td class="text-center">
                                     {{d.fechahora | date:'dd/MM/YYYY HH:MM:SS'}}
                                 </td>
                                 <td>
-                                    {{d.descripcion}}
+                                   <strong  class="text-darken-4" >{{d.descripcion}}</strong>
+                                    
                                 </td>
                                 <td class="text-center">
                                     {{d.entrada}}
@@ -111,10 +105,10 @@
                                     {{d.costo | currency}}
                                 </td>
 
-                                <td class="center white-text" [ngClass]="{'green':d.entrada>0, 'red':d.salida>0}">
+                                <td class="text-center " [ngClass]="{'red-text':d.entrada>0, 'green-text':d.salida>0}">
                                     
                                         
-                                        {{d.entrada>0?'+':d.salida>0?'-':''}} {{(d.costo*d.entrada)+ d.costo*d.salida |
+                                        {{d.entrada>0?'-':d.salida>0?'+':''}} {{(d.costo*d.entrada)+ d.costo*d.salida |
                                         currency}}
 
                                 </td>
@@ -137,6 +131,15 @@
     <app-footer></app-footer>
 </main>
 
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large pink">
+      <i class="large material-icons">settings</i>
+    </a>
+    <ul>
+      <li><a (click)="abrirModalFormularioStock(productos[0], 'S')" class="btn-floating tooltipped red " data-position="left" data-tooltip="Salida"><i class="material-icons">arrow_back</i></a></li>
+      <li><a (click)="abrirModalFormularioStock(productos[0], 'E')" class="btn-floating tooltipped green darken-1" data-position="left" data-tooltip="Entrada" ><i class="material-icons">arrow_forward</i></a></li>
+    </ul>
+  </div>
 
 <!-- Modal -->
 <div class="modal  fade" id="modalFormInventario">
@@ -192,16 +195,8 @@
                     <h5 class="modal-title title" id="staticBackdropLabel">Ajuste de Stock</h5>
                 </div>
                 <div class="col m12">
-                    <label for="descripcion" class="text-secondary">Descripción</label>
-                    <select name="descripcion" id="descripcion" class="form-control form-control-sm"
-                        formControlName="descripcion">
-                        <option value="Entrada">Entrada</option>
-                        <option value="Salida">Salida</option>
-                    </select>
-                    <!-- <textarea class="form-control form-control-sm" name="descripcion"
-                        placeholder="Por compra, venta, vencimiento, etc. de producto"
-                        formControlName="descripcion">
-                    </textarea> -->
+                    <h4>{{formGroupStock.value.descripcion}}</h4>
+                    
                 </div>
            
                 <div class="col m12" *ngIf="formGroupStock.value.descripcion=='Entrada'">
@@ -224,7 +219,7 @@
             <div class="row">
           
                 <div class="col s12">
-                    <button type="submit" class="btn black col s12">
+                    <button type="submit" class="btn pink col s12">
                         <i class="material-icons right">save</i>
                         Guardar Cambios
                     </button>

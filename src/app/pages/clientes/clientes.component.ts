@@ -9,11 +9,17 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { NegocioService } from '../../services/negocio.service';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { FilterPipe } from '../../pipes/filter.pipe';
+import { ListaClientesComponent } from '../../components/lista-clientes/lista-clientes.component';
+import { FormularioClientesComponent } from '../../components/formulario-clientes/formulario-clientes.component';
 declare let $: any;
 @Component({
   selector: 'app-clientes',
   standalone: true,
-  imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule, ReactiveFormsModule, FormsModule, SidebarComponent, FilterPipe],
+  imports: [NavbarComponent,
+    CommonModule, FooterComponent,
+    RouterModule, ReactiveFormsModule,
+    FormsModule, SidebarComponent,
+    FilterPipe, ListaClientesComponent, FormularioClientesComponent],
   providers: [NegocioService],
   templateUrl: './clientes.component.html',
   styleUrl: './clientes.component.scss'
@@ -25,6 +31,8 @@ export class ClientesComponent {
   idNegocio: any;
   dataNegocio: any;
   clientes: any[] = [];
+  pantalla: string = 'lista'; //formulario
+  formulario: any = null;
 
   formGroup = new FormGroup({
     id: new FormControl(''),
@@ -54,6 +62,19 @@ export class ClientesComponent {
     let session: any = sessionStorage.getItem('cappn_userkey');
     this.cappn_userkey = JSON.parse(session);
     this.validarUsuarioNegocio();
+  }
+
+  clickEnNuevo(evt: any) {
+    this.pantalla = 'formulario';
+  }
+
+  clickCancelar(evt: any) {
+    this.pantalla = 'lista';
+  }
+
+  clicSeleccionar(evt: any) {
+    this.formulario = evt;
+    this.pantalla = 'formulario';
   }
 
 

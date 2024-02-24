@@ -31,7 +31,7 @@ export class SidebarComponent {
   ngOnInit() {
     let session: any = sessionStorage.getItem('cappn_userkey');
     this.cappn_userkey = JSON.parse(session);
-    this.validarUsuarioNegocio();
+    
     
   }
 

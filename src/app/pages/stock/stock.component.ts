@@ -7,7 +7,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { NegocioService } from '../../services/negocio.service';
 import { AuthService } from '../../services/auth.service';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
-declare let $:any;
+declare let $: any;
 
 @Component({
   selector: 'app-stock',
@@ -50,8 +50,8 @@ export class StockComponent {
 
   constructor(private router: Router, private authapi: AuthService, private route: ActivatedRoute, private negocioService: NegocioService) {
     this.route.paramMap.subscribe(params => {
-      this.idNegocio = params.get('idnegocio'); 
-      this.idInventario = params.get('idinventario'); 
+      this.idNegocio = params.get('idnegocio');
+      this.idInventario = params.get('idinventario');
       console.log('ID obtenido:', this.idNegocio);
       console.log('ID idInventario:', this.idInventario);
 
@@ -63,20 +63,32 @@ export class StockComponent {
   ngOnInit() {
     let session: any = sessionStorage.getItem('cappn_userkey');
     this.cappn_userkey = JSON.parse(session);
-    this.validarUsuarioNegocio();
-    $('.modal').modal();
-    $('select').formSelect();
+    this.productosPorNegocios();
+
+    $(document).ready(function () {
+      $('.fixed-action-btn').floatingActionButton();
+      $('.modal').modal();
+      $('select').formSelect();
+      $('.tooltipped').tooltip();
+    });
   }
 
   abrirModalFormulario() {
     $('#modalFormInventario').modal('show');
   }
   cerrarModalFormulario() {
-    this.formGroup.setValue({ id: '', codigo: "", nombre: "", "descripcion": "", "idnegocio": "", existencias:'',costo:'', total:'' });
+    this.formGroup.setValue({ id: '', codigo: "", nombre: "", "descripcion": "", "idnegocio": "", existencias: '', costo: '', total: '' });
     $('#modalFormInventario').modal('hide');
   }
 
-  abrirModalFormularioStock(data:any) {
+  abrirModalFormularioStock(data: any, ajuste:string) {
+
+    this.formGroupStock.get('descripcion')?.setValue('Entrada');
+    if(ajuste=='S'){
+      this.formGroupStock.get('descripcion')?.setValue('Salida');
+    }
+    
+    
     this.formGroupStock.get('idinventario')?.setValue(data.id);
     this.formGroupStock.get('nombre')?.setValue(data.nombre);
     this.formGroupStock.get('costo')?.setValue(data.costo);
@@ -85,7 +97,7 @@ export class StockComponent {
 
   cerrarModalFormularioStock() {
     this.formGroup.reset();
-    this.formGroupStock.setValue({ id: '', idinventario: "", entrada: "", salida: "", descripcion: "", costo:'', total:'', nombre:'' });
+    this.formGroupStock.setValue({ id: '', idinventario: "", entrada: "", salida: "", descripcion: "", costo: '', total: '', nombre: '' });
     $('#modalFormStock').modal('close');
     $('select').formSelect();
   }
@@ -113,21 +125,14 @@ export class StockComponent {
   }
 
 
-  validarUsuarioNegocio() {
-    let data: any = { idusuario: this.cappn_userkey.usuario[0].id, idnegocio: this.idNegocio };
-    this.authapi.validarUsuarioNegocio(data).subscribe(response => {
-      console.log(response);
-      this.dataNegocio = response.data;
-      this.productosPorNegocios();
-    });
-  }
+
 
   productosPorNegocios() {
     this.negocioService.stockPorInventario(this.idNegocio, this.idInventario).subscribe(response => {
       console.log(response);
       this.productos = response.data;
     });
-    this.negocioService.stockPorIdInventario( this.idInventario).subscribe(response => {
+    this.negocioService.stockPorIdInventario(this.idInventario).subscribe(response => {
       console.log(response);
       this.stocks = response.data;
     });
@@ -139,12 +144,12 @@ export class StockComponent {
     this.abrirModalFormulario();
   }
 
-  stringToNumber(d:any):number{
+  stringToNumber(d: any): number {
     return parseInt(d);
   }
 
 
-  sumar(){
+  sumar() {
     return this.productos.reduce((acumulador, producto) => acumulador + parseFloat(producto.total), 0);
   }
 }

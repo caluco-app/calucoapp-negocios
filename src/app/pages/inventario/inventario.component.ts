@@ -7,14 +7,25 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
-import {  FilterPipe } from '../../pipes/filter.pipe';
+import { FilterPipe } from '../../pipes/filter.pipe';
+import { ProductoVentaComponent } from '../../components/producto-venta/producto-venta.component';
 
 declare let $: any;
 
 @Component({
   selector: 'app-inventario',
   standalone: true,
-  imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule, ReactiveFormsModule, SidebarComponent, FormsModule, FilterPipe],
+  imports: [
+    NavbarComponent,
+    CommonModule,
+    FooterComponent,
+    RouterModule,
+    ReactiveFormsModule,
+    SidebarComponent,
+    FormsModule,
+    FilterPipe,
+    ProductoVentaComponent
+  ],
   providers: [NegocioService, FilterPipe],
   templateUrl: './inventario.component.html',
   styleUrl: './inventario.component.scss'
@@ -50,21 +61,17 @@ export class InventarioComponent {
   });
 
   constructor(private router: Router, private authapi: AuthService, private route: ActivatedRoute, private negocioService: NegocioService) {
-    this.route.paramMap.subscribe(params => {
-      this.idNegocio = params.get('idnegocio'); // 'id' debe coincidir con el nombre del parámetro en tu ruta
-      console.log('ID obtenido:', this.idNegocio);
-
-      // Puedes realizar otras operaciones con el ID aquí, como llamar a servicios, etc.
-    });
+    
 
   }
 
   ngOnInit() {
     let session: any = sessionStorage.getItem('cappn_userkey');
     this.cappn_userkey = JSON.parse(session);
-    this.validarUsuarioNegocio();
+    this.idNegocio = this.cappn_userkey.idnegocio;
+    this.productosPorNegocios();
 
-   
+
   }
 
   abrirModalFormulario() {
@@ -136,7 +143,7 @@ export class InventarioComponent {
       });
     });
 
-    
+
   }
 
   enviarDataAFormulario(data: any) {

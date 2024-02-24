@@ -81,8 +81,16 @@ export class NegocioService {
     return this.http.post(`${this.urlService}/clientes`, data);
   }
 
+  sociosPorNegocioMtto(data: any): Observable<any> {
+    return this.http.post(`${this.urlService}/sociospornegocio`, data);
+  }
+
   obtenerClientes(): Observable<any> {
     return this.http.get(`${this.urlService}/clientes`);
+  }
+
+  obtenerSociosPorNegocio(idNegocio:any): Observable<any> {
+    return this.http.get(`${this.urlService}/sociospornegocio/${idNegocio}`);
   }
 
   obtenerClientesPorFiltro(filtro: any): Observable<any> {

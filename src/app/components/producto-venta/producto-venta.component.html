@@ -1,0 +1,131 @@
+<div class="row mt-2">
+    <div class="col s6 l3 offset-l6">
+        <!-- <a class="waves-effect waves-light btn grey darken-3 col s12">
+    <i class="material-icons right">add</i>
+    Agregar Categoria
+</a> -->
+    </div>
+    <div class="col s6 l3 ">
+        <a class="waves-effect waves-light btn blue darken-3 col s12" (click)="nuevoProducto()">
+            <i class="material-icons right">add</i>
+            Agregar producto
+        </a>
+    </div>
+    <div class="col l6 m6 s12 ">
+        <div class="card ">
+            <div class="row">
+                <div class="col s3 l2 center">
+                    <div class="redondo orange lighten-5">
+                        <i class="material-icons ico-balance orange-text text-darken-3">sell</i>
+                    </div>
+                </div>
+                <div class="col s9 l10">
+                    <p class="m0 grey-text text-darken-3" style="margin-top: 20px;">
+                        <strong>Total de productos para venta</strong>
+                    </p>
+                    <h5 class="m0 grey-text text-darken-4" style=" margin-bottom: 20px;">
+                        0
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col l6 m6 s12 ">
+        <div class="card ">
+            <div class="row">
+                <div class="col s3 l2 center">
+                    <div class="redondo blue lighten-5">
+                        <i class="material-icons ico-balance grey-text text-darken-3">language</i>
+                    </div>
+                </div>
+                <div class="col s9 l10">
+                    <p class="m0 reen-text text-darken-3" style="margin-top: 20px;">
+                        <strong>Total de productos en linea</strong>
+                    </p>
+                    <h5 class="m0 grey-text text-darken-4" style=" margin-bottom: 20px;">
+                        0
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field col l4 offset-l8 m6 offset-m6  s12  ">
+        <i class="material-icons prefix">qr_code_scanner</i>
+        <input id="icon_prefix" type="text" [(ngModel)]="filtro">
+        <label for="icon_prefix">Buscar</label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col l2 m3  s6 ">
+        <div class="card cursor">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col s12 center">
+                        <img src="assets/images/logo_gris.jpg" alt="Producto" height="100px">
+                    </div>
+                    <div class="col s12 center">
+                        <p>
+                            <strong>
+                                {{'0' | currency}}
+                            </strong>
+                        </p>
+                    </div>
+                    <div class="col s12">
+                        <h6 class="titulo-producto-card">Lorem, ipsum dolor.</h6>
+                    </div>
+
+                    <div class="col s12 center">
+                        <p>
+                            <i class="fa fa-cubes" aria-hidden="true"></i>
+                            <strong>
+                                0 <br>
+                                Disponibles
+                            </strong>
+                        </p>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 center grey lighten-4" *ngIf="([] | filter : filtro).length==0">
+        <br><br>
+        <h5>No hay registros...</h5>
+        <br><br>
+    </div>
+</div>
+
+<!-- modal producto -->
+<div id="producto_form_modal" class="modal">
+    <div class="modal-content">
+        <i class="material-icons right cursor" (click)="cerrarModalFormulario()">cancel</i>
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col s12">
+                    <h5 class="center">
+                        <strong>Producto para la venta</strong>
+
+                    </h5>
+                </div>
+                <div class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12 l12">
+                            <i class="material-icons prefix">keyboard_alt</i>
+                            <input id="nombre" type="text" name="nombre" formControlName="nombre">
+                            <label for="nombre" [ngClass]="{'active':formGroup.value.id}">Nombre del producto *</label>
+                        </div>
+                      </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>

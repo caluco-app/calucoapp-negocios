@@ -11,6 +11,19 @@ footer {
   footer {
     padding-left: 0;
   }
+
+ 
+}
+
+@media only screen and (min-width: 993px) {
+  .container {
+    width: 90%;
+  }
+}
+
+
+main {
+  min-height: 100vh;
 }
 
 .mt-1 {
@@ -31,7 +44,7 @@ footer {
 
 /* Estilos para el scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 3px;
   /* Ancho del scrollbar */
 }
 
@@ -65,7 +78,7 @@ footer {
   cursor: pointer;
 }
 
-.card :hover {
+.cardx :hover {
   background: #f9faff;
 }
 
@@ -126,7 +139,8 @@ textarea.materialize-textarea:focus:not([readonly])+label {
   color: rgba(0, 0, 0, 0.7);
 }
 
-.tabs .tab a:hover, .tabs .tab a.active {
+.tabs .tab a:hover,
+.tabs .tab a.active {
   background-color: transparent;
   color: rgba(0, 0, 0, 0.7);
 }
@@ -135,7 +149,42 @@ textarea.materialize-textarea:focus:not([readonly])+label {
   background-color: #767676 !important;
 }
 
-.tabs .tab a:focus, .tabs .tab a:focus.active {
+.tabs .tab a:focus,
+.tabs .tab a:focus.active {
   background-color: rgb(255 255 255 / 20%);
   outline: none;
+}
+
+.ico-balance {
+  font-size: 20px;
+}
+
+
+
+.redondo {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  border-radius: 100%;
+  margin: 15px;
+}
+
+.m0 {
+  margin: 0;
+}
+
+.m1 {
+  margin: 1%;
+}
+
+.p-absolute {
+  position: absolute;
+}
+
+.titulo-producto-card {
+  min-height: 50px;
 }
