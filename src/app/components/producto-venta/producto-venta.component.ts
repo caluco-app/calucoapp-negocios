@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FilterPipe } from '../../pipes/filter.pipe';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CardsInfoComponent } from '../cards-info/cards-info.component';
+import { CardProductoComponent } from '../card-producto/card-producto.component';
+import { NegocioService } from '../../services/negocio.service';
 declare let $: any;
 
 @Component({
@@ -10,43 +13,65 @@ declare let $: any;
   imports: [
     CommonModule,
     FormsModule,
-    FilterPipe
+    ReactiveFormsModule,
+    FilterPipe,
+    CardsInfoComponent,
+    CardProductoComponent
   ],
   templateUrl: './producto-venta.component.html',
   styleUrl: './producto-venta.component.scss'
 })
 export class ProductoVentaComponent {
+
+  @Output() clickNuevo = new EventEmitter<any>();
+
   filtro: string = '';
+  cappn_userkey: any;
+
+  productos: any[] = [];
+
   formGroup = new FormGroup({
     id: new FormControl(''),
     codigo: new FormControl(''),
     nombre: new FormControl('', Validators.required),
     descripcion: new FormControl(''),
     idnegocio: new FormControl('', Validators.required),
-  
+
   });
+  constructor(private negocioService: NegocioService) {
+
+  }
 
   ngOnInit() {
-    $(document).ready(function () {
-      $('.modal').modal();
-      $('.tabs').tabs();
+    let session: any = sessionStorage.getItem('cappn_userkey');
+    this.cappn_userkey = JSON.parse(session);
+    this.obtenerClientes(this.cappn_userkey.idnegocio);
+  }
+
+  obtenerClientes(idNegocio: any) {
+    this.negocioService.productoPorNegocio(idNegocio).subscribe(response => {
+      this.productos = response.data;
     });
   }
 
+
+
   nuevoProducto() {
-    this.abrirModalNuevoProductoVenta();
+    console.log('nuevo');
+    this.clickNuevo.emit(null);
+  }
+
+  clickConfigProducto(data: any) {
+    this.clickNuevo.emit(data);
   }
 
 
-  limpiarFormProductoVenta() {
 
-  }
 
-  abrirModalNuevoProductoVenta() {
-    $('#producto_form_modal').modal('open');
-  }
 
-  cerrarModalFormulario() {
-    $('#producto_form_modal').modal('close');
-  }
+
+
+
+
+
 }

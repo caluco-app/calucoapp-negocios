@@ -1,5 +1,5 @@
 <app-sidebar></app-sidebar>
-<main >
+<main>
 
     <app-navbar [nombreNegocio]="cappn_userkey.nombrenegocio"></app-navbar>
 
@@ -8,8 +8,17 @@
         <div class="row">
             <div class="col s12">
                 <ul class="tabs">
-                    <li class="tab col s3"><a class="active" href="#inventario_tab">Inventario</a></li>
-                    <li class="tab col s3"><a href="#productos_tab">Productos para la venta</a></li>
+                    <li class="tab col s3 active"><a href="#inventario_tab">
+                            <i class="material-icons  ">conveyor_belt</i>
+                            Inventario
+                        </a></li>
+                    <li class="tab col s3">
+                        <a  href="#productos_tab" (click)="cancelarProducto(null)">
+                            <i class="material-icons  ">store</i>
+                            <span class="hide-on-small-only">Productos para la venta</span>
+                            <span class="show-on-medium-and-up">Productos</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div id="inventario_tab" class="col s12">
@@ -26,43 +35,16 @@
                             Agregar inventario</a>
                     </div>
                     <div class="col l6 m6 s12 ">
-                        <div class="card pink">
-                            <div class="row">
-                                <div class="col s3 l2 center">
-                                    <div class="redondo pink lighten-5">
-                                        <i class="material-icons ico-balance pink-text text-darken-3">sell</i>
-                                    </div>
-                                </div>
-                                <div class="col s9 l10">
-                                    <p class="m0 white-text text-darken-3" style="margin-top: 20px;">
-                                        <strong>Total de inventario</strong>
-                                    </p>
-                                    <h5 class="m0 white-text text-darken-4" style=" margin-bottom: 20px;">
-                                        {{productos.length}}
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
+                        <app-cards-info [titulo]="'Tipos de inventario'" [valor]="20" [icono]="'sell'" [color]="'pink'"
+                            [esDinero]="false">
+                        </app-cards-info>
                     </div>
 
                     <div class="col l6 m6 s12 ">
-                        <div class="card green">
-                            <div class="row">
-                                <div class="col l2 s3  center">
-                                    <div class="redondo green lighten-5">
-                                        <i class="material-icons ico-balance green-text text-darken-3">paid</i>
-                                    </div>
-                                </div>
-                                <div class="col l10 s9 ">
-                                    <p class="m0 white-text text-darken-3" style="margin-top: 20px;">
-                                        <strong>Costo total de inventario</strong>
-                                    </p>
-                                    <h5 class="m0 white-text text-darken-4" style=" margin-bottom: 20px;">{{sumar()
-                                        |currency}}
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
+                        <app-cards-info [titulo]="'Inversión total'" [valor]="sumar()" [icono]="'paid'"
+                            [color]="'green'" [esDinero]="true">
+                        </app-cards-info>
+
                     </div>
                     <div class="input-field col l4 offset-l8 m6 offset-m6  s12  ">
                         <i class="material-icons prefix">qr_code_scanner</i>
@@ -75,13 +57,14 @@
                         <div class="card cursor" (click)="abrirModalPredetalle(d)">
                             <div class="card-content">
                                 <div class="row">
+                                    <p class="small-barcode center">{{d.codigo||'SIN CODIGO'}} </p>
                                     <div class="col s12 center">
                                         <img src="assets/images/logo_gris.jpg" alt="Producto" height="100px">
                                     </div>
-                                    <div class="col s12 center">
+                                    <div class="col s12 center ">
                                         <p>
                                             <strong>
-                                                {{d.costo | currency}}
+                                                {{d.costo | currency}} <br> Uni.
                                             </strong>
                                         </p>
                                     </div>
@@ -111,15 +94,18 @@
                 </div>
             </div>
             <div id="productos_tab" class="col s12 ">
-             <!--    <app-producto-venta></app-producto-venta> -->
-              
+                <app-formulario-productos *ngIf="pantalla=='productos-formulario'"
+                    (clickCancelar)="cancelarProducto($event)" [formulario]="productoSeleccionado">
+                </app-formulario-productos>
+                <app-producto-venta *ngIf="pantalla=='productos'" (clickNuevo)="nuevoProducto($event)">
+                </app-producto-venta>
             </div>
         </div>
 
 
     </div>
 
-   
+
 
 
     <!-- Modal -->
@@ -225,8 +211,7 @@
                         </p>
                     </div>
                     <div class="col m6 s12 ">
-                        <button class="waves-effect waves-light btn pink col s12 mt-5"
-                            (click)="abrirModalFormulario()">
+                        <button class="waves-effect waves-light btn pink col s12 mt-5" (click)="abrirModalFormulario()">
                             <i class="material-icons right">sell</i>
                             Editar Inventario
                         </button>

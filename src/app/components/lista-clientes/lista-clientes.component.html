@@ -21,7 +21,7 @@
                 <span class="title">{{d.nombre}}</span>
                 <p><strong>Registro:</strong> {{d.registro ||'-'}}</p>
                 <p><strong>Documento:</strong> {{d.documento ||'-'}}</p>
-                
+
             </li>
 
             <li class="collection-item avatar " *ngIf="(socios | filter:search).length==0">
@@ -37,6 +37,7 @@
 </div>
 
 <div class="fixed-action-btn">
-    <button (click)="nuevo()" class="btn-floating btn-large waves-effect waves-light pink "><i
-            class="material-icons">add</i></button>
+    <button (click)="nuevo()" class="btn-floating btn-large waves-effect waves-light pink ">
+        <i class="material-icons">add</i>
+    </button>
 </div>

@@ -9,6 +9,9 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { FilterPipe } from '../../pipes/filter.pipe';
 import { ProductoVentaComponent } from '../../components/producto-venta/producto-venta.component';
+import { CardsInfoComponent } from '../../components/cards-info/cards-info.component';
+import { FormularioProductosComponent } from '../../components/formulario-productos/formulario-productos.component';
+
 
 declare let $: any;
 
@@ -24,19 +27,23 @@ declare let $: any;
     SidebarComponent,
     FormsModule,
     FilterPipe,
-    ProductoVentaComponent
+    ProductoVentaComponent,
+    CardsInfoComponent,
+    FormularioProductosComponent
   ],
   providers: [NegocioService, FilterPipe],
   templateUrl: './inventario.component.html',
   styleUrl: './inventario.component.scss'
 })
 export class InventarioComponent {
+  pantalla: string = 'productos'; // productos-formulario, productos
   filtro: string = '';
   userData: any;
   cappn_userkey: any;
   idNegocio: any;
   dataNegocio: any;
   productos: any[] = [];
+  productoSeleccionado: any = null;
 
   formGroup = new FormGroup({
     id: new FormControl(''),
@@ -61,7 +68,7 @@ export class InventarioComponent {
   });
 
   constructor(private router: Router, private authapi: AuthService, private route: ActivatedRoute, private negocioService: NegocioService) {
-    
+
 
   }
 
@@ -159,5 +166,22 @@ export class InventarioComponent {
   sumar() {
     return this.productos.reduce((acumulador, producto) => acumulador + parseFloat(producto.total), 0);
   }
+
+  nuevoProducto(evt: any) {
+
+    console.log(evt);
+    if (evt) {
+      this.productoSeleccionado = evt;
+    }
+    this.pantalla = 'productos-formulario';
+  }
+
+  cancelarProducto(evt: any) {
+    console.log(evt);
+    this.productoSeleccionado = null;
+    this.pantalla = 'productos';
+  }
+
+  
 
 }

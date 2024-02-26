@@ -1,0 +1,33 @@
+<div class="card ">
+    <div class="card-content">
+        <div class="row">
+            <div class="input-field  s12  " *ngIf="mostrarInput">
+                <input id="cantidad" type="text" class="cantidad" [(ngModel)]="producto.cantidad" placeholder="Cantidad (Requerido)">   
+            </div>
+            <div class="input-field  s12  center" *ngIf="!mostrarInput">
+                <h5>{{producto.cantidad}} u.</h5>   
+            </div>
+
+            <div class="col s12 center">
+                <img src="assets/images/logo_gris.jpg" alt="Producto" height="100px">
+                <p class="small-barcode center ">{{producto.codigo||'SIN CODIGO'}} </p>
+            </div>
+            <div class="col s12 center">
+                <h6 class="titulo-producto-card" style="-webkit-line-clamp: 20;">{{producto.nombre}}</h6>
+            </div>
+            <div class="col s12 center" >
+                <p style="min-height: 40px;">
+                    <button (click)="seleccionar(producto)" type="button" class="btn pink" *ngIf="mostrarBoton && producto.cantidad>0">
+                        {{textoBoton||'Seleccionar'}}
+                        <i class="material-icons right">{{icono}}</i>
+                    </button>
+                </p>
+               
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>

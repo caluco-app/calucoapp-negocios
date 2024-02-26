@@ -1,0 +1,20 @@
+<div class="card pink {{color}}" >
+    <div class="row">
+        <div class="col l2 s3  center">
+            <div class="redondo {{color||'pink'}} lighten-5">
+                <i class="material-icons ico-balance {{color||'pink'}}-text text-darken-3">{{icono}}</i>
+            </div>
+        </div>
+        <div class="col l10 s9 ">
+            <p class="m0 white-text text-darken-3" style="margin-top: 20px;">
+                <strong>{{titulo}}</strong>
+            </p>
+            <h5 *ngIf="esDinero" class="m0 white-text text-darken-4" style=" margin-bottom: 20px;">
+                {{valor | currency}}
+            </h5>
+            <h5 *ngIf="!esDinero" class="m0 white-text text-darken-4" style=" margin-bottom: 20px;">
+                {{valor }}
+            </h5>
+        </div>
+    </div>
+</div>

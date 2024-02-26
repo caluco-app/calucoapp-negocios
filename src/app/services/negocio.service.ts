@@ -93,6 +93,14 @@ export class NegocioService {
     return this.http.get(`${this.urlService}/sociospornegocio/${idNegocio}`);
   }
 
+  obtenerInventarioPorProductos(idproducto:any): Observable<any> {
+    return this.http.get(`${this.urlService}/inventarioPorProductoSeleccionado/${idproducto}`);
+  }
+
+  obtenerInventarioPorProductosNoSelccionado(idnegocio:any): Observable<any> {
+    return this.http.get(`${this.urlService}/inventarioPorProductoNoSeleccionado/${idnegocio}`);
+  }
+
   obtenerClientesPorFiltro(filtro: any): Observable<any> {
     return this.http.get(`${this.urlService}/clientes/${filtro}`);
   }

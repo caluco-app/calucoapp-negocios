@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="input-field col s12">
+        <h3 class="pink-text">Inventario Asociado</h3>
+    </div>
+    <div class="input-field col l6 s12" *ngIf="idProducto">
+        <button (click)="irAsociar()" type="button" class="btn waves-effect waves-light pink ">
+            Asociar inventario
+            <i class="material-icons right">add</i>
+        </button>
+    </div>
+
+    <div class="input-field col l6 s12  " [ngClass]="{'offset-l6': !idProducto}" >
+        <i class="material-icons prefix">qr_code_scanner</i>
+        <input id="icon_prefix" type="text" [(ngModel)]="filtro">
+        <label for="icon_prefix">Buscar</label>
+    </div>
+
+    <div class="col l4 m4  s6 " *ngFor="let d of inventarios | filter : filtro">
+        <app-card-producto-cantidad [producto]="d" [mostrarBoton]="true" [textoBoton]="'Eliminar'" [icono]="'delete'"
+        (clickBoton)="eliminarAsocio($event)"  ></app-card-producto-cantidad>
+    </div>
+
+    <div class="col s12 center grey lighten-4" *ngIf="(inventarios| filter : filtro).length==0">
+        <br><br>
+        <h5>No hay registros...</h5>
+        <br><br>
+    </div>
+
+ 
+</div>
+

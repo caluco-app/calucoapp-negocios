@@ -12,7 +12,7 @@ footer {
     padding-left: 0;
   }
 
- 
+
 }
 
 @media only screen and (min-width: 993px) {
@@ -131,8 +131,17 @@ textarea.materialize-textarea:focus:not([readonly])+label {
 
 @media only screen and (max-width: 992px) {
   nav .brand-logo {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
+
+  h3 {
+    font-size: 2rem;
+  }
+}
+
+.text-descripcion{
+  font-size: 0.8rem !important;
+  line-height: 0.8rem;
 }
 
 .tabs .tab a {
@@ -147,6 +156,10 @@ textarea.materialize-textarea:focus:not([readonly])+label {
 
 .tabs .indicator {
   background-color: #767676 !important;
+}
+
+.small-barcode{
+  color: #d2d2d2 !important;
 }
 
 .tabs .tab a:focus,

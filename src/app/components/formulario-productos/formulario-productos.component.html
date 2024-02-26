@@ -1,0 +1,61 @@
+<form [formGroup]="formGroup" (ngSubmit)="salvarCambios()">
+    <div class="row">
+        <div class="col l6">
+            <div class="row">
+                <div class="input-field col s12">
+                    <h3 class="pink-text">Detalle de producto</h3>
+                </div>
+                <div class="input-field col s12 l12">
+                    <i class="material-icons prefix">keyboard_alt</i>
+                    <input id="nombre" type="text" name="nombre" formControlName="nombre">
+                    <label for="nombre" [ngClass]="{'active':formGroup.value.id}">Nombre del producto
+                        (Requerido)</label>
+                </div>
+
+                <div class="input-field col s12 l12">
+                    <i class="material-icons prefix">description</i>
+
+                    <textarea type="text" class="materialize-textarea" name="descripcion" id="descripcion"
+                        formControlName="descripcion"></textarea>
+                    <label for="descripcion" [ngClass]="{'active':formGroup.value.id}">Descripción</label>
+                </div>
+
+                <div class="input-field col s12 l6">
+                    <i class="material-icons prefix">qr_code_scanner</i>
+                    <input id="codigo" type="text" name="codigo" formControlName="codigo">
+                    <label for="codigo" [ngClass]="{'active':formGroup.value.id}">Código de barras</label>
+                </div>
+
+                <div class="input-field col s12 l6">
+                    <i class="material-icons prefix">paid</i>
+                    <input id="precio" type="number" name="precio" formControlName="precio">
+                    <label for="precio" [ngClass]="{'active':formGroup.value.id}">Precio de venta (Requerido)</label>
+                </div>
+            </div>
+
+            <button  class="btn waves-effect waves-light col s12 grey mt-1" type="button" (click)="cancelar()">Cancelar
+                <i class="material-icons right">close</i>
+            </button>
+
+
+            <button type="submit" class="btn pink col s12 mt-1" [disabled]="formGroup.invalid">
+                <i class="fa fa-save" aria-hidden="true"></i>
+                Salvar Producto
+                <i class="material-icons right">save</i>
+            </button>
+
+
+        </div>
+        <div class="col l6" *ngIf="formGroup.value.id">
+
+
+            <app-inventario-asociado *ngIf="pantalla=='asociar'" [idProducto]="formGroup.value.id" (clickNuevo)="mostarAsociarInventario($event)"></app-inventario-asociado>
+            <app-inventario-asociar *ngIf="pantalla=='asocio'" [idProducto]="formGroup.value.id" (clickSalir)="salirAsociar($event)"></app-inventario-asociar>
+
+            
+        </div>
+
+
+    </div>
+
+</form>
