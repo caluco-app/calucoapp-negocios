@@ -51,12 +51,11 @@
 
 
     <li><a class="subheader">Sucursales</a></li>
-    <li routerLinkActive="active pink" *ngIf="dataNegocio">
-        <a *ngFor="let d of dataNegocio.sucursales" [routerLink]="['/negocios', idNegocio, d.nombre, d.id]"
+    <li routerLinkActive="active pink" *ngIf="cappn_userkey.sucursales">
+        <a *ngFor="let d of cappn_userkey.sucursales" href="#" [routerLink]="['/sucursal']"
             routerLinkActive="white-text">
-            <i class="material-icons" routerLinkActive="white-text">store</i>
-            [EN DESARROLLO ]
-            <!-- {{d.nombre}} -->
+            <i class="material-icons" routerLinkActive="white-text">store</i>  
+            {{d.nombre}} 
         </a>
     </li>
 
