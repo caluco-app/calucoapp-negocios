@@ -5,12 +5,19 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NegocioService } from '../../services/negocio.service';
 import { AuthService } from '../../services/auth.service';
+import { SidebarComponent } from '../../components/sidebar/sidebar.component';
+import { TruncatePipe } from '../../pipes/truncate.pipe';
+import { ApiSucursalService } from '../../services/api-sucursal.service';
+import { FormsModule } from '@angular/forms';
+import { TicketsComponent } from '../../components/tickets/tickets.component';
+
+declare let $: any;
 
 @Component({
   selector: 'app-sucursal',
   standalone: true,
-  imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule],
-  providers:[NegocioService],
+  imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule, SidebarComponent, TruncatePipe, FormsModule, TicketsComponent],
+  providers: [NegocioService, ApiSucursalService],
   templateUrl: './sucursal.component.html',
   styleUrl: './sucursal.component.scss'
 })
@@ -21,14 +28,18 @@ export class SucursalComponent {
   idSucursal: any;
   nombreSucursal: any;
   dataNegocio: any;
+  permisosPorSucursal: any[] = [];
+  opcionesPorPermiso: any[] = [];
 
-  constructor(private router: Router, private authapi: AuthService, private route: ActivatedRoute, private negocioService: NegocioService) {
+  idOpcionSeleccionada: any = '';
+  idSubOpcionSeleccionada: any = '';
+
+  constructor(private router: Router, private apisucursal: ApiSucursalService, private authapi: AuthService, private route: ActivatedRoute, private negocioService: NegocioService) {
     this.route.paramMap.subscribe(params => {
-      this.idNegocio = params.get('idnegocio'); 
-      this.idSucursal = params.get('idsucursal'); 
-      this.nombreSucursal = params.get('sucursal'); 
-      console.log('ID obtenido:', this.idNegocio);
-      console.log('ID idSucursal:', this.idSucursal);
+
+      this.nombreSucursal = params.get('nombreSucursal');
+      this.idSucursal = params.get('idSucursal');
+
       console.log('ID nombreSucursal:', this.nombreSucursal);
 
       // Puedes realizar otras operaciones con el ID aquí, como llamar a servicios, etc.
@@ -39,15 +50,21 @@ export class SucursalComponent {
   ngOnInit() {
     let session: any = sessionStorage.getItem('cappn_userkey');
     this.cappn_userkey = JSON.parse(session);
-    this.validarUsuarioNegocio();
+    this.obtenerPermisosPorSucursal();
   }
 
-  validarUsuarioNegocio() {
-    let data: any = { idusuario: this.cappn_userkey.usuario[0].id, idnegocio: this.idNegocio };
-    this.authapi.validarUsuarioNegocio(data).subscribe(response => {
-      console.log(response);
-      this.dataNegocio = response.data;
+  obtenerPermisosPorSucursal() {
+    this.apisucursal.permisoPorSucursal(this.idSucursal).subscribe(resp => {
+      this.permisosPorSucursal = resp.data;
     });
   }
+
+  changeSelectOpcion() {
+    this.idSubOpcionSeleccionada = '';
+    let elemento = this.permisosPorSucursal.find(item => item.idopcion == this.idOpcionSeleccionada);
+    this.opcionesPorPermiso = elemento ? elemento.subopciones : [];
+  }
+
+
 
 }

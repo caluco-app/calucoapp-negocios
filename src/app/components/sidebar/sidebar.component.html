@@ -7,7 +7,7 @@
 
                 </div>
             </div>
-         
+
 
             <div class="redondo pink lighten-5 m0 p-absolute">
                 <i class="material-icons ico-balance pink-text text-darken-3">person</i>
@@ -15,9 +15,9 @@
 
 
 
-            <a ><span class="white-text name">{{cappn_userkey.nombrecompleto}}</span></a>
-            <a ><span class="white-text email">{{cappn_userkey.rol}} | {{cappn_userkey.usuario}}</span></a>
-    
+            <a><span class="white-text name">{{cappn_userkey.nombrecompleto}}</span></a>
+            <a><span class="white-text email">{{cappn_userkey.rol}} | {{cappn_userkey.usuario}}</span></a>
+
 
             <div class="center">
                 <img src="assets/images/logo_CAPP_w.png" alt="Logo" class="logo" height="70px">
@@ -29,21 +29,21 @@
     <li><a class="subheader">Gestión de Negocio</a></li>
 
     <li routerLinkActive="active pink">
-        <a [routerLink]="['/negocios']" routerLinkActive="white-text">
+        <a [routerLink]="['/negocios']" routerLinkActive="white-text" class="sidenav-close">
             <i class="material-icons " routerLinkActive="white-text">addchart</i>
             ESTADISTICA
         </a>
     </li>
 
     <li routerLinkActive="active pink">
-        <a class="sidenav-close" [routerLink]="['/socios']" routerLinkActive="white-text">
+        <a class="sidenav-close" [routerLink]="['/socios']" routerLinkActive="white-text" class="sidenav-close">
             <i class="material-icons" routerLinkActive="white-text">groups</i>
             PARTNERS
         </a>
     </li>
 
     <li routerLinkActive="active pink">
-        <a class="sidenav-close" [routerLink]="['/inventario']" routerLinkActive="white-text">
+        <a class="sidenav-close" [routerLink]="['/inventario']" routerLinkActive="white-text" class="sidenav-close">
             <i class="material-icons " routerLinkActive="white-text">view_in_ar</i>
             INVENTARIO
         </a>
@@ -51,11 +51,11 @@
 
 
     <li><a class="subheader">Sucursales</a></li>
-    <li routerLinkActive="active pink" *ngIf="cappn_userkey.sucursales">
-        <a *ngFor="let d of cappn_userkey.sucursales" href="#" [routerLink]="['/sucursal']"
-            routerLinkActive="white-text">
-            <i class="material-icons" routerLinkActive="white-text">store</i>  
-            {{d.nombre}} 
+    <li *ngIf="cappn_userkey.sucursales">
+        <a *ngFor="let d of cappn_userkey.sucursales"  [routerLink]="['/sucursal', d.nombre, d.id]" class="sidenav-close"
+            routerLinkActive="pink white-text">
+            <i class="material-icons" routerLinkActive="white-text">store</i>
+            {{d.nombre | uppercase | truncate:16}}
         </a>
     </li>
 

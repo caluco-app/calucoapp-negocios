@@ -4,11 +4,12 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
+import { TruncatePipe } from '../../pipes/truncate.pipe';
 declare let $: any;
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, FooterComponent, RouterModule],
+  imports: [CommonModule, FooterComponent, RouterModule, TruncatePipe],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
