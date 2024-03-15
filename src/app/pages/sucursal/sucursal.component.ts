@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../components/footer/footer.component';
@@ -10,18 +10,25 @@ import { TruncatePipe } from '../../pipes/truncate.pipe';
 import { ApiSucursalService } from '../../services/api-sucursal.service';
 import { FormsModule } from '@angular/forms';
 import { TicketsComponent } from '../../components/tickets/tickets.component';
+import { ComprobanteListaComponent } from '../../components/comprobante-lista/comprobante-lista.component';
+import { ComprobanteFormComponent } from '../../components/comprobante-form/comprobante-form.component';
 
 declare let $: any;
 
 @Component({
   selector: 'app-sucursal',
   standalone: true,
-  imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule, SidebarComponent, TruncatePipe, FormsModule, TicketsComponent],
+  imports: [NavbarComponent,
+    CommonModule, FooterComponent,
+    RouterModule, SidebarComponent,
+    TruncatePipe, FormsModule,
+    TicketsComponent, ComprobanteListaComponent, ComprobanteFormComponent
+  ],
   providers: [NegocioService, ApiSucursalService],
   templateUrl: './sucursal.component.html',
   styleUrl: './sucursal.component.scss'
 })
-export class SucursalComponent {
+export class SucursalComponent implements OnInit {
   userData: any;
   cappn_userkey: any;
   idNegocio: any;
@@ -42,15 +49,17 @@ export class SucursalComponent {
 
       console.log('ID nombreSucursal:', this.nombreSucursal);
 
+      let session: any = sessionStorage.getItem('cappn_userkey');
+      this.cappn_userkey = JSON.parse(session);
+      this.obtenerPermisosPorSucursal();
+
       // Puedes realizar otras operaciones con el ID aquí, como llamar a servicios, etc.
     });
 
   }
 
   ngOnInit() {
-    let session: any = sessionStorage.getItem('cappn_userkey');
-    this.cappn_userkey = JSON.parse(session);
-    this.obtenerPermisosPorSucursal();
+
   }
 
   obtenerPermisosPorSucursal() {
