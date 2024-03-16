@@ -40,9 +40,13 @@ export class SucursalComponent implements OnInit {
 
   idOpcionSeleccionada: any = '';
   idSubOpcionSeleccionada: any = '';
+  idComprobante: any = '';
+  pantalla: any = '';
 
   constructor(private router: Router, private apisucursal: ApiSucursalService, private authapi: AuthService, private route: ActivatedRoute, private negocioService: NegocioService) {
     this.route.paramMap.subscribe(params => {
+      this.idOpcionSeleccionada = '';
+      this.idSubOpcionSeleccionada = '';
 
       this.nombreSucursal = params.get('nombreSucursal');
       this.idSucursal = params.get('idSucursal');
@@ -69,9 +73,20 @@ export class SucursalComponent implements OnInit {
   }
 
   changeSelectOpcion() {
+    this.pantalla = '';
     this.idSubOpcionSeleccionada = '';
     let elemento = this.permisosPorSucursal.find(item => item.idopcion == this.idOpcionSeleccionada);
     this.opcionesPorPermiso = elemento ? elemento.subopciones : [];
+  }
+
+  refrescarLista() {
+    this.pantalla = '';
+    this.pantalla = 'lista';
+  }
+
+  clickItem(evt: any) {
+    this.idComprobante = evt;
+    this.pantalla = 'form';
   }
 
 

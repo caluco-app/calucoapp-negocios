@@ -17,4 +17,8 @@ export class ApiSucursalService {
     return this.http.get(`${this.urlService}/permisosPorSucursal/${id}`);
   }
 
+  obtnerComprobantesPorSucursal(idsubopcion: any, idsucursal: any): Observable<any> {
+    return this.http.get(`${this.urlService}/obtnerComprobantesPorSucursal/${idsubopcion}/${idsucursal}`);
+  }
+
 }

@@ -201,3 +201,8 @@ textarea.materialize-textarea:focus:not([readonly])+label {
 .titulo-producto-card {
   min-height: 50px;
 }
+
+.container {
+  max-width: 1880px !important;
+  width: 90% !important;
+}

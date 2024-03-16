@@ -1,43 +1,86 @@
 <div class="row white">
-    <div class="col s12">
-        <h3 class="pink-text">Partnerts</h3>
-    </div>
-    <div class="col m6 offset-m6 s12 ">
+
+    <div class="col s12 ">
         <div class="input-field ">
             <i class="material-icons prefix">search</i>
             <input id="searchx" type="text" name="searchx" [(ngModel)]="search">
-            <label for="searchx">Buscar</label>
+            <label for="searchx" [ngClass]="{'active': search}">Buscar</label>
         </div>
     </div>
     <div class="col s12">
-        <ul class="collection">
+        <button (click)="nuevo()" class="btn col s12 waves-effect waves-light pink ">
+            <i class="material-icons left">add</i>
+            Nuevo Socio
+        </button>
+    </div>
 
-            <li class="collection-item avatar colechover" *ngFor="let d of socios | filter:search"
-                (click)="seleccionar(d)">
-                <i class="material-icons circle"
-                    [ngClass]="{ 'green':(d.registro || d.documento),  'black':!(d.registro || d.documento)}">{{d.registro
-                    ||
-                    d.documento ? 'store' : 'person'}}</i>
-                <span class="title">{{d.nombre}}</span>
-                <p><strong>Registro:</strong> {{d.registro ||'-'}}</p>
-                <p><strong>Documento:</strong> {{d.documento ||'-'}}</p>
-
-            </li>
-
-            <li class="collection-item avatar " *ngIf="(socios | filter:search).length==0">
-                <i class="material-icons circle">
+    <div class="col l12 m12 s12" *ngIf="(socios | filter:search).length==0">
+        <div class="card ">
+            <div class="card-content center">
+                <i class="material-icons circle white-text grey" style="font-size: 50px;">
                     support
                 </i>
-                <span class="title">No hay registros</span>
-
-            </li>
-
-        </ul>
+                <h6 class="titulo-producto-card" style="-webkit-line-clamp: 20;">No hay registros</h6>
+       
+            </div>
+        </div>
     </div>
-</div>
+  
 
-<div class="fixed-action-btn">
-    <button (click)="nuevo()" class="btn-floating btn-large waves-effect waves-light pink ">
-        <i class="material-icons">add</i>
-    </button>
+    <div class="col l4 m6 s12" *ngFor="let d of socios | filter:search">
+        <div class="card " [ngClass]="{'green white-text':idSeleccionado ==d.id}" >
+            <div class="card-content">
+                <div class="row">
+                    <div class="col l12 s12 ">
+                        <button class="btn waves-effect waves-teal pink col s12 " (click)="seleccionarRegistro(d)">
+                            <i class="material-icons right">how_to_reg</i>
+                            Seleccionar
+                        </button>
+                        
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="col s12 center">
+                        <i class="material-icons circle  white-text " style="font-size: 50px;"
+                        [ngClass]="{'green white-text':idSeleccionado ==d.id}"
+                        >{{d.registro
+                            ||
+                            d.documento ? 'store' : 'person'}}</i>
+                    </div>
+                    <div class="col s12 center">
+                        <h6 class="titulo-producto-card" style="-webkit-line-clamp: 20;">{{d.nombre}}</h6>
+
+
+
+                    </div>
+                    <div class="col l6 s12">
+                        <p class="center"><strong>Registro:</strong> <br> {{d.registro ||'-'}}</p>
+                    </div>
+
+                    <div class="col l6 s12 center">
+                        <p><strong>Documento:</strong> <br> {{d.documento ||'-'}}</p>
+                    </div>
+                    <div class="col s12">
+                        <br>
+                    </div>
+
+                    <div class="col l12 s12 ">
+                        <br>
+                        <button class="btn waves-effect waves-teal grey col s12 " (click)="seleccionar(d)">
+                            <i class="material-icons left">edit</i>
+                            Modificar
+                        </button>
+                    </div>
+                   
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
 </div>

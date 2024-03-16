@@ -23,7 +23,7 @@
             <div class="col s12 l4 m6">
                 <br>
                 <label>¿Que deseas ver?</label>
-                <select class="browser-default" [(ngModel)]="idSubOpcionSeleccionada">
+                <select class="browser-default" [(ngModel)]="idSubOpcionSeleccionada" (change)="refrescarLista()">
                     <option value="" disabled selected>Selecciona Opción</option>
                     <option *ngFor="let d of opcionesPorPermiso" value="{{d.idsubopcion}}">{{d.subopcion}}</option>
 
@@ -34,11 +34,17 @@
 
         </div>
 
-        <app-comprobante-lista></app-comprobante-lista>
-        <app-comprobante-form></app-comprobante-form>
+        <app-comprobante-lista 
+        (clickItem)="clickItem($event)"
+        [idSubOpcion]="idSubOpcionSeleccionada" 
+        [idSucursal]="idSucursal"  
+        *ngIf="idOpcionSeleccionada && idSubOpcionSeleccionada && pantalla=='lista'"
+        >
+        </app-comprobante-lista>
+        <app-comprobante-form [idNegocio]="cappn_userkey.idnegocio" *ngIf="idOpcionSeleccionada && idSubOpcionSeleccionada && pantalla=='form'"></app-comprobante-form>
 
 
-        <app-tickets *ngIf="idSubOpcionSeleccionada==1"></app-tickets>
+        <!-- <app-tickets *ngIf="idSubOpcionSeleccionada==1"></app-tickets> -->
 
 
 

@@ -62,7 +62,7 @@ export class FormularioClientesComponent {
     this.negocioService.sociosPorNegocioMtto(this.formGroup.value).subscribe(response => {
       console.log(response);
       if (response.state == "success") {
-        this.clickSalvoCambios.emit(null);
+        this.clickSalvoCambios.emit(this.formGroup.value.nombre);
       }
 
     });

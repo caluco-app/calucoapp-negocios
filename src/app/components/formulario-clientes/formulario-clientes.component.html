@@ -2,33 +2,34 @@
   <div class="col s12">
     <h3 class="pink-text">Configuración de Partnert</h3>
   </div>
+
   <div class="col s12">
     <form class="row"  [formGroup]="formGroup" (ngSubmit)="salvarCambios()">
       <div class="col s12">
         <h4>Datos Generales</h4>
       </div>
-      <div class="input-field col m6 s12">
+      <div class="input-field col m12 s12">
         <input formControlName="nombre"   type="text" class="validate" id="nombre">
         <label [ngClass]="{'active':formGroup.value.id}" for="nombre"  >Nombre de Persona ó Comercio</label>
       </div>
 
-      <div class="input-field col m3 s12">
+      <div class="input-field col m6 s12">
         <input formControlName="registro" type="text" class="validate" id="registro">
         <label [ngClass]="{'active':formGroup.value.id}" for="registro">No. Registro</label>
       </div>
 
-      <div class="input-field col m3 s12">
+      <div class="input-field col m6 s12">
         <input formControlName="documento" type="text" class="validate" id="documento">
         <label [ngClass]="{'active':formGroup.value.id}" for="documento">No. Documento (DUI / NIT)</label>
       </div>
 
 
-      <div class="input-field col m6 s12">
+      <div class="input-field col m12 s12">
         <input formControlName="cliente" type="text" class="validate" id="cliente">
         <label [ngClass]="{'active':formGroup.value.id}" for="cliente">Representante Legal</label>
       </div>
 
-      <div class="input-field col m6 s12">
+      <div class="input-field col m12 s12">
         <input formControlName="giro" type="text" class="validate" id="giro">
         <label [ngClass]="{'active':formGroup.value.id}" for="giro">Giro Económico</label>
       </div>
@@ -43,33 +44,33 @@
         <label [ngClass]="{'active':formGroup.value.id}" for="direccion">Dirección</label>
       </div>
 
-      <div class="input-field col m3 s12">
+      <div class="input-field col m6 s12">
         <input formControlName="departamento" type="text" class="validate" id="departamento">
         <label [ngClass]="{'active':formGroup.value.id}" for="departamento">Departamento</label>
       </div>
-      <div class="input-field col m3 s12">
+      <div class="input-field col m6 s12">
         <input formControlName="municipio" type="text" class="validate" id="municipio">
         <label [ngClass]="{'active':formGroup.value.id}" for="municipio">Municipio</label>
       </div>
 
 
 
-      <div class="input-field col m3 s12">
+      <div class="input-field col m6 s12">
         <input formControlName="telefono" type="tel" class="validate" id="telefono">
         <label [ngClass]="{'active':formGroup.value.id}" for="telefono">Teléfono</label>
       </div>
-      <div class="input-field col m3 s12">
+      <div class="input-field col m6 s12">
         <input formControlName="whatsapp" type="tel" class="validate" id="whatsapp">
         <label [ngClass]="{'active':formGroup.value.id}" for="whatsapp">WhatsApp</label>
       </div>
 
 
-      <div class="col m3 offset-m6 s12">
+      <div class="col m6 s12">
         <button class="btn waves-effect waves-light col s12 grey mt-1" type="button" (click)="cancelar()">Cancelar
           <i class="material-icons right">close</i>
         </button>
       </div>
-      <div class="col m3 s12">
+      <div class="col m6 s12">
         <button class="btn waves-effect waves-light col s12 pink mt-1" type="submit" [disabled]="formGroup.invalid">Salvar Cambios
           <i class="material-icons right">save</i>
         </button>

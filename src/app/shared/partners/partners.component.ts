@@ -1,37 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
-import { FooterComponent } from '../../components/footer/footer.component';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { UserInfoService } from '../../services/user-info.service';
-import { AuthService } from '../../services/auth.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NegocioService } from '../../services/negocio.service';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { FilterPipe } from '../../pipes/filter.pipe';
 import { ListaClientesComponent } from '../../components/lista-clientes/lista-clientes.component';
 import { FormularioClientesComponent } from '../../components/formulario-clientes/formulario-clientes.component';
-import { PartnersComponent } from '../../shared/partners/partners.component';
+import { FooterComponent } from '../../components/footer/footer.component';
+import { NegocioService } from '../../services/negocio.service';
+import { UserInfoService } from '../../services/user-info.service';
+import { AuthService } from '../../services/auth.service';
+
 declare let $: any;
+
 @Component({
-  selector: 'app-clientes',
+  selector: 'app-partners',
   standalone: true,
   imports: [NavbarComponent,
     CommonModule, FooterComponent,
     RouterModule, ReactiveFormsModule,
     FormsModule, SidebarComponent,
-    FilterPipe, ListaClientesComponent, FormularioClientesComponent, PartnersComponent],
+    FilterPipe, ListaClientesComponent, FormularioClientesComponent],
   providers: [NegocioService],
-  templateUrl: './clientes.component.html',
-  styleUrl: './clientes.component.scss'
+  templateUrl: './partners.component.html',
+  styleUrl: './partners.component.scss'
 })
-export class ClientesComponent {
+export class PartnersComponent {
+  @Input() idNegocio: any;
+  @Output() registroSeleccionado = new EventEmitter<any>();
+
+
   filtro: string = '';
   userData: any;
   cappn_userkey: any;
-  idNegocio: any;
   dataNegocio: any;
   clientes: any[] = [];
+  search: any = '';
   pantalla: string = 'lista'; //formulario
   formulario: any = null;
 
@@ -50,12 +55,7 @@ export class ClientesComponent {
   });
 
   constructor(private userInfo: UserInfoService, private router: Router, private authapi: AuthService, private route: ActivatedRoute, private negocioService: NegocioService) {
-    this.route.paramMap.subscribe(params => {
-      this.idNegocio = params.get('idnegocio'); // 'id' debe coincidir con el nombre del parámetro en tu ruta
-      console.log('ID obtenido:', this.idNegocio);
 
-      // Puedes realizar otras operaciones con el ID aquí, como llamar a servicios, etc.
-    });
 
   }
 
@@ -66,18 +66,34 @@ export class ClientesComponent {
   }
 
   clickEnNuevo(evt: any) {
-    this.pantalla = 'formulario';
-  }
-
-  clickCancelar(evt: any) {
-    this.pantalla = 'lista';
-  }
-
-  clicSeleccionar(evt: any) {
+    console.log(evt);
     this.formulario = evt;
     this.pantalla = 'formulario';
   }
 
+  clickCancelar(evt: any) {
+    if (evt) {
+      this.search = evt;
+    }
+    else {
+      this.search = '';
+    }
+    this.pantalla = 'lista';
+  }
+
+  clicSeleccionar(evt: any) {
+    this.search = evt;
+    this.formulario = evt;
+    this.pantalla = 'formulario';
+  }
+
+  clickSeleccionRegistro(evt: any) {
+   
+    this.search = evt.nombre;
+    this.formulario = evt;
+    console.log('llega', evt)
+    this.registroSeleccionado.emit(evt);
+  }
 
   validarUsuarioNegocio() {
     let data: any = { idusuario: this.cappn_userkey.usuario[0].id, idnegocio: this.idNegocio };
@@ -88,14 +104,6 @@ export class ClientesComponent {
     });
   }
 
-
-  nuevoCliente() {
-
-  }
-
-  cerrarModalFormulario() {
-
-  }
 
   salvarCambios() {
 
@@ -123,9 +131,7 @@ export class ClientesComponent {
     });
   }
 
-  enviarDataAFormulario(data: any) {
-
-  }
+ 
 
   nuevo(data: any) {
     if (data.id == '0') {
@@ -150,8 +156,4 @@ export class ClientesComponent {
       this.clientes.splice(indexToRemove, 1);
     }
   }
-
-
-
 }
-

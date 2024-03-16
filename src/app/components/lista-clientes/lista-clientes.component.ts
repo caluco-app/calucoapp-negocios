@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NegocioService } from '../../services/negocio.service';
 import { CommonModule } from '@angular/common';
 
@@ -14,18 +14,25 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './lista-clientes.component.scss'
 })
 export class ListaClientesComponent {
-  search:string='';
+  search: string = '';
   socios: any[] = [];
   cappn_userkey: any;
 
   @Output() clickNuevo = new EventEmitter<any>();
   @Output() clickSeleccion = new EventEmitter<any>();
+  @Output() clickSeleccionRegistro = new EventEmitter<any>();
+  @Input() searchPadre: any;
+
+  idSeleccionado:any=null;
 
   constructor(private negocioService: NegocioService) {
 
   }
 
   ngOnInit() {
+    if (this.searchPadre) {
+      this.search = this.searchPadre;
+    }
     let session: any = sessionStorage.getItem('cappn_userkey');
     this.cappn_userkey = JSON.parse(session);
     this.obtenerClientes(this.cappn_userkey.idnegocio);
@@ -41,8 +48,14 @@ export class ListaClientesComponent {
     this.clickNuevo.emit(null);
   }
 
-  seleccionar(data:any){
+  seleccionar(data: any) {
     this.clickSeleccion.emit(data);
+  }
+
+  seleccionarRegistro(data: any) {
+    this.idSeleccionado=data.id;
+    console.log('emite', data)
+    this.clickSeleccionRegistro.emit(data);
   }
 
 }

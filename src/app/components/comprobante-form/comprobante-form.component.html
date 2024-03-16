@@ -1,1 +1,29 @@
-<p>comprobante-form works!</p>
+<div class="row grey pink lighten-5">
+
+    <div class="col s12">
+        <ul class="collapsible">
+            <li>
+              <div class="collapsible-header">
+                <i class="material-icons">person</i>
+                {{partnerSeleccionado? (partnerSeleccionado.nombre | uppercase) : ' SELECCIONAR PARTNERT ' | uppercase}}
+               
+                
+             </div>
+              <div class="collapsible-body white">
+                <app-partners [idNegocio]="idNegocio" (registroSeleccionado)="registroSeleccionado($event)"></app-partners>
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header"><i class="material-icons">receipt_long</i>ITEMS </div>
+              <div class="collapsible-body">
+                <app-producto-venta></app-producto-venta>
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+          </ul>
+    </div>
+    
+</div>

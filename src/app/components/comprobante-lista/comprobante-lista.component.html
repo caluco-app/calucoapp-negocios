@@ -1,1 +1,33 @@
-<p>comprobante-lista works!</p>
+<div class="row">
+    <div class="col s12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>No.</th>
+                    <th>Cliente</th>
+                    <th>Monto</th>
+                    <th>Estado</th>
+                    <th>Creado Por</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let d of listaDeComprobantes">
+                    <td>{{d.fechacreacion | date :'short'}}</td>
+                    <td>{{d.codigofactura}}</td>
+                    <td>{{d.socio}}</td>
+                    <td></td>
+                    <td>{{d.estadotributario}}</td>
+                    <td>{{d.usuario}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="fixed-action-btn">
+    <button (click)="seleccionarItem(0)" class="btn-floating btn-large waves-effect waves-light pink ">
+        <i class="material-icons">add</i>
+    </button>
+</div>
