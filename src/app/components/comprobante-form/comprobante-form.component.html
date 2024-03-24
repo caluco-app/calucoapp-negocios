@@ -1,29 +1,156 @@
 <div class="row grey pink lighten-5">
 
-    <div class="col s12">
-        <ul class="collapsible">
-            <li>
-              <div class="collapsible-header">
-                <i class="material-icons">person</i>
-                {{partnerSeleccionado? (partnerSeleccionado.nombre | uppercase) : ' SELECCIONAR PARTNERT ' | uppercase}}
-               
-                
-             </div>
-              <div class="collapsible-body white">
-                <app-partners [idNegocio]="idNegocio" (registroSeleccionado)="registroSeleccionado($event)"></app-partners>
+  <div class="col s12">
+    <ul class="collapsible">
+      <li>
+        <div class="collapsible-header">
+          <i class="material-icons">person</i>
+          {{partnerSeleccionado? (partnerSeleccionado.nombre | uppercase) : ' SELECCIONAR PARTNERT ' | uppercase}}
+
+
+        </div>
+        <div class="collapsible-body white">
+          <div class="row">
+            <div class="col s12 l4 offset-l8">
+              <button class="waves-effect waves-light btn col s12 pink" (click)="subopcionaMostrar='partners'">
+                <i class="material-icons right">search</i>
+                Buscar Partnert
+              </button>
+            </div>
+          </div>
+          <app-partners *ngIf="subopcionaMostrar=='partners'" [idNegocio]="idNegocio"
+            (registroSeleccionado)="registroSeleccionado($event)">
+          </app-partners>
+
+          <app-partnert-seleccionado *ngIf="partnerSeleccionado"
+            [partnerSeleccionado]="partnerSeleccionado"></app-partnert-seleccionado>
+
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="material-icons">receipt_long</i>SELECCIONAR ITEMS </div>
+        <div class="collapsible-body">
+          <div class="row">
+            <div class="col s12 l4 offset-l8">
+              <div class="input-field ">
+                <i class="material-icons prefix">search</i>
+                <input id="searchx" type="text" name="searchx" [(ngModel)]="search">
+                <label for="searchx" [ngClass]="{'active': search}">Buscar</label>
               </div>
-            </li>
-            <li>
-              <div class="collapsible-header"><i class="material-icons">receipt_long</i>ITEMS </div>
-              <div class="collapsible-body">
-                <app-producto-venta></app-producto-venta>
-              </div>
-            </li>
-            <li>
-              <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-          </ul>
-    </div>
-    
+            </div>
+            <div class="col s12">
+              <table>
+                <thead>
+                  <tr>
+                    <th width="15%">IMAGEN</th>
+                    <th width="30%">PRODUCTO</th>
+                    <th width="15%">CANT</th>
+                    <th width="15%">UNI</th>
+                    <th width="15%">TOTAL</th>
+                    <td></td>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let d of productos | filter : search">
+                    <td><img src="assets/images/logo_gris.jpg" alt="" class="circle responsive-img" height="25px"></td>
+                    <td>{{d.nombre}}</td>
+                    <td>
+                      <input type="number" [(ngModel)]="d.cantidad" style="text-align: center;">
+                    </td>
+                    <td>{{d.precio | currency}}</td>
+                    <td>{{(d.precio * d.cantidad) | currency}} </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="material-icons">whatshot</i>COMPROBANTE</div>
+        <div class="collapsible-body">
+          <div class="row">
+
+            <div class="col s12 l4 m6  input-field ">
+              <i class="material-icons prefix">pin</i>
+              <input id="searchx" type="text" name="searchx">
+              <label for="searchx" [ngClass]="{'active': null}">Comprobante</label>
+            </div>
+            <div class="col s12 l4 m6  input-field ">
+              <i class="material-icons prefix">fact_check</i>
+              <input id="searchx" type="text" name="searchx">
+              <label for="searchx" [ngClass]="{'active': null}">Periodo Fiscal</label>
+            </div>
+            <div class="col s12 l4 m6  input-field ">
+              <i class="material-icons prefix">event</i>
+              <input id="searchx" type="text" name="searchx">
+              <label for="searchx" [ngClass]="{'active': null}">Fecha</label>
+            </div>
+            <div class="col s12 l4 offset-l8 input-field ">
+              <i class="material-icons prefix">search</i>
+              <input id="searchx" type="text" name="searchx" [(ngModel)]="searchFactura">
+              <label for="searchx" [ngClass]="{'active': search}">Buscar</label>
+            </div>
+
+            <div class="col s12">
+              <table>
+                <thead>
+                  <tr>
+                    <th width="15%">IMAGEN</th>
+                    <th width="30%">PRODUCTO</th>
+                    <th width="15%">CANT</th>
+                    <th width="15%">UNI</th>
+                    <th width="15%">TOTAL</th>
+                    <td></td>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <ng-container *ngFor="let d of productos | filter : searchFactura">
+                    <tr *ngIf="d.cantidad>0">
+                      <td><img src="assets/images/logo_gris.jpg" alt="" class="circle responsive-img" height="25px">
+                      </td>
+                      <td>{{d.nombre}}</td>
+                      <td>
+                        <input type="number" [(ngModel)]="d.cantidad" style="text-align: center;">
+                      </td>
+                      <td>{{d.precio | currency}}</td>
+                      <td>{{(d.precio * d.cantidad) | currency}} </td>
+                    </tr>
+                  </ng-container>
+                  <tr>
+                    <th colspan="4" class="right-align">Sub Total</th>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th colspan="4" class="right-align">Total</th>
+                    <td>
+                      {{calcularTotal()|currency}}
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+
+
+            </div>
+
+
+            <div class="col s12 l4 offset-l8">
+              <br>
+              <br>
+              <button class="waves-effect waves-light btn col s12 pink">
+                <i class="material-icons right">save</i>
+                Procesar comprobante
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </li>
+    </ul>
+  </div>
+
 </div>

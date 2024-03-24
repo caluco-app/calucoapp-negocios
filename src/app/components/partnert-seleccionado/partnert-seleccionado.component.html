@@ -1,0 +1,41 @@
+<div class="row">
+
+    <div class=" col s12 card-panel grey lighten-5 z-deptd-1">
+        <div class="row valign-wrapper">
+            <div class="col s2 center">
+                <img src="assets/images/logo_gris.jpg" alt="" class="circle responsive-img">
+                <!-- notice tde "circle" class -->
+            </div>
+            <div class="col s10">
+                <table class="table striped">
+                    <tbody>
+                        <tr>
+                            <th>
+                                Nombre
+                            </th>
+                            <th>Documento</th>
+
+                        </tr>
+                        <tr>
+                            <td>{{partnerSeleccionado.nombre ?? '-'}}</td>
+                            <td>{{partnerSeleccionado.documento?? '-'}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Registro</th>
+                            <th>Giro Economico</th>
+
+                        </tr>
+                        <tr>
+                            <td>{{partnerSeleccionado.registro?? '-'}}</td>
+                            <td>{{partnerSeleccionado.giro?? '-'}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>

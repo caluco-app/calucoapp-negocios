@@ -45,10 +45,10 @@ export class ProductoVentaComponent {
   ngOnInit() {
     let session: any = sessionStorage.getItem('cappn_userkey');
     this.cappn_userkey = JSON.parse(session);
-    this.obtenerClientes(this.cappn_userkey.idnegocio);
+    this.obtenerProductoPorNegocio(this.cappn_userkey.idnegocio);
   }
 
-  obtenerClientes(idNegocio: any) {
+  obtenerProductoPorNegocio(idNegocio: any) {
     this.negocioService.productoPorNegocio(idNegocio).subscribe(response => {
       this.productos = response.data;
     });

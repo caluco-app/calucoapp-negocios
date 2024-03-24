@@ -34,7 +34,7 @@
 
         </div>
 
-        <app-comprobante-lista 
+    <!--     <app-comprobante-lista 
         (clickItem)="clickItem($event)"
         [idSubOpcion]="idSubOpcionSeleccionada" 
         [idSucursal]="idSucursal"  
@@ -42,9 +42,9 @@
         >
         </app-comprobante-lista>
         <app-comprobante-form [idNegocio]="cappn_userkey.idnegocio" *ngIf="idOpcionSeleccionada && idSubOpcionSeleccionada && pantalla=='form'"></app-comprobante-form>
+ -->
 
-
-        <!-- <app-tickets *ngIf="idSubOpcionSeleccionada==1"></app-tickets> -->
+         <app-tickets *ngIf="idSubOpcionSeleccionada==1"></app-tickets> 
 
 
 
