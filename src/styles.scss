@@ -206,3 +206,5 @@ textarea.materialize-textarea:focus:not([readonly])+label {
   max-width: 1880px !important;
   width: 90% !important;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

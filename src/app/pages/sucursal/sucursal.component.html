@@ -8,7 +8,8 @@
         <div class="row">
 
             <div class="col s12 m12 l4">
-                <h3 class="pink-text">{{nombreSucursal | truncate: 10}}</h3>
+                <br><br>
+                <h1 class="pink-text">{{nombreSucursal | truncate: 10}}</h1>
             </div>
 
             <div class="col s12 l4 m6 ">
@@ -34,7 +35,7 @@
 
         </div>
 
-    <!--     <app-comprobante-lista 
+        <!--     <app-comprobante-lista 
         (clickItem)="clickItem($event)"
         [idSubOpcion]="idSubOpcionSeleccionada" 
         [idSucursal]="idSucursal"  
@@ -44,7 +45,7 @@
         <app-comprobante-form [idNegocio]="cappn_userkey.idnegocio" *ngIf="idOpcionSeleccionada && idSubOpcionSeleccionada && pantalla=='form'"></app-comprobante-form>
  -->
 
-         <app-tickets *ngIf="idSubOpcionSeleccionada==1"></app-tickets> 
+        <app-tickets [idSucursal]="idSucursal" *ngIf="idSubOpcionSeleccionada==1"></app-tickets>
 
 
 
