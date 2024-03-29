@@ -1,65 +1,61 @@
-
-
-<mat-stepper [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-        <form [formGroup]="firstFormGroup">
-            <ng-template matStepLabel>Productos</ng-template>
-            <div class="row">
-                <div class="col s12">
-                    <h1>Busqueda de productos</h1>
-                </div>
-
-            </div>
-            <div class="row">
-                <form class="col s12" [formGroup]="firstFormGroup">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">search</i>
-                            <input id="searchProduct" type="text" formControlName="firstCtrl"
-                                (keydown.enter)="searchProducts()">
-                            <label for="searchProduct">Buscar Producto</label>
-                        </div>
-
+<ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">local_grocery_store</i>Selección de productos</div>
+      <div class="collapsible-body">
+        <div class="row">
+            <form class="col s12" [formGroup]="firstFormGroup" (submit)="searchProducts()">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">search</i>
+                        <input id="searchProduct" type="text" formControlName="firstCtrl"
+                            (keydown.enter)="searchProducts()">
+                        <label for="searchProduct">Buscar Producto</label>
                     </div>
-                </form>
-                <div class="col s12">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Producto</th>
-                                <th>Precio U</th>
-                                <th>Cantidad</th>
-                            </tr>
-                        </thead>
 
-                        <tbody>
-                            <tr *ngFor="let d of productosEncontrados; index as i">
-                                <td> {{d.codigo}} {{d.nombre}}</td>
-                                <td>{{d.precio | currency}}</td>
-                                <td>
-
-                                    <input id="id{{i}}" name="id{{i}}" type="text" #inputField
-                                        style="width: 70px; text-align: center;" [(ngModel)]="d.cantidad"
-                                        [ngModelOptions]="{standalone: true}" (keydown.enter)="salvarItem(d)">
-                                </td>
-                            </tr>
-                            <tr *ngIf="productosEncontrados.length==0">
-                                <td colspan="10">No hay registros</td>
-                            </tr>
-
-                        </tbody>
-                    </table>
                 </div>
+            </form>
+            <div class="col s12">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio U</th>
+                            <th>Cantidad</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let d of productosEncontrados; index as i">
+                            <td> {{d.codigo}} {{d.nombre}}</td>
+                            <td>{{d.precio | currency}}</td>
+                            <td>
+
+                                <input id="id{{i}}" name="id{{i}}" type="text" #inputField
+                                    style="width: 70px; text-align: center;" [(ngModel)]="d.cantidad"
+                                    [ngModelOptions]="{standalone: true}" (keydown.enter)="salvarItem(d)">
+                            </td>
+                            <td>
+                                <button type="button" class="btn pink" (click)="salvarItem(d)">
+                                    <i class="material-icons">add</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="productosEncontrados.length==0">
+                            <td colspan="10">No hay registros</td>
+                        </tr>
+
+                    </tbody>
+                </table>
             </div>
-            <div>
-                <button mat-button matStepperNext type="button" class="btn pink white-text" (click)="verDetalle()">
-                    <span class="left "> Siguiente</span>
-                    <i class="material-icons right">arrow_forward_ios</i>
-                </button>
-            </div>
-        </form>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup" label="Detalle">
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header" (click)="verDetalle()" ><i class="material-icons">receipt_long</i>Detalle de Ticket   ( <strong>{{detalleProductos.length}} Items</strong> )
+        <span class="new badge pink" data-badge-caption=" "> <strong>{{detalle.total | currency}}</strong>    </span>
+    </div>
+      <div class="collapsible-body">
         <div class="row">
             <div class="col s12 l4">
                 <div class="row">
@@ -102,13 +98,13 @@
 
                         <div class="row">
                             <div class="col s9 right-align">
-                                <strong >TOTAL DE ITEMS</strong>
+                                <strong>TOTAL DE ITEMS</strong>
                             </div>
                             <div class="col s3 ">
                                 <strong>{{detalle.cantidaditems }}</strong>
                             </div>
                             <div class="col s9 right-align">
-                                <strong >TOTAL A PAGAR</strong>
+                                <strong>TOTAL A PAGAR</strong>
                             </div>
                             <div class="col s3 ">
                                 <strong>{{detalle.total | currency}}</strong>
@@ -120,20 +116,12 @@
                 </div>
             </div>
         </div>
-        <form [formGroup]="secondFormGroup">
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">verified</i>Finalizar</div>
+      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+  </ul>
+        
 
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-            </div>
-        </form>
-    </mat-step>
-    <mat-step>
-        <ng-template matStepLabel>Final</ng-template>
-        <p>You are now done.</p>
-        <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
-        </div>
-    </mat-step>
-</mat-stepper>

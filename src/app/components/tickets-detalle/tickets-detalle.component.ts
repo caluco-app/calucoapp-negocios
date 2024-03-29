@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,7 +18,7 @@ declare let $: any;
   templateUrl: './tickets-detalle.component.html',
   styleUrl: './tickets-detalle.component.scss'
 })
-export class TicketsDetalleComponent {
+export class TicketsDetalleComponent implements AfterViewInit, OnInit {
 
   @ViewChild('inputField') inputField!: ElementRef;
   @ViewChild('searchProduct') searchProduct!: ElementRef;
@@ -40,6 +40,15 @@ export class TicketsDetalleComponent {
 
 
   constructor(private _formBuilder: FormBuilder, private apiTicket: ApiTicketsService) { }
+
+  ngOnInit(): void {
+    this.verDetalle();
+  }
+
+  ngAfterViewInit(): void {
+    $('.collapsible').collapsible();
+    $('.collapsible').collapsible("open", 0);
+  }
 
   searchProducts() {
     if (this.firstFormGroup.valid) {
@@ -82,8 +91,10 @@ export class TicketsDetalleComponent {
 
       this.productosEncontrados = [];
 
-     
-    })
+      this.verDetalle()
+
+
+    });
   }
 
   verDetalle() {
