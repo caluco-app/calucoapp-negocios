@@ -23,11 +23,14 @@ export class TicketsDetalleComponent implements AfterViewInit, OnInit {
   @ViewChild('inputField') inputField!: ElementRef;
   @ViewChild('searchProduct') searchProduct!: ElementRef;
 
-  @Input() detalle!: any;
+  @Input() detalle: any;
   @Output() clickBoton = new EventEmitter<any>();
+  @Output() accion = new EventEmitter<any>();
 
   productosEncontrados: any[] = [];
   detalleProductos: any[] = [];
+
+  cantidadConsultaItems: number = 0;
 
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
@@ -42,12 +45,15 @@ export class TicketsDetalleComponent implements AfterViewInit, OnInit {
   constructor(private _formBuilder: FormBuilder, private apiTicket: ApiTicketsService) { }
 
   ngOnInit(): void {
-    this.verDetalle();
+
   }
 
   ngAfterViewInit(): void {
+    this.verDetalle();
+
     $('.collapsible').collapsible();
-    $('.collapsible').collapsible("open", 0);
+      $('.collapsible').collapsible("open", 0);
+
   }
 
   searchProducts() {
@@ -97,16 +103,45 @@ export class TicketsDetalleComponent implements AfterViewInit, OnInit {
     });
   }
 
+  focusol(){
+   setTimeout(() => {
+    
+    $('#searchProduct').select(); 
+    $('#searchProduct').focus();
+   }, 300);
+  }
+
   verDetalle() {
     this.apiTicket.obtnerTicketsPorID(this.detalle.id).subscribe(respTick => {
       this.detalle = respTick.data;
 
+      
+
       this.apiTicket.obtnerDetalleTickets({ id: this.detalle.id }).subscribe(resp => {
         this.detalleProductos = resp.data;
+
+
+
+        if (this.detalleProductos.length == 0 && this.cantidadConsultaItems == 0){
+         
+          this.cantidadConsultaItems++;
+          $('.collapsible').collapsible();
+          $('.collapsible').collapsible("open", 0);
+          
+        }
+        else{
+          $('.collapsible').collapsible("open", 1);
+        }
+         
+
       });
 
     });
 
+  }
+
+  regresar(){
+    this.accion.emit(null);
   }
 
 }

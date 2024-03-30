@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../components/footer/footer.component';
@@ -28,11 +28,11 @@ declare let $: any;
   templateUrl: './sucursal.component.html',
   styleUrl: './sucursal.component.scss'
 })
-export class SucursalComponent implements OnInit {
+export class SucursalComponent implements OnInit, AfterViewInit {
   userData: any;
   cappn_userkey: any;
   idNegocio: any;
-  idSucursal: any;
+  idSucursal: any = '';
   nombreSucursal: any;
   dataNegocio: any;
   permisosPorSucursal: any[] = [];
@@ -44,21 +44,9 @@ export class SucursalComponent implements OnInit {
   pantalla: any = '';
 
   constructor(private router: Router, private apisucursal: ApiSucursalService, private authapi: AuthService, private route: ActivatedRoute, private negocioService: NegocioService) {
-    this.route.paramMap.subscribe(params => {
-      this.idOpcionSeleccionada = '';
-      this.idSubOpcionSeleccionada = '';
-
-      this.nombreSucursal = params.get('nombreSucursal');
-      this.idSucursal = params.get('idSucursal');
-
-      console.log('ID nombreSucursal:', this.nombreSucursal);
-
-      let session: any = sessionStorage.getItem('cappn_userkey');
-      this.cappn_userkey = JSON.parse(session);
-      this.obtenerPermisosPorSucursal();
-
-      // Puedes realizar otras operaciones con el ID aquí, como llamar a servicios, etc.
-    });
+    let session: any = sessionStorage.getItem('cappn_userkey');
+    this.cappn_userkey = JSON.parse(session);
+    this.idSubOpcionSeleccionada = '';
 
   }
 
@@ -66,9 +54,22 @@ export class SucursalComponent implements OnInit {
 
   }
 
-  obtenerPermisosPorSucursal() {
+  ngAfterViewInit(): void {
+    $('.collapsible').collapsible();
+    $('.collapsible').collapsible("open", 0);
+  }
+
+  obtenerPermisosPorSucursal(data: any) {
+    this.idSucursal = data.id;
+    this.nombreSucursal = data.nombre;
     this.apisucursal.permisoPorSucursal(this.idSucursal).subscribe(resp => {
       this.permisosPorSucursal = resp.data;
+
+      $(document).ready(function () {
+        $('.collapsible').collapsible();
+        $('.collapsible').collapsible("open", 1);
+      });
+
     });
   }
 
@@ -89,6 +90,15 @@ export class SucursalComponent implements OnInit {
     this.pantalla = 'form';
   }
 
+
+  seleccionarSubOpcion(data: any) {
+    this.idSubOpcionSeleccionada = data.idsubopcion;
+
+    $(document).ready(function () {
+      $('.collapsible').collapsible();
+      $('.collapsible').collapsible("open", 2);
+    });
+  }
 
 
 }

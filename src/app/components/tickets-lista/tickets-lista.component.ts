@@ -6,12 +6,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { ApiTicketsService } from '../../services/api-tickets.service';
+import { FormsModule } from '@angular/forms';
+import { FilterPipe } from '../../pipes/filter.pipe';
 declare let $: any;
 
 @Component({
   selector: 'app-tickets-lista',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, MatChipsModule],
+  imports: [CommonModule, FormsModule, FilterPipe],
   providers: [ApiTicketsService],
   templateUrl: './tickets-lista.component.html',
   styleUrl: './tickets-lista.component.scss'
@@ -21,27 +23,28 @@ export class TicketsListaComponent implements AfterViewInit {
   @Input() idSucursal!: string;
   cappn_userkey: any;
   displayedColumns: string[] = ['fecha', 'codigo', 'total', 'idusuario'];
-  dataSource = new MatTableDataSource<Comprobantes>([]);
+  dataSource:any[] = [];
   clickedRows = new Set<Comprobantes>([]);
+  filtroTickets:string='';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private apiTicket: ApiTicketsService) {
-
+    let session: any = sessionStorage.getItem('cappn_userkey');
+    this.cappn_userkey = JSON.parse(session);
   }
 
   ngOnInit() {
-    this.obtnenerTicketsPorFecha();
+   
 
-    let session: any = sessionStorage.getItem('cappn_userkey');
-    this.cappn_userkey = JSON.parse(session);
+ 
 
-
+   
   }
 
   obtnenerTicketsPorFecha() {
     this.apiTicket.obtnerTicketsPorSucursal(this.idSucursal).subscribe(resp => {
-      this.dataSource = new MatTableDataSource<Comprobantes>(resp.data);
+      this.dataSource =resp.data;
     })
   }
 
@@ -53,14 +56,11 @@ export class TicketsListaComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    
     $('select').formSelect();
+    this.obtnenerTicketsPorFecha();
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
 
   nuevoTicket() {
     this.apiTicket.nuevoTicket({idsucursal: this.idSucursal, idusuario:this.cappn_userkey.id}).subscribe(resp => {

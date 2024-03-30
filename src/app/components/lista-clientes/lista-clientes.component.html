@@ -1,18 +1,21 @@
 <div class="row white">
 
-    <div class="col s12 ">
+    
+    <div class="col s12 l4">
+        <br>
+        <button (click)="nuevo()" class="btn col s12 waves-effect waves-light pink ">
+            <i class="material-icons left">add</i>
+            Nuevo Socio
+        </button>
+    </div>
+    <div class="col s12 l8">
         <div class="input-field ">
             <i class="material-icons prefix">search</i>
             <input id="searchx" type="text" name="searchx" [(ngModel)]="search">
             <label for="searchx" [ngClass]="{'active': search}">Buscar</label>
         </div>
     </div>
-    <div class="col s12">
-        <button (click)="nuevo()" class="btn col s12 waves-effect waves-light pink ">
-            <i class="material-icons left">add</i>
-            Nuevo Socio
-        </button>
-    </div>
+    <div class="col s12"></div>
 
     <div class="col l12 m12 s12" *ngIf="(socios | filter:search).length==0">
         <div class="card ">
@@ -31,7 +34,7 @@
         <div class="card " [ngClass]="{'green white-text':idSeleccionado ==d.id}" >
             <div class="card-content">
                 <div class="row">
-                    <div class="col l12 s12 ">
+                   <!--  <div class="col l12 s12 ">
                         <button class="btn waves-effect waves-teal pink col s12 " (click)="seleccionarRegistro(d)">
                             <i class="material-icons right">how_to_reg</i>
                             Seleccionar
@@ -40,7 +43,7 @@
                         <br>
                         <br>
                         <br>
-                    </div>
+                    </div> -->
                     <div class="col s12 center">
                         <i class="material-icons circle  white-text " style="font-size: 50px;"
                         [ngClass]="{'green white-text':idSeleccionado ==d.id}"

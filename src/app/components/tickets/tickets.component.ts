@@ -21,4 +21,9 @@ export class TicketsComponent {
     this.detalle = evt;
     this.pantalla ='comprobante';
   }
+
+  accion(evt:any) {
+    console.log(evt);
+    this.pantalla ='lista';
+  }
 }

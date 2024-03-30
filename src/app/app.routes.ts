@@ -49,7 +49,7 @@ export const routes: Routes = [
         component: ClientesComponent
     },
     {
-        path: 'sucursal/:nombreSucursal/:idSucursal',
+        path: 'sucursales',
         component: SucursalComponent
     },
     {

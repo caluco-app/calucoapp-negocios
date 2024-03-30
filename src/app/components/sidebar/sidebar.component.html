@@ -49,15 +49,15 @@
         </a>
     </li>
 
-
-    <li><a class="subheader">Sucursales</a></li>
-    <li *ngIf="cappn_userkey.sucursales">
-        <a *ngFor="let d of cappn_userkey.sucursales"  [routerLink]="['/sucursal', d.nombre, d.id]" class="sidenav-close"
-            routerLinkActive="pink white-text">
-            <i class="material-icons" routerLinkActive="white-text">store</i>
-            {{d.nombre | uppercase | truncate:16}}
+    <li routerLinkActive="active pink">
+        <a class="sidenav-close" [routerLink]="['/sucursales']" routerLinkActive="white-text" class="sidenav-close">
+            <i class="material-icons " routerLinkActive="white-text">store</i>
+            MI NEGOCIO
         </a>
     </li>
+
+
+   
 
 
     <li>

@@ -4,48 +4,74 @@
 
 
 
-    <div class="container">
+    <div class="container ">
         <div class="row">
 
-            <div class="col s12 m12 l4">
-                <br><br>
-                <h1 class="pink-text">{{nombreSucursal | truncate: 10}}</h1>
+       
+
+            <!-- Seleccion de sucursal -->
+
+            <div class="col s12" *ngIf="idSubOpcionSeleccionada==''">
+                <ul class="collapsible">
+                    <li>
+                        <div class="collapsible-header">
+                            <i class="material-icons">store</i>
+                            {{nombreSucursal??' Seleccione Sucursal'}}
+                        </div>
+                        <div class="collapsible-body">
+                            <div class="row">
+                                <div class="col l6 s12 " *ngFor="let s of cappn_userkey.sucursales">
+                                    <div class="container">
+                                        <div class="row ">
+                                            <button class="btn pink col s12" type="button"
+                                                (click)="obtenerPermisosPorSucursal(s)">
+                                                <i class="material-icons left">store</i>
+                                                {{s.nombre}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+                    <ng-container *ngIf="idSucursal!=''">
+                        <li *ngFor="let d of permisosPorSucursal">
+                            <div class="collapsible-header"><i class="material-icons">point_of_sale</i>{{d.opcion}}
+                            </div>
+                            <div class="collapsible-body">
+                                <div class="row">
+                                    <div class="col l6 s12 " *ngFor="let s of d.subopciones">
+                                        <div class="container">
+                                            <div class="row ">
+                                                <button class="btn pink col s12" type="button"
+                                                    (click)="seleccionarSubOpcion(s)">
+                                                    <i class="material-icons left">receipt_long</i>
+                                                    {{s.idsubopcion}}
+                                                    -{{s.subopcion}}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    </ng-container>
+                </ul>
             </div>
 
-            <div class="col s12 l4 m6 ">
-                <br>
-                <label>¿Que deseas hacer con {{nombreSucursal | truncate: 10}}?</label>
-                <select class="browser-default" name="idopcion" [(ngModel)]="idOpcionSeleccionada"
-                    (change)="changeSelectOpcion()">
-                    <option value="" disabled selected>Selecciona Opción</option>
-                    <option *ngFor="let d of permisosPorSucursal" value="{{d.idopcion}}">{{d.opcion}}</option>
-                </select>
-            </div>
-            <div class="col s12 l4 m6">
-                <br>
-                <label>¿Que deseas ver?</label>
-                <select class="browser-default" [(ngModel)]="idSubOpcionSeleccionada" (change)="refrescarLista()">
-                    <option value="" disabled selected>Selecciona Opción</option>
-                    <option *ngFor="let d of opcionesPorPermiso" value="{{d.idsubopcion}}">{{d.subopcion}}</option>
+ 
 
-                </select>
-            </div>
+            <app-tickets [idSucursal]="idSucursal" *ngIf="idSucursal!='' && idSubOpcionSeleccionada==1"></app-tickets>
 
 
 
+
+            
         </div>
 
-        <!--     <app-comprobante-lista 
-        (clickItem)="clickItem($event)"
-        [idSubOpcion]="idSubOpcionSeleccionada" 
-        [idSucursal]="idSucursal"  
-        *ngIf="idOpcionSeleccionada && idSubOpcionSeleccionada && pantalla=='lista'"
-        >
-        </app-comprobante-lista>
-        <app-comprobante-form [idNegocio]="cappn_userkey.idnegocio" *ngIf="idOpcionSeleccionada && idSubOpcionSeleccionada && pantalla=='form'"></app-comprobante-form>
- -->
 
-        <app-tickets [idSucursal]="idSucursal" *ngIf="idSubOpcionSeleccionada==1"></app-tickets>
 
 
 

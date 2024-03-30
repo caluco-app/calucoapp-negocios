@@ -42,7 +42,7 @@ export class InventarioAsociarComponent {
     let session: any = sessionStorage.getItem('cappn_userkey');
     this.cappn_userkey = JSON.parse(session);
     if (this.cappn_userkey.idnegocio) {
-      this.obtenerInventarioPorProductosNoSelccionado(this.cappn_userkey.idnegocio);
+      this.obtenerInventarioPorProductosNoSelccionado(this.idProducto);
     }
     console.log('idProducto', this.idProducto);
   }

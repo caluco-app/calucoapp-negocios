@@ -1,8 +1,9 @@
 <div class="row">
-    
+
+   
     <div class="col s12">
-        <app-tickets-lista [idSucursal]="idSucursal" *ngIf="pantalla=='lista'" (detalle)="obtnerDetalle($event)"></app-tickets-lista>
-        <app-tickets-detalle *ngIf="pantalla=='comprobante'" [detalle]="detalle" ></app-tickets-detalle>
+        <app-tickets-lista [idSucursal]="idSucursal" *ngIf="pantalla=='lista'" (detalle)="obtnerDetalle($event)"  ></app-tickets-lista>
+        <app-tickets-detalle   *ngIf="pantalla=='comprobante' && detalle"  [detalle]="detalle" (accion)="accion($event)"></app-tickets-detalle>
     </div>
 </div>
 
