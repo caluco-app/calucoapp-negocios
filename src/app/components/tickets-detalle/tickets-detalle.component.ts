@@ -44,9 +44,7 @@ export class TicketsDetalleComponent implements AfterViewInit, OnInit {
 
   constructor(private _formBuilder: FormBuilder, private apiTicket: ApiTicketsService) { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit() { window.scrollTo(0, 0); }
 
   ngAfterViewInit(): void {
     this.verDetalle();

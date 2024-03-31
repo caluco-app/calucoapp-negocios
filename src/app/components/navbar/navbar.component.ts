@@ -14,7 +14,7 @@ export class NavbarComponent {
 
   @Input() nombreNegocio!:string;
 
-  ngOnInit() {
+   ngOnInit() { window.scrollTo(0, 0);
     let session: any = sessionStorage.getItem('cappn_userkey');
     this.cappn_userkey = JSON.parse(session);
     $(document).ready(function () {

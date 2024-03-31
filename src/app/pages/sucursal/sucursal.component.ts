@@ -50,7 +50,7 @@ export class SucursalComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngOnInit() {
+   ngOnInit() { window.scrollTo(0, 0);
 
   }
 

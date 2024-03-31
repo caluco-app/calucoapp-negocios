@@ -34,7 +34,7 @@ export class ComprobanteFormComponent {
 
   }
 
-  ngOnInit() {
+   ngOnInit() { window.scrollTo(0, 0);
     let session: any = sessionStorage.getItem('cappn_userkey');
     this.cappn_userkey = JSON.parse(session);
     this.obtenerProductoPorNegocio(this.cappn_userkey.idnegocio);

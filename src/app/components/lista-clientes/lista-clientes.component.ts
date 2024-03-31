@@ -29,7 +29,7 @@ export class ListaClientesComponent {
 
   }
 
-  ngOnInit() {
+   ngOnInit() { window.scrollTo(0, 0);
     if (this.searchPadre) {
       this.search = this.searchPadre;
     }

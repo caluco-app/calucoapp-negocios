@@ -40,7 +40,7 @@ export class FormularioClientesComponent {
   }
 
 
-  ngOnInit() {
+   ngOnInit() { window.scrollTo(0, 0);
     let session: any = sessionStorage.getItem('cappn_userkey');
     this.cappn_userkey = JSON.parse(session);
     this.formGroup.get('idnegocio')?.setValue(this.cappn_userkey.idnegocio);

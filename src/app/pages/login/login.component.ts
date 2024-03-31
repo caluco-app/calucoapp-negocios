@@ -22,7 +22,7 @@ export class LoginComponent {
 
   constructor(private apiAuth: AuthService, private userInfo: UserInfoService, private router: Router) { }
 
-  ngOnInit() {
+   ngOnInit() { window.scrollTo(0, 0);
 
   }
 

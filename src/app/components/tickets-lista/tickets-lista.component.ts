@@ -34,7 +34,7 @@ export class TicketsListaComponent implements AfterViewInit {
     this.cappn_userkey = JSON.parse(session);
   }
 
-  ngOnInit() {
+   ngOnInit() { window.scrollTo(0, 0);
    
 
  
