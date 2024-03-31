@@ -1,0 +1,97 @@
+{
+  "configVersion": 1,
+  "timestamp": 1711921931066,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/chunk-JPBLURJP.js",
+        "/chunk-XOGKNUDI.js",
+        "/favicon.ico",
+        "/index.html",
+        "/main-MPRXDOFF.js",
+        "/manifest.webmanifest",
+        "/polyfills-LZBJRJJE.js",
+        "/scripts-IO6WI4R3.js",
+        "/styles-QB4QGAO3.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png",
+        "/assets/images/layout-set-logo.png",
+        "/assets/images/layout-set-logo_w.png",
+        "/assets/images/logo_CAPP.png",
+        "/assets/images/logo_CAPP_w.png",
+        "/assets/images/logo_gris.jpg",
+        "/assets/images/ruinas.jpg"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/assets/icons/icon-128x128.png": "d8c6f0aab8f00b453d667d394a64839a88896048",
+    "/assets/icons/icon-144x144.png": "c1dc7c01218d7050e9f08322fc4a48f8f8f8f1a2",
+    "/assets/icons/icon-152x152.png": "34da10f6c1ae21f90d735fba8ebe0c4a8bad876a",
+    "/assets/icons/icon-192x192.png": "331de40815d52bf029f5aba81ed42850583cdfc7",
+    "/assets/icons/icon-384x384.png": "7f39ddf50eeb77376fb4f24c69a3c8fa0cad5d7e",
+    "/assets/icons/icon-512x512.png": "0a2786235595927450266ad4bd3d7c366885f494",
+    "/assets/icons/icon-72x72.png": "6d6ac1a02edde79069773f30c667aeaf3d5b41a7",
+    "/assets/icons/icon-96x96.png": "7495d04a727d9539fac2fc6dea67217b50d386c5",
+    "/assets/images/layout-set-logo.png": "460ab71c08b8f2dff3567c02f144da640e4de16d",
+    "/assets/images/layout-set-logo_w.png": "fc1f9b34c2b92dc2f6520474db841762f79db360",
+    "/assets/images/logo_CAPP.png": "2bf89d14ae0349def740871c49e575f29e2f0056",
+    "/assets/images/logo_CAPP_w.png": "d699f1de4160134a17fc7d3443651fe6fb4209c0",
+    "/assets/images/logo_gris.jpg": "c4f328c1a4198b45d951df31b3e98263e4834961",
+    "/assets/images/ruinas.jpg": "642156a80f799bbe46e154068ee225e804e1c814",
+    "/chunk-JPBLURJP.js": "831261ebd4b7e8d05e72bed2ead31ddad12409ba",
+    "/chunk-XOGKNUDI.js": "eea5a674380de82855dc6eb8af30dbd25054741a",
+    "/favicon.ico": "fe06789a4d00ef211b6e55001113e0c5e7ea73ff",
+    "/index.html": "d67eaac89c12d05504774fa4427f7067083d21c8",
+    "/main-MPRXDOFF.js": "475f3d5ad894543b8bc8116e2153b6d7541e252b",
+    "/manifest.webmanifest": "e98ed4cabf2fd6712239d344b05b55bc6d8ad783",
+    "/polyfills-LZBJRJJE.js": "fda1c82c5c620f1fa442f687b3df45a037f6fcc9",
+    "/scripts-IO6WI4R3.js": "54ba64eb3f615f2e49604e944c01ca0bf96d12ae",
+    "/styles-QB4QGAO3.css": "1f356fe40793fe2c497817c671db4a11c52c3ae6"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
